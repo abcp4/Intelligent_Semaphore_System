@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="jade">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jade.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/traci4j-1.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
