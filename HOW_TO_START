@@ -1,0 +1,8 @@
+run in terminal:
+    sumo -c quickstart/data/quickstart.sumocfg --remote-port 8870
+
+
+(or add to sumocfg xml)
+    <remote-port value="8870"/>
+
+then run app ;)

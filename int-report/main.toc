@@ -1,0 +1,19 @@
+\select@language {english}
+\contentsline {section}{\numberline {1}Introduction}{3}
+\contentsline {subsection}{\numberline {1.1}Context}{3}
+\contentsline {subsection}{\numberline {1.2}Objectives}{3}
+\contentsline {section}{\numberline {2}Platforms/Tools}{4}
+\contentsline {subsection}{\numberline {2.1}Jade}{4}
+\contentsline {subsection}{\numberline {2.2}TraSMAPI}{4}
+\contentsline {subsection}{\numberline {2.3}SUMO}{5}
+\contentsline {subsection}{\numberline {2.4}Tool-chain}{6}
+\contentsline {section}{\numberline {3}Specification}{7}
+\contentsline {subsection}{\numberline {3.1}Agents Architecture}{7}
+\contentsline {subsubsection}{\numberline {3.1.1}Agents PAGE Description}{7}
+\contentsline {subsubsection}{\numberline {3.1.2}Agents Properties}{7}
+\contentsline {subsection}{\numberline {3.2}Learning Algorithms}{8}
+\contentsline {subsubsection}{\numberline {3.2.1}Q-Learning}{8}
+\contentsline {subsection}{\numberline {3.3}Problem's Design Decisions}{9}
+\contentsline {subsection}{\numberline {3.4}Project's Development Stages}{10}
+\contentsline {section}{\numberline {4}Resources}{11}
+\contentsline {subsection}{\numberline {4.1}Bibliography}{11}
