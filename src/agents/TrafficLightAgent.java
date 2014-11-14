@@ -8,9 +8,15 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.util.Logger;
+import learning.QLearning;
 
 
 public class TrafficLightAgent extends Agent {
+
+    public static final int NR_STATES = 1;
+    public static final int NR_ACTIONS = 1;
+
+    private QLearning qTeacher = new QLearning(NR_STATES, NR_ACTIONS);
 
     private Logger myLogger = Logger.getMyLogger(getClass().getName());
 
