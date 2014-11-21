@@ -74,6 +74,7 @@ public class TrafficLightAgent extends Agent {
                         // TODO: according to the sender of this message...
                         int nextAction = qTeacher.getActionToTake(currentState.getState());
                         currentState.applyAction(nextAction);
+                    }
                 } else {
                     myLogger.log(Logger.INFO, "Agent " + getLocalName() + " - Unexpected message [" + ACLMessage.getPerformative(msg.getPerformative()) + "] received from " + msg.getSender().getLocalName());
                     reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
