@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import trasmapi.genAPI.exceptions.WrongCommand;
 
 public class ResponseMessage {
+
+	private boolean debug = false;
 	
 	private int length;
 	public StatusResponse status;

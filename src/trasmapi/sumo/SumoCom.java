@@ -332,7 +332,6 @@ public class SumoCom {
 			for(SumoVehicle v: vehicles)
 				if(v.id.equals(s)){
 					v.arrived = true;
-					v.alive = false;
 					v.arrivalTime = currentSimStep;
 				}
 		}
@@ -487,7 +486,7 @@ public class SumoCom {
 
 		try {
 
-			query(reqMsg);
+			ResponseMessage rspMsg = query(reqMsg);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -543,7 +542,7 @@ public class SumoCom {
 		routesIDs = getAllRoutesIds();
 
 		if(routesIDs == null){
-			//<System.out.println("NULL routesIds");
+			System.out.println("NULL routesIds");
 			return;
 		}
 
@@ -610,7 +609,7 @@ public class SumoCom {
 
 		try {
 
-			query(reqMsg);
+			ResponseMessage rspMsg = query(reqMsg);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -638,7 +637,7 @@ public class SumoCom {
 
 		try {
 
-			query(reqMsg);
+			ResponseMessage rspMsg = query(reqMsg);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -664,7 +663,7 @@ public class SumoCom {
 
 		try {
 
-			query(reqMsg);
+			ResponseMessage rspMsg = query(reqMsg);
 
 		} catch (IOException e) {
 			e.printStackTrace();

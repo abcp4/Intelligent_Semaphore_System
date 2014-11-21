@@ -1,5 +1,3 @@
-package tlTest;
-
 import trasmapi.genAPI.TrafficLight;
 
 public class HumanControl{

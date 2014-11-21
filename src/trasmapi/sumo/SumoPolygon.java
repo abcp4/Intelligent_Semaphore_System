@@ -10,6 +10,7 @@ import trasmapi.sumo.protocol.Command;
 import trasmapi.sumo.protocol.Constants;
 import trasmapi.sumo.protocol.Content;
 import trasmapi.sumo.protocol.RequestMessage;
+import trasmapi.sumo.protocol.ResponseMessage;
 
 public class SumoPolygon extends Polygon {
 
@@ -82,7 +83,7 @@ public class SumoPolygon extends Polygon {
 
 		try {
 			
-			SumoCom.query(reqMsg);
+			ResponseMessage rspMsg = SumoCom.query(reqMsg);
 			
 			
 		} catch (IOException e) {
@@ -118,7 +119,7 @@ public class SumoPolygon extends Polygon {
 
 		try {
 			
-			SumoCom.query(reqMsg);
+			ResponseMessage rspMsg = SumoCom.query(reqMsg);
 			
 			
 		} catch (IOException e) {

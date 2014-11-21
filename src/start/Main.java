@@ -1,4 +1,4 @@
-package tlTest;
+package start;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,12 +19,13 @@ import jade.wrapper.StaleProxyException;
 
 public class Main {
 	
-	static boolean JADE_GUI = false;
+	static boolean JADE_GUI = true;
 	private static ProfileImpl profile;
 	private static ContainerController mainContainer;
 	
 	public static void main(String[] args) throws UnimplementedMethod, InterruptedException, IOException, TimeoutException {	
 
+		//Init JADE platform w/ or w/out GUI
 		if(JADE_GUI){
 			List<String> params = new ArrayList<String>();
 			params.add("-gui");
@@ -33,9 +34,12 @@ public class Main {
 			profile = new ProfileImpl();
 
 		Runtime rt = Runtime.instance();
+		
+		//mainContainer - agents' container
 		mainContainer = rt.createMainContainer(profile);
 		
-		TLManager manager = new TLManager(mainContainer);
+		//
+		ODManager manager = new ODManager(mainContainer);
 		
 		try {
 			
@@ -51,7 +55,7 @@ public class Main {
 		//Create SUMO
 		Simulator sumo = new Sumo("guisim");
 		List<String> params = new ArrayList<String>();
-		params.add("-c=TlMap/map.sumo.cfg");
+		params.add("-c=Map\\map.sumo.cfg");
 		sumo.addParameters(params);
 		sumo.addConnections("localhost", 8820);
 
@@ -67,8 +71,11 @@ public class Main {
 		
 		Thread.sleep(1000);
 
-		manager.loadTls();
+		//instatiate Driver agents
+		manager.addDrivers();
+		manager.addPolygon();
 
+		//simulation loop
 		while(true)
 			if(!api.simulationStep(0))
 				break;

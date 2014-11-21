@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import trasmapi.genAPI.Route;
 import trasmapi.genAPI.Vehicle;
+import trasmapi.genAPI.exceptions.UnimplementedMethod;
 import trasmapi.genAPI.exceptions.WrongCommand;
 import trasmapi.sumo.protocol.Command;
 import trasmapi.sumo.protocol.Constants;

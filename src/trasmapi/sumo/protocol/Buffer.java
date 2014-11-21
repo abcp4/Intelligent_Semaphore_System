@@ -135,9 +135,6 @@ public class Buffer {
 			for(int i=0; i< 4;i++)
 				values.add(readByte());
 			break;
-		case Constants.TYPE_COMPOUND:
-		    values = readTypeCompound();
-		    break;
 		default:
 			System.out.println("PROBLEM! VAR TYPE UNKNOWN! : " + Integer.toString( varType & 0xFF, 16) + " ");
 			break;
@@ -180,71 +177,6 @@ public class Buffer {
 		return value;
 	}
 
-	private ArrayList<Byte> readTypeCompound() {
-        ArrayList<Byte> value = new ArrayList<Byte>();
-        
-        byte[] array = new byte[4];
-        for(int i = 0; i < 4; i++) {
-            array[i] = readByte();
-            value.add(array[i]);
-        }
-
-        ByteArrayInputStream byteIn =  new ByteArrayInputStream(array);
-        DataInputStream dataIn = new DataInputStream(byteIn);
-        
-        int numItems = 0;
-        try {
-            numItems = dataIn.readInt();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        
-        for(int i = 0; i < numItems; i++) {
-            byte type = readByte();
-            value.add(type);
-            
-            switch (type) {            
-            case Constants.TYPE_DOUBLE:
-                for (Byte b : readTypeDouble()) {
-                    value.add(b);
-                }
-                break;
-            case Constants.TYPE_STRING:
-                for (Byte b : readTypeString()) {
-                    value.add(b);
-                }
-                break;
-            case Constants.TYPE_INTEGER:
-                for (Byte b : readTypeInteger()) {
-                    value.add(b);
-                }
-                break;
-            case Constants.TYPE_BYTE:
-                for (Byte b : readTypeByte()) {
-                    value.add(b);
-                }
-                break;
-            case Constants.TYPE_UBYTE:
-                // TODO:
-                break;
-            case Constants.TYPE_COLOR:
-                // TODO:
-                break;
-            case Constants.TYPE_POLYGON:
-                // TODO:
-                break;
-            case Constants.TYPE_COMPOUND:
-                for (Byte b : readTypeCompound()) {
-                    value.add(b);
-                }
-                break;
-            }
-        }
-        
-        return value;
-	}
-	
 	private ArrayList<Byte> readTypeDouble() {
 		ArrayList<Byte> value = new ArrayList<Byte>();
 		for(int i=0; i< 8;i++)
