@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import trasmapi.genAPI.Edge;
+import trasmapi.genAPI.exceptions.UnimplementedMethod;
 import trasmapi.genAPI.exceptions.WrongCommand;
 import trasmapi.sumo.protocol.Command;
 import trasmapi.sumo.protocol.Constants;
@@ -18,30 +19,6 @@ public class SumoEdge extends Edge {
 		this.vehicleIdList = new ArrayList<String>();
 	}
 
-	public static ArrayList<String> getEdgeIdList() {
-        Command cmd = new Command(Constants.CMD_GET_EDGE_VARIABLE);
-        Content cnt = new Content(Constants.ID_LIST, "0");
-
-        cmd.setContent(cnt);
-        RequestMessage reqMsg = new RequestMessage();
-        reqMsg.addCommand(cmd);
-
-        try {
-            ResponseMessage rspMsg = SumoCom.query(reqMsg);
-            Content content = rspMsg.validate(
-                    (byte)Constants.CMD_GET_EDGE_VARIABLE,
-                    (byte)Constants.RESPONSE_GET_EDGE_VARIABLE,
-                    (byte)Constants.ID_LIST,
-                    (byte)Constants.TYPE_STRINGLIST);
-
-            return content.getStringList();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (WrongCommand e) {
-            e.printStackTrace();
-        }
-        return null;
-	}
 
 	public double getGlobalTravelTime(int time){
 
@@ -154,30 +131,4 @@ public class SumoEdge extends Edge {
 			e.printStackTrace();
 		}
 	}
-	
-   public int getNumVehicles() {
-        Command cmd = new Command(Constants.CMD_GET_EDGE_VARIABLE);
-        Content cnt = new Content(Constants.LAST_STEP_VEHICLE_NUMBER, id);
-
-        cmd.setContent(cnt);
-
-        RequestMessage reqMsg = new RequestMessage();
-        reqMsg.addCommand(cmd);
-
-        try {
-            ResponseMessage rspMsg = SumoCom.query(reqMsg);
-            Content content = rspMsg.validate(
-                    (byte)Constants.CMD_GET_EDGE_VARIABLE,
-                    (byte)Constants.RESPONSE_GET_EDGE_VARIABLE,
-                    (byte)Constants.LAST_STEP_VEHICLE_NUMBER,
-                    (byte)Constants.TYPE_INTEGER);
-
-            return content.getInteger();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (WrongCommand e) {
-            e.printStackTrace();
-        }
-        return -1;
-    }
 }

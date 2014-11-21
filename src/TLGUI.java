@@ -1,13 +1,9 @@
-package tlTest;
-
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
-import trasmapi.genAPI.exceptions.UnimplementedMethod;
 
 /*
  * To change this template, choose Tools | Templates

@@ -104,13 +104,13 @@ public class TrafficLightAgent extends Agent {
         sd.setName(getName());
         dfd.setName(getAID());
         dfd.addServices(sd);
-        try {
-            DFService.register(this, dfd);
-            WaitRequestAndReplyRewardBehaviour RewardBehaviour = new WaitRequestAndReplyRewardBehaviour(this);
-            addBehaviour(RewardBehaviour);
-        } catch (FIPAException e) {
-            myLogger.log(Logger.SEVERE, "Agent " + getLocalName() + " - Cannot register with DF", e);
-            doDelete();
-        }
+//        try {
+//            DFService.register(this, dfd);
+//            WaitRequestAndReplyRewardBehaviour RewardBehaviour = new WaitRequestAndReplyRewardBehaviour(this);
+//            addBehaviour(RewardBehaviour);
+//        } catch (FIPAException e) {
+//            myLogger.log(Logger.SEVERE, "Agent " + getLocalName() + " - Cannot register with DF", e);
+//            doDelete();
+//        }
     }
-}
+}}

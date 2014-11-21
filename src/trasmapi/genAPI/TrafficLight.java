@@ -1,9 +1,17 @@
 package trasmapi.genAPI;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import trasmapi.genAPI.exceptions.UnimplementedMethod;
+import trasmapi.genAPI.exceptions.WrongCommand;
 import trasmapi.sumo.ControlledLinks;
+import trasmapi.sumo.SumoCom;
+import trasmapi.sumo.protocol.Command;
+import trasmapi.sumo.protocol.Constants;
+import trasmapi.sumo.protocol.Content;
+import trasmapi.sumo.protocol.RequestMessage;
+import trasmapi.sumo.protocol.ResponseMessage;
 
 public class TrafficLight {
 	
