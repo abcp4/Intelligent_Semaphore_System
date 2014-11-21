@@ -8,38 +8,38 @@ public class TrafficLightState implements Runnable, State {
     private static int LIGHTS_MIN_TIME = 20;
     private static int LIGHTS_MAX_TIME = 60;
     public static int LIGHTS_GRANULARITY = (LIGHTS_MAX_TIME - LIGHTS_MIN_TIME) / 5;
-    public static int ACTIONS_BY_LIGHT = 3; // decrease, maintain and increase
+    public static int ACTIONS_BY_LIGHT = 3; // decrease, maintain and increase actions
 
 
     private int nrIntersections;
 
     // 20 - 60
-    private int[] greenSpans;
-    private final int yellowSpan = 5;
+    private int[] greenTimeSpans;
+    private final int yellowTimeSpan = 5;
     private int state;
     private int lastAction;
 
     public TrafficLightState(int nrIntersections, int state) {
         lastAction = 0;
         this.nrIntersections = nrIntersections;
-        greenSpans = new int[nrIntersections];
+        greenTimeSpans = new int[nrIntersections];
         updateState(state);
     }
 
-    public int getYellowSpan() {
-        return yellowSpan;
+    public int getYellowTimeSpan() {
+        return yellowTimeSpan;
     }
 
-    public int getGreenSpan(int index) {
-        return greenSpans[index];
+    public int getGreenTimeSpan(int index) {
+        return greenTimeSpans[index];
     }
 
     public void incGreenSpan(int index, int greenSpan) {
-        this.greenSpans[index] += greenSpan;
+        this.greenTimeSpans[index] += greenSpan;
     }
 
     public void decGreenSpan(int index, int greenSpan) {
-        this.greenSpans[index] -= greenSpan;
+        this.greenTimeSpans[index] -= greenSpan;
     }
 
     @Override
@@ -48,9 +48,9 @@ public class TrafficLightState implements Runnable, State {
             while (true) {
                 for (int i = 0; i < nrIntersections; i++) {
                     // TODO: change to green traffic light i
-                    Thread.sleep(greenSpans[i] * MILLIS_MULTIPLIER);
+                    Thread.sleep(greenTimeSpans[i] * MILLIS_MULTIPLIER);
                     // TODO: change to yellow traffic light i
-                    Thread.sleep(yellowSpan * MILLIS_MULTIPLIER);
+                    Thread.sleep(yellowTimeSpan * MILLIS_MULTIPLIER);
                     // TODO: change to red traffic light i
                 }
             }
@@ -72,13 +72,11 @@ public class TrafficLightState implements Runnable, State {
     private void updateState(int state) {
         this.state = state;
         for (int i = 0; i < nrIntersections; i++) {
-            greenSpans[i] = LIGHTS_MIN_TIME + ((LIGHTS_GRANULARITY / (int) Math.pow(LIGHTS_GRANULARITY, i))
-                    % LIGHTS_GRANULARITY);
+            greenTimeSpans[i] = LIGHTS_MIN_TIME + ((state / (int) Math.pow(LIGHTS_GRANULARITY, i)) % LIGHTS_GRANULARITY);
         }
     }
 
     /**
-     *
      * @param action
      * @return obtained state
      */
@@ -90,8 +88,31 @@ public class TrafficLightState implements Runnable, State {
     }
 
     public int testAction(int action) {
-        int newState = 0;
-        // TODO
+        int newState = state;
+
+        for (int i = 0; i < nrIntersections; i++) {
+            int decodedAction = (action / (int) Math.pow(ACTIONS_BY_LIGHT, i)) % ACTIONS_BY_LIGHT;
+
+            switch (decodedAction) {
+                case 0:
+                    if (getGreenTimeSpan(i) > LIGHTS_MIN_TIME) {
+                        newState -= (int) Math.pow(ACTIONS_BY_LIGHT, i);
+                    }
+                    break;
+                /*
+                case 1 -> do nothing
+                 */
+                case 2:
+                    if (getGreenTimeSpan(i) < LIGHTS_MAX_TIME) {
+                        newState -= (int) Math.pow(ACTIONS_BY_LIGHT, i);
+                    }
+                    break;
+
+            }
+        }
+
+
+
         return newState;
     }
 }

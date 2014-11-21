@@ -33,6 +33,7 @@ public class TrafficLightAgent extends Agent {
         nrActions = (int) Math.pow(TrafficLightState.ACTIONS_BY_LIGHT, nrIntersections);  // corresponding to increase, maintain and decrease the red and green time-frames
         qTeacher = new QLearning(nrStates, nrActions);
         currentState = new TrafficLightState(nrIntersections, new Random().nextInt(nrStates));
+        new Thread(currentState).start();
     }
 
     private class WaitRequestAndReplyRewardBehaviour extends CyclicBehaviour {
