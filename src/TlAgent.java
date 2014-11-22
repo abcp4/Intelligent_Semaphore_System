@@ -9,6 +9,7 @@ import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
+import trasmapi.sumo.SumoVehicle;
 
 public class TlAgent extends Agent{
 
@@ -38,7 +39,15 @@ public class TlAgent extends Agent{
 
 			System.out.println("lanes: " + controlledLanes);
 			SumoLane pilas = new SumoLane(controlledLanes.get(0));
+            ArrayList<String> cenas= pilas.vehiclesList();
 			System.out.println("vehiculos na lane" + pilas.getId() + ": " + pilas.getNumVehicles());
+
+            for(int i=0;i<cenas.size();i++){
+                System.out.println("veiculo com id " + cenas.get(i));
+                SumoVehicle ve= new SumoVehicle(cenas.get(i));
+                System.out.println("tipo= "+ ve.getTypeId());
+            }
+
 			tlGUI = new TLGUI(this);
 
 			tlGUI.setVisible(true);
