@@ -48,7 +48,7 @@ public class Main {
         //Create SUMO
         Simulator sumo = new Sumo("guisim");
         List<String> params = new ArrayList<String>();
-        params.add("-c=TlMap/map.sumo.cfg");
+        params.add("-c=manhattan/bettermanhattan/file.sumocfg");
         sumo.addParameters(params);
         sumo.addConnections("localhost", 8820);
 

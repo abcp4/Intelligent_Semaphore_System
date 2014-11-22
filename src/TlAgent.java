@@ -38,7 +38,7 @@ public class TlAgent extends Agent{
 
 			System.out.println("lanes: " + controlledLanes);
 			SumoLane pilas = new SumoLane(controlledLanes.get(0));
-			System.out.println("vehiculos na lane pilas: " + pilas.getNumVehicles());
+			System.out.println("vehiculos na lane" + pilas.getId() + ": " + pilas.getNumVehicles());
 			tlGUI = new TLGUI(this);
 
 			tlGUI.setVisible(true);
