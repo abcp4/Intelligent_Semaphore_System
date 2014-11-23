@@ -1,0 +1,13 @@
+***Starting server on port 8820 ***
+Loading net-file from 'manhattan/bettermanhattan/manhattan.net.xml'...  done (22ms).
+Loading done.
+Simulation started with time: 0.00
+Performance: 
+ Duration: 58048 ms
+ Real time factor: 11.9901
+ UPS: 1266.176268
+Vehicles: 
+ Inserted: 693 (Loaded: 896)
+ Running: 146
+ Waiting: 3
+
