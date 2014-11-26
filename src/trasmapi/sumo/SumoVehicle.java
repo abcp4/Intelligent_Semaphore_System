@@ -24,7 +24,10 @@ public class SumoVehicle extends Vehicle {
 	public SumoVehicle(String id) {
 		super(id);
 	}
-	
+
+    public String getId(){
+        return id;
+    }
 	public SumoVehicle(String vType, String routeId2, int departTime, double departPosition, double departSpeed,byte departLane) {
 		super(classId+"");
 		classId++;

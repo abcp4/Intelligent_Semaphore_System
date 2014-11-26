@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 import trasmapi.genAPI.TrafficLight;
+import trasmapi.genAPI.Vehicle;
 import trasmapi.genAPI.exceptions.UnimplementedMethod;
 import trasmapi.sumo.SumoLane;
 import trasmapi.sumo.SumoTrafficLight;
@@ -39,13 +40,13 @@ public class TlAgent extends Agent{
 
 			System.out.println("lanes: " + controlledLanes);
 			SumoLane pilas = new SumoLane(controlledLanes.get(0));
-            ArrayList<String> cenas= pilas.vehiclesList();
+            Vehicle cenas[]= pilas.vehiclesList();
 			System.out.println("vehiculos na lane" + pilas.getId() + ": " + pilas.getNumVehicles());
 
-            for(int i=0;i<cenas.size();i++){
-                System.out.println("veiculo com id " + cenas.get(i));
-                SumoVehicle ve= new SumoVehicle(cenas.get(i));
-                System.out.println("tipo= "+ ve.getTypeId());
+            for(int i=0;i<cenas.length;i++){
+                System.out.println("veiculo com id " + cenas[i].id);
+
+                System.out.println("tipo= "+ cenas[i].getTypeId());
             }
 
 			tlGUI = new TLGUI(this);

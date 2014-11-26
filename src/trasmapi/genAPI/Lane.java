@@ -1,6 +1,7 @@
 package trasmapi.genAPI;
 
 import trasmapi.genAPI.exceptions.UnimplementedMethod;
+import trasmapi.sumo.SumoVehicle;
 
 import java.util.ArrayList;
 
@@ -31,7 +32,7 @@ public class Lane implements Comparable<Lane> {
 		throw new UnimplementedMethod();
 	}
 	
-	public ArrayList<String> vehiclesList() throws UnimplementedMethod {
+	public Vehicle[] vehiclesList() throws UnimplementedMethod {
 		throw new UnimplementedMethod();
 	}
 }
