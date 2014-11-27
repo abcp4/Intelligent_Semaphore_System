@@ -47,7 +47,7 @@ public class TlAgent extends Agent{
                 System.out.println("veiculo com id " + cenas[i].id);
 
                 System.out.println("tipo= "+ cenas[i].getTypeId());
-                System.out.println("co2 emissions " +cenas[i].getCO2emission());
+                System.out.println("co2 emissions " +cenas[i].getCO2emission() + "mg/s");
             }
 
 			tlGUI = new TLGUI(this);

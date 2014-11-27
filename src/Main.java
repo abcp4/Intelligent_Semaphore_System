@@ -48,8 +48,11 @@ public class Main {
         //Create SUMO
         Simulator sumo = new Sumo("guisim");
         List<String> params = new ArrayList<String>();
+        params.add("--device.emissions.probability=1.0");
+        params.add("--tripinfo-output=manhattan/bettermanhattan/logs/trip.xml");
         params.add("-c=manhattan/bettermanhattan/file.sumocfg");
         sumo.addParameters(params);
+
         sumo.addConnections("localhost", 8820);
 
         //Add Sumo to TraSMAPI

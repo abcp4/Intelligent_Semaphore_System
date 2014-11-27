@@ -1,15 +1,15 @@
 ***Starting server on port 8820 ***
-Loading net-file from 'manhattan/bettermanhattan/manhattan.net.xml'...  done (20ms).
+Loading net-file from 'manhattan/bettermanhattan/manhattan.net.xml'...  done (17ms).
 Loading done.
 Simulation started with time: 0.00
-Error: tcpip::Socket::recvAndCheck @ recv: Socket reset by peer
+Error: send failed: Socket reset by peer
 Quitting (on error).
 Performance: 
- Duration: 6289 ms
- Real time factor: 145.651
- UPS: 17904.436317
+ Duration: 134375 ms
+ Real time factor: 5.55907
+ UPS: 675.706047
 Vehicles: 
- Inserted: 916 (Loaded: 1116)
- Running: 128
- Waiting: 0
+ Inserted: 746 (Loaded: 947)
+ Running: 137
+ Waiting: 1
 
