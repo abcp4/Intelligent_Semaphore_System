@@ -24,7 +24,10 @@ public class SumoVehicle extends Vehicle {
 	public SumoVehicle(String id) {
 		super(id);
 	}
-	
+
+    public String getId(){
+        return id;
+    }
 	public SumoVehicle(String vType, String routeId2, int departTime, double departPosition, double departSpeed,byte departLane) {
 		super(classId+"");
 		classId++;
@@ -813,7 +816,35 @@ public class SumoVehicle extends Vehicle {
 			e.printStackTrace();
 		}
 	}
-	
+	public String getTypeId(){
+
+        Command cmd = new Command(Constants.CMD_GET_VEHICLE_VARIABLE);
+        Content cnt = new Content(0x4f,id);
+
+        cmd.setContent(cnt);
+
+        //cmd.print("Command");
+
+        RequestMessage reqMsg = new RequestMessage();
+        reqMsg.addCommand(cmd);
+
+
+        try {
+
+            ResponseMessage rspMsg = SumoCom.query(reqMsg);
+            Content content = rspMsg.validate( (byte)  Constants.CMD_GET_VEHICLE_VARIABLE, (byte)  Constants.RESPONSE_GET_VEHICLE_VARIABLE,
+                    (byte)  0x4f, (byte)  Constants.TYPE_STRING);
+
+            typeId = content.getString();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (WrongCommand e) {
+            e.printStackTrace();
+        }
+
+        return typeId;
+    }
 	public void setSignalState(){
 
 //		byte emergency = 11000001000000;
@@ -844,4 +875,83 @@ public class SumoVehicle extends Vehicle {
 //			e.printStackTrace();
 //		}
 	}
+
+    public double getCO2emission(){
+        double co2Emission=-1;
+        Command cmd = new Command(Constants.CMD_GET_VEHICLE_VARIABLE);
+
+        Content cnt = new Content(Constants.VAR_CO2EMISSION,id);
+
+
+
+
+
+        cmd.setContent(cnt);
+
+        //cmd.print("Command getTravelTime");
+
+        RequestMessage reqMsg = new RequestMessage();
+        reqMsg.addCommand(cmd);
+
+
+        try {
+
+            ResponseMessage rspMsg = SumoCom.query(reqMsg);
+            Content content = rspMsg.validate( (byte)  Constants.CMD_GET_VEHICLE_VARIABLE, (byte)  Constants.RESPONSE_GET_VEHICLE_VARIABLE,
+                    (byte)  Constants.VAR_CO2EMISSION, (byte)  Constants.TYPE_DOUBLE);
+
+            //	rspMsg.print();
+
+            co2Emission = content.getDouble();
+
+            return co2Emission;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (WrongCommand e) {
+            e.printStackTrace();
+        }
+
+        return co2Emission;
+    }
+
+    public double getCOemission(){
+        double coEmission=-1;
+        Command cmd = new Command(Constants.CMD_GET_VEHICLE_VARIABLE);
+
+        Content cnt = new Content(Constants.VAR_COEMISSION,id);
+
+
+
+
+
+        cmd.setContent(cnt);
+
+        //cmd.print("Command getTravelTime");
+
+        RequestMessage reqMsg = new RequestMessage();
+        reqMsg.addCommand(cmd);
+
+
+        try {
+
+            ResponseMessage rspMsg = SumoCom.query(reqMsg);
+            Content content = rspMsg.validate( (byte)  Constants.CMD_GET_VEHICLE_VARIABLE, (byte)  Constants.RESPONSE_GET_VEHICLE_VARIABLE,
+                    (byte)  Constants.VAR_COEMISSION, (byte)  Constants.TYPE_DOUBLE);
+
+            //	rspMsg.print();
+
+            coEmission = content.getDouble();
+
+            return coEmission;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (WrongCommand e) {
+            e.printStackTrace();
+        }
+
+        return coEmission;
+    }
+
+
+
 }

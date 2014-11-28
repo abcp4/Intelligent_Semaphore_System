@@ -1,6 +1,9 @@
 package trasmapi.genAPI;
 
 import trasmapi.genAPI.exceptions.UnimplementedMethod;
+import trasmapi.sumo.SumoVehicle;
+
+import java.util.ArrayList;
 
 public class Lane implements Comparable<Lane> {
 	protected String id;

@@ -3,6 +3,7 @@ package garbage;
 import java.util.ArrayList;
 
 import trasmapi.genAPI.TrafficLight;
+import trasmapi.genAPI.Vehicle;
 import trasmapi.genAPI.exceptions.UnimplementedMethod;
 import trasmapi.sumo.SumoLane;
 import trasmapi.sumo.SumoTrafficLight;
@@ -11,6 +12,7 @@ import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
+import trasmapi.sumo.SumoVehicle;
 
 public class TlAgent extends Agent{
 
@@ -40,7 +42,16 @@ public class TlAgent extends Agent{
 
 			System.out.println("lanes: " + controlledLanes);
 			SumoLane pilas = new SumoLane(controlledLanes.get(0));
-			System.out.println("vehiculos na lane pilas: " + pilas.getNumVehicles());
+            Vehicle cenas[]= pilas.vehiclesList();
+			System.out.println("vehiculos na lane" + pilas.getId() + ": " + pilas.getNumVehicles());
+
+            for(int i=0;i<cenas.length;i++){
+                System.out.println("veiculo com id " + cenas[i].id);
+
+                System.out.println("tipo= "+ cenas[i].getTypeId());
+                System.out.println("co2 emissions " +cenas[i].getCO2emission() + "mg/s");
+            }
+
 			tlGUI = new TLGUI(this);
 
 			tlGUI.setVisible(true);

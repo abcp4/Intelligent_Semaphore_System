@@ -1,0 +1,15 @@
+***Starting server on port 8820 ***
+Loading net-file from 'manhattan/bettermanhattan/manhattan.net.xml'...  done (17ms).
+Loading done.
+Simulation started with time: 0.00
+Error: send failed: Socket reset by peer
+Quitting (on error).
+Performance: 
+ Duration: 134375 ms
+ Real time factor: 5.55907
+ UPS: 675.706047
+Vehicles: 
+ Inserted: 746 (Loaded: 947)
+ Running: 137
+ Waiting: 1
+
