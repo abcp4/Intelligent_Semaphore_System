@@ -1,4 +1,4 @@
-package start;
+package garbage;
 
 
 import jade.core.Agent;
@@ -12,7 +12,6 @@ import java.awt.Color;
 import trasmapi.genAPI.Edge;
 import trasmapi.genAPI.Polygon;
 import trasmapi.sumo.SumoCom;
-import trasmapi.sumo.SumoEdge;
 
 public class InfoAgent extends Agent{
 

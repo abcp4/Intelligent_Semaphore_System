@@ -24,16 +24,16 @@ public class TrafficLightAgent extends Agent {
 
     private Logger myLogger = Logger.getMyLogger(getClass().getName());
 
-    public TrafficLightAgent(/*int nrIntersections*/) {
+    public TrafficLightAgent(int nrIntersections) {
         // TODO: consider emergency vehicles
         // for emergency vehicles, we must add actions according to the number of intersections it could come from
         super();
-        /*this.nrIntersections = nrIntersections;
+        this.nrIntersections = nrIntersections;
         nrStates = (int) Math.pow(TrafficLightState.LIGHTS_GRANULARITY, nrIntersections); // for green time-frames
         nrActions = (int) Math.pow(TrafficLightState.ACTIONS_BY_LIGHT, nrIntersections);  // corresponding to increase, maintain and decrease the red and green time-frames
         qTeacher = new QLearning(nrStates, nrActions);
         currentState = new TrafficLightState(nrIntersections, new Random().nextInt(nrStates));
-        new Thread(currentState).start();*/
+        new Thread(currentState).start();
     }
 
     private class WaitRequestAndReplyRewardBehaviour extends CyclicBehaviour {
@@ -114,5 +114,17 @@ public class TrafficLightAgent extends Agent {
             myLogger.log(Logger.SEVERE, "Agent " + getLocalName() + " - Cannot register with DF", e);
             doDelete();
         }
+
+        super.setup();
+    }
+
+    @Override
+    protected void takeDown() {
+        try {
+            DFService.deregister(this);
+        } catch (FIPAException e) {
+            e.printStackTrace();
+        }
+        super.takeDown();
     }
 }

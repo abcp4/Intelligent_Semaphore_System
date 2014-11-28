@@ -1,3 +1,5 @@
+package garbage;
+
 import java.util.ArrayList;
 
 import trasmapi.genAPI.TrafficLight;
@@ -30,7 +32,7 @@ public class TlAgent extends Agent{
 
 		try {
 			
-			System.out.println("TlAgent id: "+this.id);
+			System.out.println("garbage.TlAgent id: "+this.id);
 
 			tl = new SumoTrafficLight(tlID);
 

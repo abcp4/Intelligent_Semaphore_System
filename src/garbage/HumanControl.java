@@ -1,3 +1,5 @@
+package garbage;
+
 import trasmapi.genAPI.TrafficLight;
 
 public class HumanControl{

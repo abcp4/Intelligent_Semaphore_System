@@ -1,3 +1,5 @@
+package garbage;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
