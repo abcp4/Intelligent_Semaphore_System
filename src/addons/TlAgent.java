@@ -1,4 +1,4 @@
-package garbage;
+package addons;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,6 @@ import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
-import trasmapi.sumo.SumoVehicle;
 
 public class TlAgent extends Agent{
 

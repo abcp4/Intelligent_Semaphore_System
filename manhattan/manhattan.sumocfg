@@ -16,4 +16,6 @@
         <time-to-teleport value="-1"/>
     </processing>
 
+    <remote-port value="8820"/>
+
 </configuration>

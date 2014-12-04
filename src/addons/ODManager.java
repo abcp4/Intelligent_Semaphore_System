@@ -1,4 +1,4 @@
-package garbage;
+package addons;
 
 import java.util.Random;
 
@@ -49,8 +49,8 @@ public class ODManager extends Agent{
 				mainContainer.acceptNewAgent("DRIVER#"+i, new DriverAgent(i)).start();
 
 
-			AccidentGUI accident = new AccidentGUI(numDrivers);
-			accident.setVisible(true);
+			//AccidentGUI accident = new AccidentGUI(numDrivers);
+			//accident.setVisible(true);
 
 		} catch (StaleProxyException e) {
 			e.printStackTrace();

@@ -1,10 +1,9 @@
 package agents;
 
 import learning.State;
+import trasmapi.genAPI.TrafficLight;
 
-public class TrafficLightState implements Runnable, State {
-    // TODO: verify thread safety
-    private static final int MILLIS_MULTIPLIER = 1000;
+public class TrafficLightState implements State {
     private static int LIGHTS_MIN_TIME = 20;
     private static int LIGHTS_MAX_TIME = 60;
     public static int LIGHTS_GRANULARITY = (LIGHTS_MAX_TIME - LIGHTS_MIN_TIME) / 5;
@@ -15,7 +14,6 @@ public class TrafficLightState implements Runnable, State {
 
     // 20 - 60
     private int[] greenTimeSpans;
-    private final int yellowTimeSpan = 5;
     private int state;
     private int lastAction;
 
@@ -26,37 +24,12 @@ public class TrafficLightState implements Runnable, State {
         updateState(state);
     }
 
-    public int getYellowTimeSpan() {
-        return yellowTimeSpan;
-    }
-
     public int getGreenTimeSpan(int index) {
         return greenTimeSpans[index];
     }
 
-    public void incGreenSpan(int index, int greenSpan) {
-        this.greenTimeSpans[index] += greenSpan;
-    }
-
-    public void decGreenSpan(int index, int greenSpan) {
-        this.greenTimeSpans[index] -= greenSpan;
-    }
-
-    @Override
-    public void run() {
-        try {
-            while (true) {
-                for (int i = 0; i < nrIntersections; i++) {
-                    // TODO: change to green traffic light i
-                    Thread.sleep(greenTimeSpans[i] * MILLIS_MULTIPLIER);
-                    // TODO: change to yellow traffic light i
-                    Thread.sleep(yellowTimeSpan * MILLIS_MULTIPLIER);
-                    // TODO: change to red traffic light i
-                }
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public int[] getGreenTimeSpans() {
+        return greenTimeSpans.clone();
     }
 
     @Override
@@ -107,12 +80,8 @@ public class TrafficLightState implements Runnable, State {
                         newState -= (int) Math.pow(ACTIONS_BY_LIGHT, i);
                     }
                     break;
-
             }
         }
-
-
-
         return newState;
     }
 }

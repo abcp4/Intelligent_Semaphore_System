@@ -1,4 +1,4 @@
-package garbage;
+package addons;
 
 import java.util.ArrayList;
 

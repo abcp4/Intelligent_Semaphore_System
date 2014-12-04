@@ -1,9 +1,8 @@
-package start;//import it.polito.appeal.traci.SumoTraciConnection;
 import jade.BootProfileImpl;
 import jade.core.*;
 import jade.core.Runtime;
 import jade.wrapper.ContainerController;
-import jade.wrapper.StaleProxyException;
+import agents.sumo.AgentsManager;
 import trasmapi.genAPI.Simulator;
 import trasmapi.genAPI.TraSMAPI;
 import trasmapi.genAPI.exceptions.TimeoutException;
@@ -38,7 +37,9 @@ public class Main {
         //Create SUMO
         Simulator sumo = new Sumo("guisim");
         List<String> params = new ArrayList<String>();
-        params.add("-c=TlMap/map.sumo.cfg");
+        params.add("--device.emissions.probability=1.0");
+        params.add("--tripinfo-output=manhattan/bettermanhattan/logs/trip.xml");
+        params.add("-c=manhattan/bettermanhattan/file.sumocfg");
         sumo.addParameters(params);
         sumo.addConnections("localhost", 8820);
 
@@ -55,6 +56,8 @@ public class Main {
         Thread.sleep(1000);
 
         AgentsManager manager = new AgentsManager(mainContainer);
+
+        manager.startupAgents(mainContainer);
 
         while(true)
             if(!api.simulationStep(0))

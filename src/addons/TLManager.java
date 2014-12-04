@@ -1,4 +1,4 @@
-package garbage;
+package addons;
 
 import jade.core.Agent;
 import jade.domain.DFService;

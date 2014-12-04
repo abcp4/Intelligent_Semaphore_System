@@ -10,30 +10,42 @@ import jade.lang.acl.ACLMessage;
 import jade.util.Logger;
 import learning.QLearning;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 
 public class TrafficLightAgent extends Agent {
 
+    private ArrayList<String> neighbours;
     private int nrIntersections;
     private int nrStates;
     private int nrActions;
 
     private QLearning qTeacher;
     private TrafficLightState currentState;
+    private TLController tlController;
 
     private Logger myLogger = Logger.getMyLogger(getClass().getName());
 
-    public TrafficLightAgent(int nrIntersections) {
+    public TrafficLightAgent(String name, ArrayList<String> controlledLanes, ArrayList<String> neighbours) throws Exception {
+        super();
+        this.neighbours = neighbours;
+        updateNeighboursNames();
         // TODO: consider emergency vehicles
         // for emergency vehicles, we must add actions according to the number of intersections it could come from
-        super();
-        this.nrIntersections = nrIntersections;
+        nrIntersections = neighbours.size();
         nrStates = (int) Math.pow(TrafficLightState.LIGHTS_GRANULARITY, nrIntersections); // for green time-frames
         nrActions = (int) Math.pow(TrafficLightState.ACTIONS_BY_LIGHT, nrIntersections);  // corresponding to increase, maintain and decrease the red and green time-frames
         qTeacher = new QLearning(nrStates, nrActions);
         currentState = new TrafficLightState(nrIntersections, new Random().nextInt(nrStates));
-        new Thread(currentState).start();
+        tlController = new TLController(name, controlledLanes, (ArrayList<String>) neighbours.clone(), currentState.getGreenTimeSpans());
+        new Thread(tlController).start();
+    }
+
+    private void updateNeighboursNames() {
+        for (int i = 0; i < neighbours.size(); i++) {
+            neighbours.set(i, "TrafficLight-" + neighbours.get(i));
+        }
     }
 
     private class WaitRequestAndReplyRewardBehaviour extends CyclicBehaviour {
@@ -97,7 +109,7 @@ public class TrafficLightAgent extends Agent {
         }
     }
 
-
+    @Override
     protected void setup() {
         // Registration with the DF
         DFAgentDescription dfd = new DFAgentDescription();
@@ -116,6 +128,10 @@ public class TrafficLightAgent extends Agent {
         }
 
         super.setup();
+    }
+
+    private void initTL() {
+
     }
 
     @Override

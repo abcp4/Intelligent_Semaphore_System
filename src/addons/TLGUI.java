@@ -1,4 +1,4 @@
-package garbage;
+package addons;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;

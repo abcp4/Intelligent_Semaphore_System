@@ -1,15 +1,17 @@
-***Starting server on port 8820 ***
-Loading net-file from 'manhattan/bettermanhattan/manhattan.net.xml'...  done (17ms).
+Loading net-file from 'manhattan/bettermanhattan/manhattan.net.xml'...  done (42ms).
 Loading done.
+Warning: Environment variable SUMO_HOME is not set, schema resolution will use slow website lookups.
 Simulation started with time: 0.00
-Error: send failed: Socket reset by peer
-Quitting (on error).
+Simulation ended at time: 1.00
+Reason: TraCI requested termination.
+Simulation ended at time: 2.00
+Reason: TraCI requested termination.
 Performance: 
- Duration: 134375 ms
- Real time factor: 5.55907
- UPS: 675.706047
+ Duration: 189797 ms
+ Real time factor: 0.0105376
+ UPS: 0.015806
 Vehicles: 
- Inserted: 746 (Loaded: 947)
- Running: 137
- Waiting: 1
+ Inserted: 2 (Loaded: 202)
+ Running: 2
+ Waiting: 0
 
