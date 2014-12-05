@@ -38,8 +38,8 @@ public class Main {
         Sumo sumo = new Sumo("guisim");
         List<String> params = new ArrayList<String>();
         params.add("--device.emissions.probability=1.0");
-        params.add("--tripinfo-output=manhattan/bettermanhattan/logs/trip.xml");
-        params.add("-c=manhattan/bettermanhattan/file.sumocfg");
+        params.add("--tripinfo-output=maps/bettermanhattan/logs/trip.xml");
+        params.add("-c=maps/bettermanhattan/file.sumocfg");
         sumo.addParameters(params);
         sumo.addConnections("localhost", 8820);
 

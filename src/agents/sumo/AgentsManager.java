@@ -46,24 +46,12 @@ public class AgentsManager {
                 neighbours.add(n);
             }
 
-            /*
-            List lst = Arrays.asList(tlsIds.toArray());
-            for (int i = 0; i < neighbours.size(); i++) {
-                String n = neighbours.get(i);
-
-                if (!lst.contains(n)) {
-                    neighbours.remove(i);
-                    i--;
-                }
-            }
-            */
-
             reorderNeighbours(tlId, neighbours);
 
             TrafficLightAgent agent;
 
             try {
-                agent = new TrafficLightAgent(sumo, mainContainer, tlId, new ArrayList<>(lanes), neighbours);
+                agent = new TrafficLightAgent(sumo, mainContainer, tlId, neighbours);
 
                 agents.add(agent);
                 mainContainer.acceptNewAgent("TrafficLight-" + tlId, agent);

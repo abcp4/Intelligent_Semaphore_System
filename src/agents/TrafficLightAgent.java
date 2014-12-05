@@ -34,7 +34,7 @@ public class TrafficLightAgent extends Agent {
 
     private Logger myLogger = Logger.getMyLogger(getClass().getName());
 
-    public TrafficLightAgent(Sumo sumo, ContainerController mainContainer, String name, ArrayList<String> controlledLanes, ArrayList<String> neighbours) throws Exception {
+    public TrafficLightAgent(Sumo sumo, ContainerController mainContainer, String name, ArrayList<String> neighbours) throws Exception {
         super();
         parentContainer = mainContainer;
         this.neighbours = neighbours;
@@ -45,7 +45,7 @@ public class TrafficLightAgent extends Agent {
         nrActions = (int) Math.pow(TrafficLightState.ACTIONS_BY_LIGHT, nrIntersections);  // corresponding to increase, maintain and decrease the red and green time-frames
         qTeacher = new QLearning(nrStates, nrActions);
         currentState = new TrafficLightState(nrIntersections, nrStates);
-        tlController = new TLController(sumo, name, controlledLanes, (ArrayList<String>) neighbours.clone(), currentState.getGreenTimeSpans());
+        tlController = new TLController(sumo, name, (ArrayList<String>) neighbours.clone(), currentState.getGreenTimeSpans());
         new Thread(tlController).start();
         updateNeighboursNames();
     }

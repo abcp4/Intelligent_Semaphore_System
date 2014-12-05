@@ -10,16 +10,14 @@ public class TLController implements Runnable {
     private String name;
     private Sumo sumo;
     private ArrayList<String> neighbours;
-    private ArrayList<String> lanes;
 
     private int[] greenTimeSpans;
 
-    public TLController(Sumo sumo, String name, ArrayList<String> lanes, ArrayList<String> neighbours, int[] greenTimeSpans) {
+    public TLController(Sumo sumo, String name, ArrayList<String> neighbours, int[] greenTimeSpans) {
         this.name = name;
         this.sumo = sumo;
         this.neighbours = new ArrayList<>(neighbours);
         this.greenTimeSpans = new int[neighbours.size()];
-        this.lanes = lanes;
         updateTimeSpans(greenTimeSpans);
     }
 
@@ -50,11 +48,7 @@ public class TLController implements Runnable {
 
                 while (greenTime > (endPhase - initPhase)) {
                     endPhase = sumo.getCurrentSimStep();
-                    try {
-                        Thread.sleep(10);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                   // System.err.println(sumo.getCurrentSimStep());
                 }
             }
         }

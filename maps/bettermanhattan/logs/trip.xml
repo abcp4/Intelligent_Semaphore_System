@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 05 Dec 2014 06:48:00 PM WET by SUMO gui Version 0.21.0
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumo-gui.exeConfiguration.xsd">
+
+    <input>
+        <net-file value="maps/bettermanhattan/manhattan.net.xml"/>
+        <route-files value="maps/bettermanhattan/manhattan.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="maps/bettermanhattan/logs/trip.xml"/>
+        <save-state.prefix value="maps/bettermanhattan/state"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="100000"/>
+    </time>
+
+    <processing>
+        <time-to-teleport value="-1"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <log value="maps/bettermanhattan/log.gui"/>
+    </report>
+
+    <emissions>
+        <phemlight-path value="maps/bettermanhattan/./PHEMlight/"/>
+        <device.emissions.probability value="1"/>
+    </emissions>
+
+    <traci_server>
+        <remote-port value="8820"/>
+    </traci_server>
+
+    <gui_only>
+        <start value="true"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tripinfo_file.xsd">
+</tripinfos>

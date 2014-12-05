@@ -33,6 +33,7 @@ public class TrafficLightState implements State {
                 state += Math.pow(NR_STATES_PER_LIGHT, i) * 2;
             }
             // todo
+
             updateState(state);
         }
     }
