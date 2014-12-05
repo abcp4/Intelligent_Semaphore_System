@@ -8,6 +8,7 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.util.Logger;
+import jade.wrapper.ContainerController;
 import learning.QLearning;
 
 import java.util.ArrayList;
@@ -15,11 +16,12 @@ import java.util.Random;
 
 
 public class TrafficLightAgent extends Agent {
-
+    private ContainerController parentContainer;
     private ArrayList<String> neighbours;
     private int nrIntersections;
     private int nrStates;
     private int nrActions;
+    private ArrayList<Integer> neighboursResponses;
 
     private QLearning qTeacher;
     private TrafficLightState currentState;
@@ -27,8 +29,9 @@ public class TrafficLightAgent extends Agent {
 
     private Logger myLogger = Logger.getMyLogger(getClass().getName());
 
-    public TrafficLightAgent(String name, ArrayList<String> controlledLanes, ArrayList<String> neighbours) throws Exception {
+    public TrafficLightAgent(ContainerController mainContainer, String name, ArrayList<String> controlledLanes, ArrayList<String> neighbours) throws Exception {
         super();
+        parentContainer = mainContainer;
         this.neighbours = neighbours;
         updateNeighboursNames();
         // TODO: consider emergency vehicles
@@ -103,6 +106,7 @@ public class TrafficLightAgent extends Agent {
     public void requestReward() {
         for (int i = 0; i < nrIntersections; i++) {
             ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
+            //parentContainer.getAgent(neighbours.get(i));
             // TODO: for each neighbour, add it as destination
             request.setContent("reward");
             send(request);
@@ -131,7 +135,7 @@ public class TrafficLightAgent extends Agent {
     }
 
     private void initTL() {
-
+        // TODO
     }
 
     @Override

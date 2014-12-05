@@ -43,10 +43,12 @@ public class AgentsManager {
                 neighbours.add(n);
             }
 
+            reorderNeighbours(tlId, neighbours);
+
             TrafficLightAgent agent;
 
             try {
-                agent = new TrafficLightAgent(tlId, new ArrayList<>(lanes), neighbours);
+                agent = new TrafficLightAgent(mainContainer, tlId, new ArrayList<>(lanes), neighbours);
 
                 agents.add(agent);
                 mainContainer.acceptNewAgent("TrafficLight-" + tlId, agent);
@@ -58,6 +60,31 @@ public class AgentsManager {
                 System.exit(1);
             }
             System.out.println();
+        }
+    }
+
+    private void reorderNeighbours(String pos, ArrayList<String> neighbours) {
+        ArrayList<String> orderedNeighbours = new ArrayList<>();
+
+        int greatestCol = Integer.parseInt(pos.split("/")[0]) + 1;
+        int greatestLine = Integer.parseInt(pos.split("/")[1]) + 1;
+
+        String upper = Integer.toString(greatestCol) + "/" + Integer.toString(greatestLine - 1);
+        String righter = Integer.toString(greatestCol - 1) + "/" + Integer.toString(greatestLine);
+        String below = Integer.toString(greatestCol - 2) + "/" + Integer.toString(greatestLine - 1);
+        String lefter = Integer.toString(greatestCol - 1) + "/" + Integer.toString(greatestLine - 2);
+
+        if (neighbours.contains(upper)) {
+            orderedNeighbours.add(upper);
+        }
+        if (neighbours.contains(righter)) {
+            orderedNeighbours.add(righter);
+        }
+        if (neighbours.contains(below)) {
+            orderedNeighbours.add(below);
+        }
+        if (neighbours.contains(lefter)) {
+            orderedNeighbours.add(lefter);
         }
     }
 
