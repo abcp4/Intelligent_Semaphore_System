@@ -59,9 +59,9 @@ public class Main {
 
         Thread.sleep(1000);
 
-        AgentsManager manager = new AgentsManager(mainContainer);
+        //AgentsManager manager = new AgentsManager(api, mainContainer);
 
-        manager.startupAgents(mainContainer);
+        //manager.startupAgents(mainContainer);
 
         while(true)
             if(!api.simulationStep(0))

@@ -10,12 +10,16 @@ import jade.lang.acl.ACLMessage;
 import jade.util.Logger;
 import jade.wrapper.ContainerController;
 import learning.QLearning;
+import trasmapi.genAPI.TraSMAPI;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 
 public class TrafficLightAgent extends Agent {
+
+    public static boolean IS_FIXED_BEHAVIOUR = false;
+
     private ContainerController parentContainer;
     private ArrayList<String> neighbours;
     private int nrIntersections;
@@ -29,11 +33,10 @@ public class TrafficLightAgent extends Agent {
 
     private Logger myLogger = Logger.getMyLogger(getClass().getName());
 
-    public TrafficLightAgent(ContainerController mainContainer, String name, ArrayList<String> controlledLanes, ArrayList<String> neighbours) throws Exception {
+    public TrafficLightAgent(TraSMAPI api, ContainerController mainContainer, String name, ArrayList<String> controlledLanes, ArrayList<String> neighbours) throws Exception {
         super();
         parentContainer = mainContainer;
         this.neighbours = neighbours;
-        updateNeighboursNames();
         // TODO: consider emergency vehicles
         // for emergency vehicles, we must add actions according to the number of intersections it could come from
         nrIntersections = neighbours.size();
@@ -41,8 +44,9 @@ public class TrafficLightAgent extends Agent {
         nrActions = (int) Math.pow(TrafficLightState.ACTIONS_BY_LIGHT, nrIntersections);  // corresponding to increase, maintain and decrease the red and green time-frames
         qTeacher = new QLearning(nrStates, nrActions);
         currentState = new TrafficLightState(nrIntersections, new Random().nextInt(nrStates));
-        tlController = new TLController(name, controlledLanes, (ArrayList<String>) neighbours.clone(), currentState.getGreenTimeSpans());
+        tlController = new TLController(api, name, controlledLanes, (ArrayList<String>) neighbours.clone(), currentState.getGreenTimeSpans());
         new Thread(tlController).start();
+        updateNeighboursNames();
     }
 
     private void updateNeighboursNames() {
@@ -124,13 +128,15 @@ public class TrafficLightAgent extends Agent {
         dfd.addServices(sd);
         try {
             DFService.register(this, dfd);
-            WaitRequestAndReplyRewardBehaviour RewardBehaviour = new WaitRequestAndReplyRewardBehaviour(this);
-            addBehaviour(RewardBehaviour);
+            if (IS_FIXED_BEHAVIOUR) {
+                WaitRequestAndReplyRewardBehaviour RewardBehaviour = new WaitRequestAndReplyRewardBehaviour(this);
+                addBehaviour(RewardBehaviour);
+            }
         } catch (FIPAException e) {
             myLogger.log(Logger.SEVERE, "Agent " + getLocalName() + " - Cannot register with DF", e);
             doDelete();
         }
-
+        initTL();
         super.setup();
     }
 

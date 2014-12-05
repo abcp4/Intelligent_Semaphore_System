@@ -21,7 +21,14 @@ public class TrafficLightState implements State {
         lastAction = 0;
         this.nrIntersections = nrIntersections;
         greenTimeSpans = new int[nrIntersections];
-        updateState(state);
+        if (TrafficLightAgent.IS_FIXED_BEHAVIOUR) {
+            updateState(state);
+        } else {
+            state = 0;
+            for (int i = 1; i <= nrIntersections; i++) {
+
+            }
+        }
     }
 
     public int getGreenTimeSpan(int index) {

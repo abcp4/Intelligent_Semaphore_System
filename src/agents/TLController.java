@@ -1,5 +1,6 @@
 package agents;
 
+import trasmapi.genAPI.TraSMAPI;
 import trasmapi.sumo.SumoTrafficLight;
 
 import java.util.ArrayList;
@@ -7,14 +8,16 @@ import java.util.ArrayList;
 
 public class TLController implements Runnable {
     private String name;
+    private TraSMAPI api;
     private ArrayList<String> neighbours;
     private ArrayList<String> lanes;
 
     private final int yellowTimeSpan = 5;
     private int[] greenTimeSpans;
 
-    public TLController(String name, ArrayList<String> lanes, ArrayList<String> neighbours, int[] greenTimeSpans) {
+    public TLController(TraSMAPI api, String name, ArrayList<String> lanes, ArrayList<String> neighbours, int[] greenTimeSpans) {
         this.name = name;
+        this.api = api;
         this.neighbours = new ArrayList<>(neighbours);
         this.greenTimeSpans = new int[neighbours.size()];
         updateTimeSpans(greenTimeSpans);
@@ -34,7 +37,6 @@ public class TLController implements Runnable {
             for (int i = 0; i < nrIntersections; i++) {
                 light = new SumoTrafficLight(neighbours.get(i));
                 light.setState(buildState(i));
-                while(light.getCurrentPhaseDuration() < greenTimeSpans[i]);
             }
         }
     }

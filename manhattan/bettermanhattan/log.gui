@@ -1,0 +1,14 @@
+***Starting server on port 8820 ***
+Loading net-file from 'manhattan/bettermanhattan/manhattan.net.xml'...  done (31ms).
+Loading done.
+Warning: Environment variable SUMO_HOME is not set, schema resolution will use slow website lookups.
+Simulation started with time: 0.00
+Performance: 
+ Duration: 7164 ms
+ Real time factor: 6.97934
+ UPS: 170.714685
+Vehicles: 
+ Inserted: 50 (Loaded: 250)
+ Running: 48
+ Waiting: 0
+
