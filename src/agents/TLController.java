@@ -12,7 +12,6 @@ public class TLController implements Runnable {
     private ArrayList<String> neighbours;
     private ArrayList<String> lanes;
 
-    private final int yellowTimeSpan = 5;
     private int[] greenTimeSpans;
 
     public TLController(TraSMAPI api, String name, ArrayList<String> lanes, ArrayList<String> neighbours, int[] greenTimeSpans) {
@@ -20,6 +19,7 @@ public class TLController implements Runnable {
         this.api = api;
         this.neighbours = new ArrayList<>(neighbours);
         this.greenTimeSpans = new int[neighbours.size()];
+        this.lanes = lanes;
         updateTimeSpans(greenTimeSpans);
     }
 
@@ -33,18 +33,29 @@ public class TLController implements Runnable {
     public void run() {
         int nrIntersections = neighbours.size();
         SumoTrafficLight light;
-        while (true) {
+        //while (true) {
             for (int i = 0; i < nrIntersections; i++) {
                 light = new SumoTrafficLight(neighbours.get(i));
+                System.err.println(nrIntersections);
+                System.err.println(buildState(i));
                 light.setState(buildState(i));
+
+                synchronized (greenTimeSpans) {
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    // TODO wait ticks
+                }
             }
-        }
+        //}
     }
 
     private String buildState(int nr) {
         int nrIntersections = neighbours.size();
         StringBuffer retStr = new StringBuffer();
-        for (int i = 0; i < nr; i++) {
+        for (int i = 0; i < nrIntersections; i++) {
             if (i == nr) {
                 retStr.append(stringMultiplier("G", nrIntersections));
             } else {
