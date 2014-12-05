@@ -870,4 +870,36 @@ public class SumoCom {
 				return v;
 		return null;
 	}
+
+
+    public static int getTicks(){
+        int ticks=-1;
+        Command cmd = new Command(Constants.CMD_GET_SIM_VARIABLE);
+        Content cnt = new Content(0x70,"dummy");
+
+        cmd.setContent(cnt);
+
+        //cmd.print("Command GETEDGES");
+
+        RequestMessage reqMsg = new RequestMessage();
+        reqMsg.addCommand(cmd);
+
+
+        try {
+
+            ResponseMessage rspMsg = SumoCom.query(reqMsg);
+            Content content = rspMsg.validate( (byte)  Constants.CMD_GET_SIM_VARIABLE, (byte)  Constants.RESPONSE_GET_SIM_VARIABLE,
+                    (byte)  0x70, (byte)  Constants.TYPE_INTEGER);
+
+            ticks = content.getInteger();
+            System.out.println("merdas" + ticks);
+            return ticks;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (WrongCommand e) {
+            e.printStackTrace();
+        }
+
+        return ticks;
+    }
 }
