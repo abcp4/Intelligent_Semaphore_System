@@ -40,10 +40,10 @@ public class TrafficLightAgent extends Agent {
         // TODO: consider emergency vehicles
         // for emergency vehicles, we must add actions according to the number of intersections it could come from
         nrIntersections = neighbours.size();
-        nrStates = (int) Math.pow(TrafficLightState.LIGHTS_GRANULARITY, nrIntersections); // for green time-frames
+        nrStates = (int) Math.pow(TrafficLightState.NR_STATES_PER_LIGHT, nrIntersections); // for green time-frames
         nrActions = (int) Math.pow(TrafficLightState.ACTIONS_BY_LIGHT, nrIntersections);  // corresponding to increase, maintain and decrease the red and green time-frames
         qTeacher = new QLearning(nrStates, nrActions);
-        currentState = new TrafficLightState(nrIntersections, new Random().nextInt(nrStates));
+        currentState = new TrafficLightState(nrIntersections, nrStates);
         tlController = new TLController(api, name, controlledLanes, (ArrayList<String>) neighbours.clone(), currentState.getGreenTimeSpans());
         new Thread(tlController).start();
         updateNeighboursNames();

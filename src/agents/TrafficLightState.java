@@ -3,11 +3,14 @@ package agents;
 import learning.State;
 import trasmapi.genAPI.TrafficLight;
 
+import java.util.Random;
+
 public class TrafficLightState implements State {
-    private static int LIGHTS_MIN_TIME = 20;
-    private static int LIGHTS_MAX_TIME = 60;
-    public static int LIGHTS_GRANULARITY = (LIGHTS_MAX_TIME - LIGHTS_MIN_TIME) / 5;
-    public static int ACTIONS_BY_LIGHT = 3; // decrease, maintain and increase actions
+    private static final int LIGHTS_MIN_TIME = 20;
+    private static final int LIGHTS_MAX_TIME = 60;
+    public static final int NR_STATES_PER_LIGHT = 5;
+    public static final int LIGHTS_GRANULARITY = (LIGHTS_MAX_TIME - LIGHTS_MIN_TIME) / NR_STATES_PER_LIGHT;
+    public static final int ACTIONS_BY_LIGHT = 3; // decrease, maintain and increase actions
 
 
     private int nrIntersections;
@@ -17,16 +20,16 @@ public class TrafficLightState implements State {
     private int state;
     private int lastAction;
 
-    public TrafficLightState(int nrIntersections, int state) {
+    public TrafficLightState(int nrIntersections, int nrStates) {
         lastAction = 0;
         this.nrIntersections = nrIntersections;
         greenTimeSpans = new int[nrIntersections];
         if (TrafficLightAgent.IS_FIXED_BEHAVIOUR) {
-            updateState(state);
+            updateState(new Random().nextInt(nrStates));
         } else {
             state = 0;
-            for (int i = 1; i <= nrIntersections; i++) {
-
+            for (int i = 0; i < nrIntersections; i++) {
+                state += Math.pow(NR_STATES_PER_LIGHT, i) * 2;
             }
         }
     }
