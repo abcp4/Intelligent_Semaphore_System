@@ -33,7 +33,7 @@ public class Main {
 
         // Init TraSMAPI framework
         TraSMAPI api = new TraSMAPI();
-        String map= "randomGenerated";
+        String map= "manhattan4";
         //Create SUMO
         Sumo sumo = new Sumo("guisim");
         List<String> params = new ArrayList<String>();
@@ -56,7 +56,6 @@ public class Main {
         Thread.sleep(1000);
 
         AgentsManager manager = new AgentsManager(sumo, mainContainer);
-
         manager.startupAgents(mainContainer);
 
         while(true)
