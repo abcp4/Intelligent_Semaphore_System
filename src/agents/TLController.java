@@ -32,22 +32,23 @@ public class TLController implements Runnable {
     @Override
     public void run() {
         int nrIntersections = neighbours.size();
-        SumoTrafficLight light;
+        SumoTrafficLight light = new SumoTrafficLight(name);
         while (true) {
             for (int i = 0; i < nrIntersections; i++) {
-                light = new SumoTrafficLight(neighbours.get(i));
 
                 int greenTime;
                 synchronized (greenTimeSpans) {
                     greenTime = greenTimeSpans[i];
                 }
 
-                System.out.println("Changed " + name + " to " + buildState(i) + " for " + greenTime + " ticks");
-                light.setState(buildState(i));
-                int initPhase = sumo.getCurrentSimStep();
-                int endPhase = sumo.getCurrentSimStep();
+                String newState = buildState(i);
 
-                while (greenTime > endPhase - initPhase) {
+                System.out.println("Changed " + name + " to " + newState + " for " + greenTime + " ticks");
+                light.setState(newState);
+                int initPhase = sumo.getCurrentSimStep();
+                int endPhase = initPhase;
+
+                while (greenTime > (endPhase - initPhase)) {
                     endPhase = sumo.getCurrentSimStep();
                     try {
                         Thread.sleep(10);

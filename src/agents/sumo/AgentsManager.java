@@ -8,7 +8,9 @@ import trasmapi.sumo.Sumo;
 import trasmapi.sumo.SumoTrafficLight;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 public class AgentsManager {
     ArrayList<TrafficLightAgent> agents = new ArrayList<>();
@@ -44,9 +46,17 @@ public class AgentsManager {
                 neighbours.add(n);
             }
 
+            /*
+            List lst = Arrays.asList(tlsIds.toArray());
             for (int i = 0; i < neighbours.size(); i++) {
+                String n = neighbours.get(i);
 
+                if (!lst.contains(n)) {
+                    neighbours.remove(i);
+                    i--;
+                }
             }
+            */
 
             reorderNeighbours(tlId, neighbours);
 
