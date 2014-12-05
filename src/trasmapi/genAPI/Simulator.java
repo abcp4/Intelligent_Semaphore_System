@@ -62,4 +62,8 @@ public class Simulator {
 	public void start() throws UnimplementedMethod {
 		throw new UnimplementedMethod();
 	}
+
+	public int getCurrentSimStep() throws UnimplementedMethod {
+		throw new UnimplementedMethod();
+	}
 }

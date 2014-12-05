@@ -10,7 +10,7 @@ import trasmapi.genAPI.exceptions.TimeoutException;
 public class Sumo extends Simulator {
 	
 	String simulator;
-	SumoCom comm;
+	public SumoCom comm;
 	
 	public Sumo(String sim){
 		simulator = sim;	
@@ -43,5 +43,9 @@ public class Sumo extends Simulator {
 	
 	public void start(){
 		comm.start(0);
+	}
+
+	public int getCurrentSimStep() {
+		return comm.getCurrentSimStep();
 	}
 }

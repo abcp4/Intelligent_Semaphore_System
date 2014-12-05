@@ -35,7 +35,7 @@ public class Main {
         TraSMAPI api = new TraSMAPI();
 
         //Create SUMO
-        Simulator sumo = new Sumo("guisim");
+        Sumo sumo = new Sumo("guisim");
         List<String> params = new ArrayList<String>();
         params.add("--device.emissions.probability=1.0");
         params.add("--tripinfo-output=manhattan/bettermanhattan/logs/trip.xml");
@@ -55,7 +55,7 @@ public class Main {
 
         Thread.sleep(1000);
 
-        AgentsManager manager = new AgentsManager(api, mainContainer);
+        AgentsManager manager = new AgentsManager(sumo, mainContainer);
 
         manager.startupAgents(mainContainer);
 
