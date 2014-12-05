@@ -33,13 +33,13 @@ public class Main {
 
         // Init TraSMAPI framework
         TraSMAPI api = new TraSMAPI();
-
+        String map= "randomGenerated";
         //Create SUMO
         Sumo sumo = new Sumo("guisim");
         List<String> params = new ArrayList<String>();
         params.add("--device.emissions.probability=1.0");
-        params.add("--tripinfo-output=maps/bettermanhattan/logs/trip.xml");
-        params.add("-c=maps/bettermanhattan/file.sumocfg");
+        params.add("--tripinfo-output=maps/logs/trip.xml");
+        params.add("-c=maps/"+map +"/file.sumocfg");
         sumo.addParameters(params);
         sumo.addConnections("localhost", 8820);
 
