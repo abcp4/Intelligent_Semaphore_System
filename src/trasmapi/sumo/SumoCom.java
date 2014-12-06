@@ -730,7 +730,7 @@ public class SumoCom {
 		return newEdge;
 	}
 
-	public static int getCurrentSimStep() {
+	public synchronized static int getCurrentSimStep() {
 		return currentSimStep;
 	}
 
@@ -902,7 +902,7 @@ public class SumoCom {
 	}
 
 
-    public static int getTicks(){
+    public synchronized static int getTicks(){
         int ticks=-1;
         Command cmd = new Command(Constants.CMD_GET_SIM_VARIABLE);
         Content cnt = new Content(0x70,"dummy");
@@ -922,7 +922,6 @@ public class SumoCom {
                     (byte)  0x70, (byte)  Constants.TYPE_INTEGER);
 
             ticks = content.getInteger();
-            System.out.println("Ticks:" + ticks);
             return ticks;
         } catch (IOException e) {
             e.printStackTrace();

@@ -46,8 +46,12 @@ public class Sumo extends Simulator {
         comm.start(0);
     }
 
-    public int getCurrentTicks() {
+    public synchronized int getCurrentTicks() {
         return comm.getTicks();
+    }
+
+    public synchronized int getCurrentSimStep() {
+        return comm.getCurrentSimStep();
     }
 
     public void subscribeTicksInt() throws UnimplementedMethod {

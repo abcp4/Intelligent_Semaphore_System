@@ -8,8 +8,8 @@ import java.util.Random;
 public class TrafficLightState implements State {
     private static final int LIGHTS_MIN_TIME = 20;
     private static final int LIGHTS_MAX_TIME = 60;
-    public static final int NR_STATES_PER_LIGHT = 5;
-    public static final int LIGHTS_GRANULARITY = (LIGHTS_MAX_TIME - LIGHTS_MIN_TIME) / NR_STATES_PER_LIGHT;
+    public static final int LIGHTS_GRANULARITY = 8;
+    public static final int NR_STATES_PER_LIGHT = (LIGHTS_MAX_TIME - LIGHTS_MIN_TIME) / LIGHTS_GRANULARITY + 1;
     public static final int ACTIONS_BY_LIGHT = 3; // decrease, maintain and increase actions
 
 
@@ -32,8 +32,6 @@ public class TrafficLightState implements State {
             for (int i = 0; i < nrIntersections; i++) {
                 state += Math.pow(NR_STATES_PER_LIGHT, i) * 2;
             }
-            // todo
-            System.err.println("Nr states: " + nrStates + "\nState: " + state);
             updateState(state);
         }
     }
@@ -59,7 +57,7 @@ public class TrafficLightState implements State {
     private void updateState(int state) {
         this.state = state;
         for (int i = 0; i < nrIntersections; i++) {
-            greenTimeSpans[i] = LIGHTS_MIN_TIME + ((state / (int) Math.pow(LIGHTS_GRANULARITY, i)) % LIGHTS_GRANULARITY);
+            greenTimeSpans[i] = LIGHTS_MIN_TIME + (((state / (int) Math.pow(NR_STATES_PER_LIGHT, i)) % NR_STATES_PER_LIGHT) * LIGHTS_GRANULARITY);
         }
     }
 
@@ -79,11 +77,10 @@ public class TrafficLightState implements State {
 
         for (int i = 0; i < nrIntersections; i++) {
             int decodedAction = (action / (int) Math.pow(ACTIONS_BY_LIGHT, i)) % ACTIONS_BY_LIGHT;
-
             switch (decodedAction) {
                 case 0:
                     if (getGreenTimeSpan(i) > LIGHTS_MIN_TIME) {
-                        newState -= (int) Math.pow(ACTIONS_BY_LIGHT, i);
+                        newState -= (int) Math.pow(NR_STATES_PER_LIGHT, i);
                     }
                     break;
                 /*
@@ -91,7 +88,7 @@ public class TrafficLightState implements State {
                  */
                 case 2:
                     if (getGreenTimeSpan(i) < LIGHTS_MAX_TIME) {
-                        newState -= (int) Math.pow(ACTIONS_BY_LIGHT, i);
+                        newState += (int) Math.pow(NR_STATES_PER_LIGHT, i);
                     }
                     break;
             }

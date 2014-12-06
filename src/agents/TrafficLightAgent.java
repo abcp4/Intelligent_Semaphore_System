@@ -12,8 +12,10 @@ import jade.wrapper.ContainerController;
 import learning.QLearning;
 import trasmapi.genAPI.TraSMAPI;
 import trasmapi.sumo.Sumo;
+import trasmapi.sumo.SumoTrafficLight;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 
@@ -45,14 +47,21 @@ public class TrafficLightAgent extends Agent {
         nrActions = (int) Math.pow(TrafficLightState.ACTIONS_BY_LIGHT, nrIntersections);  // corresponding to increase, maintain and decrease the red and green time-frames
         qTeacher = new QLearning(nrStates, nrActions);
         currentState = new TrafficLightState(nrIntersections, nrStates);
-        tlController = new TLController(sumo, name, (ArrayList<String>) neighbours.clone(), currentState.getGreenTimeSpans());
+        tlController = new TLController(this, sumo, name, (ArrayList<String>) neighbours.clone(), currentState.getGreenTimeSpans());
         new Thread(tlController).start();
-        updateNeighboursNames();
+        updateAndCleanNeighboursNames();
     }
 
-    private void updateNeighboursNames() {
+    private void updateAndCleanNeighboursNames() {
+        ArrayList<String> tlsIds = SumoTrafficLight.getIdList();
         for (int i = 0; i < neighbours.size(); i++) {
-            neighbours.set(i, "TrafficLight-" + neighbours.get(i));
+            if (Arrays.asList(tlsIds).contains(neighbours.get(i))) {
+                neighbours.set(i, "TrafficLight-" + neighbours.get(i));
+            } else {
+                // if neighbour is not a traffic light, remove it
+                neighbours.remove(i);
+                i--;
+            }
         }
     }
 
@@ -108,14 +117,29 @@ public class TrafficLightAgent extends Agent {
         }
     }
 
-    public void requestReward() {
-        for (int i = 0; i < nrIntersections; i++) {
+    public synchronized void requestReward() {
+        for (int i = 0; i < neighbours.size(); i++) {
             ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
             //parentContainer.getAgent(neighbours.get(i));
             // TODO: for each neighbour, add it as destination
             request.setContent("reward");
             send(request);
         }
+
+        // wait that all neighbours answer
+        boolean haveNeighboursAnswered = false;
+        do {
+            try {
+                Thread.sleep(100);
+                synchronized (neighboursResponses) {
+                    haveNeighboursAnswered = neighbours.size() == neighboursResponses.size();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } while (haveNeighboursAnswered);
+
+
     }
 
     @Override

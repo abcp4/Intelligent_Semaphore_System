@@ -1,5 +1,6 @@
 package agents;
 
+import trasmapi.genAPI.TrafficLight;
 import trasmapi.sumo.Sumo;
 import trasmapi.sumo.SumoTrafficLight;
 
@@ -10,10 +11,12 @@ public class TLController implements Runnable {
     private String name;
     private Sumo sumo;
     private ArrayList<String> neighbours;
+    private TrafficLightAgent parentAgent;
 
     private int[] greenTimeSpans;
 
-    public TLController(Sumo sumo, String name, ArrayList<String> neighbours, int[] greenTimeSpans) {
+    public TLController(TrafficLightAgent parent, Sumo sumo, String name, ArrayList<String> neighbours, int[] greenTimeSpans) {
+        parentAgent = parent;
         this.name = name;
         this.sumo = sumo;
         this.neighbours = new ArrayList<>(neighbours);
@@ -33,7 +36,6 @@ public class TLController implements Runnable {
         SumoTrafficLight light = new SumoTrafficLight(name);
         while (true) {
             for (int i = 0; i < nrIntersections; i++) {
-
                 int greenTime;
                 synchronized (greenTimeSpans) {
                     greenTime = greenTimeSpans[i];
@@ -43,17 +45,12 @@ public class TLController implements Runnable {
 
                 System.out.println("Changed " + name + " to " + newState + " for " + greenTime + " ticks");
                 light.setState(newState);
-                int initPhase = sumo.getCurrentTicks() / 1000;
+                int initPhase;
+                initPhase = sumo.getCurrentSimStep() / 1000;
                 int endPhase = initPhase;
 
                 while (greenTime > (endPhase - initPhase)) {
-                    endPhase = sumo.getCurrentTicks() / 1000;
-                    /*try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }*/
-                    System.err.println(endPhase);
+                    endPhase = sumo.getCurrentSimStep() / 1000;
                 }
             }
         }

@@ -53,8 +53,6 @@ public class Main {
 
         api.start();
 
-        Thread.sleep(1000);
-
         AgentsManager manager = new AgentsManager(sumo, mainContainer);
         manager.startupAgents(mainContainer);
 
