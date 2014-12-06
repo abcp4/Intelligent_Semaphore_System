@@ -43,12 +43,17 @@ public class TLController implements Runnable {
 
                 System.out.println("Changed " + name + " to " + newState + " for " + greenTime + " ticks");
                 light.setState(newState);
-                int initPhase = sumo.getCurrentSimStep();
+                int initPhase = sumo.getCurrentTicks() / 1000;
                 int endPhase = initPhase;
 
                 while (greenTime > (endPhase - initPhase)) {
-                    endPhase = sumo.getCurrentSimStep();
-                   // System.err.println(sumo.getCurrentSimStep());
+                    endPhase = sumo.getCurrentTicks() / 1000;
+                    /*try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }*/
+                    System.err.println(endPhase);
                 }
             }
         }

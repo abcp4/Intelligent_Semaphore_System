@@ -63,7 +63,7 @@ public class Simulator {
 		throw new UnimplementedMethod();
 	}
 
-	public int getCurrentSimStep() throws UnimplementedMethod {
+	public int getCurrentTicks() throws UnimplementedMethod {
 		throw new UnimplementedMethod();
 	}
 }

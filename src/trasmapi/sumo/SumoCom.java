@@ -892,7 +892,7 @@ public class SumoCom {
                     (byte)  0x70, (byte)  Constants.TYPE_INTEGER);
 
             ticks = content.getInteger();
-            System.out.println("merdas" + ticks);
+            System.out.println("Ticks:" + ticks);
             return ticks;
         } catch (IOException e) {
             e.printStackTrace();
