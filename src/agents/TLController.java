@@ -1,6 +1,7 @@
 package agents;
 
-import trasmapi.genAPI.TraSMAPI;
+import trasmapi.genAPI.TrafficLight;
+import trasmapi.sumo.Sumo;
 import trasmapi.sumo.SumoTrafficLight;
 
 import java.util.ArrayList;
@@ -8,18 +9,18 @@ import java.util.ArrayList;
 
 public class TLController implements Runnable {
     private String name;
-    private TraSMAPI api;
+    private Sumo sumo;
     private ArrayList<String> neighbours;
-    private ArrayList<String> lanes;
+    private TrafficLightAgent parentAgent;
 
     private int[] greenTimeSpans;
 
-    public TLController(TraSMAPI api, String name, ArrayList<String> lanes, ArrayList<String> neighbours, int[] greenTimeSpans) {
+    public TLController(TrafficLightAgent parent, Sumo sumo, String name, ArrayList<String> neighbours, int[] greenTimeSpans) {
+        parentAgent = parent;
         this.name = name;
-        this.api = api;
+        this.sumo = sumo;
         this.neighbours = new ArrayList<>(neighbours);
         this.greenTimeSpans = new int[neighbours.size()];
-        this.lanes = lanes;
         updateTimeSpans(greenTimeSpans);
     }
 
@@ -32,24 +33,27 @@ public class TLController implements Runnable {
     @Override
     public void run() {
         int nrIntersections = neighbours.size();
-        SumoTrafficLight light;
-        //while (true) {
+        SumoTrafficLight light = new SumoTrafficLight(name);
+        while (true) {
             for (int i = 0; i < nrIntersections; i++) {
-                light = new SumoTrafficLight(neighbours.get(i));
-                System.err.println(nrIntersections);
-                System.err.println(buildState(i));
-            //    light.setState(buildState(i));
-
+                int greenTime;
                 synchronized (greenTimeSpans) {
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    // TODO wait ticks
+                    greenTime = greenTimeSpans[i];
+                }
+
+                String newState = buildState(i);
+
+                System.out.println("Changed " + name + " to " + newState + " for " + greenTime + " ticks");
+                light.setState(newState);
+                int initPhase;
+                initPhase = sumo.getCurrentSimStep() / 1000;
+                int endPhase = initPhase;
+
+                while (greenTime > (endPhase - initPhase)) {
+                    endPhase = sumo.getCurrentSimStep() / 1000;
                 }
             }
-        //}
+        }
     }
 
     private String buildState(int nr) {
@@ -57,9 +61,11 @@ public class TLController implements Runnable {
         StringBuffer retStr = new StringBuffer();
         for (int i = 0; i < nrIntersections; i++) {
             if (i == nr) {
-                retStr.append(stringMultiplier("G", nrIntersections));
+                retStr.append(stringMultiplier("G", nrIntersections - 1));
+            } else if (i == nr + 1 || nr == nrIntersections - 1 && i == 0) {
+                retStr.append("G" + stringMultiplier("r", nrIntersections - 2));
             } else {
-                retStr.append(stringMultiplier("r", nrIntersections));
+                retStr.append(stringMultiplier("r", nrIntersections - 1));
             }
         }
 

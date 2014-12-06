@@ -43,13 +43,13 @@ public class Main {
 
         // Init TraSMAPI framework
         TraSMAPI api = new TraSMAPI();
-
+        String map= "manhattan4_lessCars";
         //Create SUMO
-        Simulator sumo = new Sumo("guisim");
+        Sumo sumo = new Sumo("guisim");
         List<String> params = new ArrayList<String>();
         params.add("--device.emissions.probability=1.0");
-        params.add("--tripinfo-output=manhattan/bettermanhattan/logs/trip.xml");
-        params.add("-c=manhattan/bettermanhattan/file.sumocfg");
+        params.add("--tripinfo-output=maps/logs/trip.xml");
+        params.add("-c=maps/"+map +"/file.sumocfg");
         sumo.addParameters(params);
         sumo.addConnections("localhost", 8820);
 
@@ -63,10 +63,7 @@ public class Main {
 
         api.start();
 
-        Thread.sleep(1000);
-
-        AgentsManager manager = new AgentsManager(api, mainContainer);
-
+        AgentsManager manager = new AgentsManager(sumo, mainContainer);
         manager.startupAgents(mainContainer);
 
         while(true)

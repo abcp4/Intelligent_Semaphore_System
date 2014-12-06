@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Sat 06 Dec 2014 03:51:59 PM WET by SUMO gui Version 0.21.0
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumo-gui.exeConfiguration.xsd">
+
+    <input>
+        <net-file value="maps/manhattan4_lessCars/file.net.xml"/>
+        <route-files value="maps/manhattan4_lessCars/routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="maps/logs/trip.xml"/>
+        <save-state.prefix value="maps/manhattan4_lessCars/state"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="100000"/>
+    </time>
+
+    <processing>
+        <time-to-teleport value="-1"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <log value="maps/manhattan4_lessCars/log.gui"/>
+    </report>
+
+    <emissions>
+        <phemlight-path value="maps/manhattan4_lessCars/./PHEMlight/"/>
+        <device.emissions.probability value="1"/>
+    </emissions>
+
+    <traci_server>
+        <remote-port value="8820"/>
+    </traci_server>
+
+    <gui_only>
+        <start value="true"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tripinfo_file.xsd">
+</tripinfos>

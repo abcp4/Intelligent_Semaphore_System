@@ -11,11 +11,7 @@ import trasmapi.genAPI.Link;
 import trasmapi.genAPI.TrafficLight;
 import trasmapi.genAPI.exceptions.UnimplementedMethod;
 import trasmapi.genAPI.exceptions.WrongCommand;
-import trasmapi.sumo.protocol.Command;
-import trasmapi.sumo.protocol.Constants;
-import trasmapi.sumo.protocol.Content;
-import trasmapi.sumo.protocol.RequestMessage;
-import trasmapi.sumo.protocol.ResponseMessage;
+import trasmapi.sumo.protocol.*;
 
 public class SumoTrafficLight extends TrafficLight {
 
@@ -173,4 +169,6 @@ public class SumoTrafficLight extends TrafficLight {
 		}
 		
 	}
+
+
 }

@@ -46,6 +46,7 @@ public class SumoCom {
 	public static ArrayList<SumoVehicle> vehicles = new ArrayList<SumoVehicle>();
 	private static ArrayList<SumoPolygon> polygons = new ArrayList<SumoPolygon>();
 	public static ArrayList<SumoRoute> routes = new ArrayList<SumoRoute>();
+    public static ArrayList<SumoRoute> sim = new ArrayList<SumoRoute>();
 
 	private static ArrayList<SumoEdge> edges = new ArrayList<SumoEdge>();
 
@@ -616,6 +617,35 @@ public class SumoCom {
 		}
 	}
 
+    public synchronized void subscribeTicks() {
+
+        Command cmd = new Command(Constants.CMD_SUBSCRIBE_SIM_VARIABLE);
+
+        ArrayList<Integer> variableList = new ArrayList<Integer>();
+        variableList.add(0x70);
+
+
+        Content cnt = new Content(simStartStep,simEndStep,"dummy",variableList);
+
+        cmd.setContent(cnt);
+
+        //	cmd.print("  --- Command SubscribeVehicle id: "+id);
+
+        RequestMessage reqMsg = new RequestMessage();
+
+        reqMsg.addCommand(cmd);
+
+        try {
+
+            ResponseMessage rspMsg = query(reqMsg);
+            if(rspMsg.status.getResult() == Constants.RTYPE_OK) {
+                parseSubscriptions(rspMsg);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 	public static void subscribeContexPolygon(SumoPolygon polygon) {
 
 		Command cmd = new Command(0x88);
@@ -700,7 +730,7 @@ public class SumoCom {
 		return newEdge;
 	}
 
-	public static int getCurrentSimStep() {
+	public synchronized static int getCurrentSimStep() {
 		return currentSimStep;
 	}
 
@@ -870,4 +900,35 @@ public class SumoCom {
 				return v;
 		return null;
 	}
+
+
+    public synchronized static int getTicks(){
+        int ticks=-1;
+        Command cmd = new Command(Constants.CMD_GET_SIM_VARIABLE);
+        Content cnt = new Content(0x70,"dummy");
+
+        cmd.setContent(cnt);
+
+        //cmd.print("Command GETEDGES");
+
+        RequestMessage reqMsg = new RequestMessage();
+        reqMsg.addCommand(cmd);
+
+
+        try {
+
+            ResponseMessage rspMsg = SumoCom.query(reqMsg);
+            Content content = rspMsg.validate( (byte)  Constants.CMD_GET_SIM_VARIABLE, (byte)  Constants.RESPONSE_GET_SIM_VARIABLE,
+                    (byte)  0x70, (byte)  Constants.TYPE_INTEGER);
+
+            ticks = content.getInteger();
+            return ticks;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (WrongCommand e) {
+            e.printStackTrace();
+        }
+
+        return ticks;
+    }
 }

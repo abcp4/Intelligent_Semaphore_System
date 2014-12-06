@@ -4,10 +4,13 @@ import agents.TrafficLightAgent;
 import jade.wrapper.ContainerController;
 import jade.wrapper.ControllerException;
 import trasmapi.genAPI.TraSMAPI;
+import trasmapi.sumo.Sumo;
 import trasmapi.sumo.SumoTrafficLight;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 public class AgentsManager {
     ArrayList<TrafficLightAgent> agents = new ArrayList<>();
@@ -25,7 +28,7 @@ public class AgentsManager {
             return;
         }*/
 
-    public AgentsManager(TraSMAPI api, ContainerController mainContainer) {
+    public AgentsManager(Sumo sumo, ContainerController mainContainer) {
         ArrayList<String> tlsIds = SumoTrafficLight.getIdList();
 
         for (String tlId : tlsIds) {
@@ -48,7 +51,7 @@ public class AgentsManager {
             TrafficLightAgent agent;
 
             try {
-                agent = new TrafficLightAgent(api, mainContainer, tlId, new ArrayList<>(lanes), neighbours);
+                agent = new TrafficLightAgent(sumo, mainContainer, tlId, neighbours);
 
                 agents.add(agent);
                 mainContainer.acceptNewAgent("TrafficLight-" + tlId, agent);

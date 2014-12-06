@@ -1,0 +1,38 @@
+***Starting server on port 8820 ***
+Loading net-file from 'maps/manhattan4/net.net.xml'...  done (32ms).
+Loading done.
+Warning: Environment variable SUMO_HOME is not set, schema resolution will use slow website lookups.
+Simulation started with time: 0.00
+Warning: Vehicle '6' performs emergency stop at the end of lane '1/2to1/1_0 because of a red traffic light (decel=-13.19), time=24.00.
+Warning: Vehicle '39' performs emergency stop at the end of lane '1/2to2/2_0 because of a red traffic light (decel=-13.58), time=95.00.
+Warning: Vehicle '35' performs emergency stop at the end of lane '0/1to1/1_0 because of a red traffic light (decel=-13.16), time=97.00.
+Warning: Vehicle '31' performs emergency stop at the end of lane '2/3to2/2_0 because of a red traffic light (decel=-13.44), time=116.00.
+Warning: Teleporting vehicle '61'; collision with '31', lane='2/3to2/2_0', gap=-1.09, time=117.00 stage=move.
+Warning: Vehicle '61' ends teleporting on edge '2/2to2/1', time 117.00.
+Warning: Vehicle '56' performs emergency stop at the end of lane '2/4to2/3_0 because of a red traffic light (decel=-8.67), time=120.00.
+Warning: Vehicle '35' performs emergency stop at the end of lane '1/1to2/1_0 because of a red traffic light (decel=-9.07), time=192.00.
+Warning: Vehicle '118' performs emergency stop at the end of lane '1/1to1/0_0 because of a red traffic light (decel=-12.76), time=194.00.
+Warning: Vehicle '85' performs emergency stop at the end of lane '2/2to3/2_0 because of a red traffic light (decel=-9.01), time=197.00.
+Warning: Vehicle '130' performs emergency stop at the end of lane '0/2to1/2_0 because of a red traffic light (decel=-8.79), time=198.00.
+Warning: Vehicle '191' performs emergency stop at the end of lane '0/1to0/2_0 because of a red traffic light (decel=-9.19), time=224.00.
+Warning: Vehicle '215' performs emergency stop at the end of lane '4/1to3/1_0 because of a red traffic light (decel=-12.81), time=238.00.
+Warning: Vehicle '155' performs emergency stop at the end of lane '2/2to1/2_0 because of a red traffic light (decel=-13.22), time=250.00.
+Warning: Vehicle '233' performs emergency stop at the end of lane '1/0to1/1_0 because of a red traffic light (decel=-13.82), time=271.00.
+Warning: Teleporting vehicle '238'; collision with '233', lane='1/0to1/1_0', gap=-1.52, time=272.00 stage=move.
+Warning: Vehicle '238' ends teleporting on edge '1/1to2/1', time 272.00.
+Warning: Vehicle '150' performs emergency stop at the end of lane '1/1to2/1_0 because of a red traffic light (decel=-9.26), time=290.00.
+Warning: Teleporting vehicle '225'; collision with '150', lane='1/1to2/1_0', gap=-0.86, time=291.00 stage=move.
+Warning: Vehicle '225' ends teleporting on edge '2/1to3/1', time 291.00.
+Error: tcpip::Socket::recvAndCheck @ recv: Connection reset by peer
+Quitting (on error).
+Performance: 
+ Duration: 221509 ms
+ Real time factor: 1.3408
+ UPS: 161.668375
+Vehicles: 
+ Inserted: 291 (Loaded: 497)
+ Running: 197
+ Waiting: 6
+Teleports: 3 (Collisions: 3)
+Emergency Stops: 14
+
