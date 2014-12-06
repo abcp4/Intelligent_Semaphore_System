@@ -1,72 +1,14 @@
 ***Starting server on port 8820 ***
-Loading net-file from 'maps/manhattan4_lessCars/file.net.xml'...  done (30ms).
+Loading net-file from 'maps/manhattan4_lessCars/file.net.xml'...  done (32ms).
 Loading done.
+Warning: Environment variable SUMO_HOME is not set, schema resolution will use slow website lookups.
 Simulation started with time: 0.00
-Warning: Vehicle '5' performs emergency stop at the end of lane '3/4to3/3_0 because of a red traffic light (decel=-13.07), time=23.00.
-Warning: Teleporting vehicle '7'; collision with '5', lane='3/4to3/3_0', gap=-1.24, time=25.00 stage=move.
-Warning: Vehicle '7' ends teleporting on edge '3/3to2/3', time 25.00.
-Warning: Vehicle '11' performs emergency stop at the end of lane '4/2to3/2_0 because of a red traffic light (decel=-13.86), time=52.00.
-Warning: Vehicle '87' performs emergency stop at the end of lane '3/4to3/3_0 because of a red traffic light (decel=-8.47), time=126.00.
-Warning: Vehicle '23' performs emergency stop at the end of lane '0/2to0/3_0 because of a red traffic light (decel=-13.46), time=172.00.
-Warning: Vehicle '72' performs emergency stop at the end of lane '1/2to1/3_0 because of a red traffic light (decel=-13.52), time=180.00.
-Warning: Vehicle '169' performs emergency stop at the end of lane '3/1to3/0_0 because of a red traffic light (decel=-12.86), time=187.00.
-Warning: Vehicle '46' performs emergency stop at the end of lane '1/1to2/1_0 because of a red traffic light (decel=-12.95), time=201.00.
-Warning: Vehicle '45' performs emergency stop at the end of lane '2/1to3/1_0 because of a red traffic light (decel=-12.95), time=201.00.
-Warning: Vehicle '157' performs emergency stop at the end of lane '2/4to2/3_0 because of a red traffic light (decel=-13.71), time=221.00.
-Warning: Vehicle '111' performs emergency stop at the end of lane '1/3to1/2_0 because of a red traffic light (decel=-8.54), time=224.00.
-Warning: Vehicle '207' performs emergency stop at the end of lane '3/4to3/3_0 because of a red traffic light (decel=-9.24), time=226.00.
-Warning: Vehicle '170' performs emergency stop at the end of lane '3/3to2/3_0 because of a red traffic light (decel=-12.67), time=251.00.
-Warning: Teleporting vehicle '131'; collision with '170', lane='3/3to2/3_0', gap=-3.45, time=253.00 stage=move.
-Warning: Vehicle '131' ends teleporting on edge '2/3to2/4', time 253.00.
-Warning: Vehicle '82' performs emergency stop at the end of lane '1/3to2/3_0 because of a red traffic light (decel=-12.61), time=300.00.
-Warning: Vehicle '83' performs emergency stop at the end of lane '2/2to2/1_0 because of a red traffic light (decel=-13.82), time=322.00.
-Warning: Teleporting vehicle '68'; collision with '83', lane='2/2to2/1_0', gap=-1.29, time=323.00 stage=move.
-Warning: Vehicle '231' performs emergency stop at the end of lane '1/3to1/2_0 because of a red traffic light (decel=-12.60), time=324.00.
-Warning: Vehicle '68' ends teleporting on edge '2/1to1/1', time 328.00.
-Warning: Vehicle '282' performs emergency stop at the end of lane '0/3to0/2_0 because of a red traffic light (decel=-9.32), time=349.00.
-Warning: Vehicle '360' performs emergency stop at the end of lane '2/0to2/1_0 because of a red traffic light (decel=-13.35), time=378.00.
-Warning: Vehicle '266' performs emergency stop at the end of lane '1/1to1/2_0 because of a red traffic light (decel=-8.96), time=379.00.
-Warning: Vehicle '293' performs emergency stop at the end of lane '1/2to1/3_0 because of a red traffic light (decel=-13.10), time=379.00.
-Warning: Teleporting vehicle '295'; collision with '293', lane='1/2to1/3_0', gap=-0.76, time=381.00 stage=move.
-Warning: Vehicle '295' ends teleporting on edge '1/3to2/3', time 383.00.
-Warning: Vehicle '377' performs emergency stop at the end of lane '0/4to1/4_0 because of a red traffic light (decel=-8.23), time=395.00.
-Warning: Vehicle '194' performs emergency stop at the end of lane '2/1to3/1_0 because of a red traffic light (decel=-13.53), time=400.00.
-Warning: Vehicle '57' performs emergency stop at the end of lane '1/1to1/0_0 because of a red traffic light (decel=-13.86), time=420.00.
-Warning: Vehicle '345' performs emergency stop at the end of lane '1/3to1/2_0 because of a red traffic light (decel=-13.28), time=422.00.
-Warning: Vehicle '291' performs emergency stop at the end of lane '3/2to3/1_0 because of a red traffic light (decel=-13.38), time=422.00.
-Warning: Vehicle '296' performs emergency stop at the end of lane '2/3to2/2_0 because of a red traffic light (decel=-9.08), time=423.00.
-Warning: Teleporting vehicle '267'; collision with '345', lane='1/3to1/2_0', gap=-1.10, time=423.00 stage=move.
-Warning: Teleporting vehicle '378'; collision with '296', lane='2/3to2/2_0', gap=-1.12, time=424.00 stage=move.
-Warning: Vehicle '267' ends teleporting on edge '1/2to1/1', time 424.00.
-Warning: Vehicle '378' ends teleporting on edge '2/2to2/1', time 424.00.
-Warning: Vehicle '308' performs emergency stop at the end of lane '2/1to1/1_0 because of a red traffic light (decel=-13.30), time=460.00.
-Warning: Vehicle '370' performs emergency stop at the end of lane '3/2to2/2_0 because of a red traffic light (decel=-8.69), time=461.00.
-Warning: Teleporting vehicle '382'; collision with '370', lane='3/2to2/2_0', gap=-0.33, time=463.00 stage=move.
-Warning: Vehicle '386' performs emergency stop at the end of lane '1/0to2/0_0 because of a red traffic light (decel=-13.11), time=480.00.
-Warning: Vehicle '251' performs emergency stop at the end of lane '2/4to3/4_0 because of a red traffic light (decel=-13.58), time=480.00.
-Warning: Teleporting vehicle '233'; collision with '251', lane='2/4to3/4_0', gap=-1.44, time=482.00 stage=move.
-Warning: Vehicle '233' ends teleporting on edge '3/4to4/4', time 482.00.
-Warning: Vehicle '364' performs emergency stop at the end of lane '1/1to1/2_0 because of a red traffic light (decel=-13.79), time=486.00.
-Warning: Teleporting vehicle '411'; collision with '364', lane='1/1to1/2_0', gap=-1.72, time=487.00 stage=move.
-Warning: Vehicle '411' ends teleporting on edge '1/2to1/3', time 487.00.
-Warning: Vehicle '439' performs emergency stop at the end of lane '2/1to2/2_0 because of a red traffic light (decel=-12.85), time=488.00.
-Warning: Vehicle '382' ends teleporting on edge '2/2to2/1', time 495.00.
-Warning: Vehicle '489' performs emergency stop at the end of lane '1/3to2/3_0 because of a red traffic light (decel=-8.50), time=509.00.
-Warning: Teleporting vehicle '363'; collision with '489', lane='1/3to2/3_0', gap=-0.73, time=510.00 stage=move.
-Warning: Vehicle '363' ends teleporting on edge '2/3to2/2', time 510.00.
-Warning: Vehicle '336' performs emergency stop at the end of lane '1/2to1/1_0 because of a red traffic light (decel=-12.95), time=528.00.
-Warning: Teleporting vehicle '462'; collision with '336', lane='1/2to1/1_0', gap=-1.46, time=529.00 stage=move.
-Warning: Vehicle '377' performs emergency stop at the end of lane '1/3to1/2_0 because of a red traffic light (decel=-12.71), time=530.00.
-Warning: Teleporting vehicle '405'; collision with '377', lane='1/3to1/2_0', gap=-3.88, time=532.00 stage=move.
-Warning: Vehicle '405' ends teleporting on edge '1/2to1/1', time 532.00.
-Warning: Vehicle '482' performs emergency stop at the end of lane '4/1to4/2_0 because of a red traffic light (decel=-13.63), time=537.00.
-Warning: Vehicle '462' ends teleporting on edge '1/1to2/1', time 558.00.
-Warning: Vehicle '478' performs emergency stop at the end of lane '1/1to1/2_0 because of a red traffic light (decel=-12.84), time=588.00.
-Warning: Vehicle '388' performs emergency stop at the end of lane '1/2to1/3_0 because of a red traffic light (decel=-12.95), time=589.00.
-Warning: Teleporting vehicle '429'; collision with '388', lane='1/2to1/3_0', gap=-1.94, time=590.00 stage=move.
-Warning: Vehicle '429' ends teleporting on edge '1/3to1/4', time 590.00.
-Warning: Vehicle '449' performs emergency stop at the end of lane '2/2to3/2_0 because of a red traffic light (decel=-13.76), time=601.00.
-Warning: Vehicle '395' performs emergency stop at the end of lane '1/2to1/1_0 because of a red traffic light (decel=-12.63), time=631.00.
-Warning: Teleporting vehicle '452'; collision with '395', lane='1/2to1/1_0', gap=-3.65, time=632.00 stage=move.
-Warning: Vehicle '452' ends teleporting on edge '1/1to0/1', time 632.00.
-Warning: Vehicle '494' performs emergency stop at the end of lane '1/3to0/3_0 because of 
+Performance: 
+ Duration: 21011 ms
+ Real time factor: 0.475941
+ UPS: 2.570082
+Vehicles: 
+ Inserted: 10 (Loaded: 210)
+ Running: 10
+ Waiting: 0
+

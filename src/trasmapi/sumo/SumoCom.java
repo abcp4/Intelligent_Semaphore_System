@@ -617,7 +617,7 @@ public class SumoCom {
 		}
 	}
 
-    public synchronized void subscribeTicks(String id) {
+    public synchronized void subscribeTicks() {
 
         Command cmd = new Command(Constants.CMD_SUBSCRIBE_SIM_VARIABLE);
 

@@ -66,4 +66,8 @@ public class Simulator {
 	public int getCurrentTicks() throws UnimplementedMethod {
 		throw new UnimplementedMethod();
 	}
+
+	public void subscribeTicksInt() throws UnimplementedMethod {
+		throw new UnimplementedMethod();
+	}
 }
