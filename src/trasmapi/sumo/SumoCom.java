@@ -46,6 +46,7 @@ public class SumoCom {
 	public static ArrayList<SumoVehicle> vehicles = new ArrayList<SumoVehicle>();
 	private static ArrayList<SumoPolygon> polygons = new ArrayList<SumoPolygon>();
 	public static ArrayList<SumoRoute> routes = new ArrayList<SumoRoute>();
+    public static ArrayList<SumoRoute> sim = new ArrayList<SumoRoute>();
 
 	private static ArrayList<SumoEdge> edges = new ArrayList<SumoEdge>();
 
@@ -615,6 +616,35 @@ public class SumoCom {
 			e.printStackTrace();
 		}
 	}
+
+    public synchronized void subscribeTicks(String id) {
+
+        Command cmd = new Command(Constants.CMD_SUBSCRIBE_SIM_VARIABLE);
+
+        ArrayList<Integer> variableList = new ArrayList<Integer>();
+        variableList.add(0x70);
+
+
+        Content cnt = new Content(simStartStep,simEndStep,"dummy",variableList);
+
+        cmd.setContent(cnt);
+
+        //	cmd.print("  --- Command SubscribeVehicle id: "+id);
+
+        RequestMessage reqMsg = new RequestMessage();
+
+        reqMsg.addCommand(cmd);
+
+        try {
+
+            ResponseMessage rspMsg = query(reqMsg);
+            if(rspMsg.status.getResult() == Constants.RTYPE_OK) {
+                parseSubscriptions(rspMsg);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 	public static void subscribeContexPolygon(SumoPolygon polygon) {
 
