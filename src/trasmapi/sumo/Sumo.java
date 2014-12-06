@@ -50,7 +50,7 @@ public class Sumo extends Simulator {
         return comm.getTicks();
     }
 
-    public synchronized int getCurrentSimStep() {
+    public int getCurrentSimStep() {
         return comm.getCurrentSimStep();
     }
 

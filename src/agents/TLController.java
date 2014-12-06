@@ -1,7 +1,7 @@
 package agents;
 
-import trasmapi.genAPI.TrafficLight;
 import trasmapi.sumo.Sumo;
+import trasmapi.sumo.SumoLane;
 import trasmapi.sumo.SumoTrafficLight;
 
 import java.util.ArrayList;
@@ -41,29 +41,47 @@ public class TLController implements Runnable {
                     greenTime = greenTimeSpans[i];
                 }
 
-                String newState = buildState(i);
+                String newState = buildState(i, "G");
 
                 System.out.println("Changed " + name + " to " + newState + " for " + greenTime + " ticks");
                 light.setState(newState);
-                int initPhase;
-                initPhase = sumo.getCurrentSimStep() / 1000;
+                int initPhase = sumo.getCurrentSimStep() / 1000;
                 int endPhase = initPhase;
 
+                while (greenTime > (endPhase - initPhase + 5)) {
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    endPhase = sumo.getCurrentSimStep() / 1000;
+                }
+                newState = buildState(i, "y");
+                System.out.println("Changed " + name + " to " + newState + " for 5 ticks");
+                light.setState(newState);
+
+                endPhase = sumo.getCurrentSimStep() / 1000;
                 while (greenTime > (endPhase - initPhase)) {
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     endPhase = sumo.getCurrentSimStep() / 1000;
                 }
             }
+            parentAgent.requestReward();
         }
     }
 
-    private String buildState(int nr) {
+    private String buildState(int nr, String s) {
         int nrIntersections = neighbours.size();
         StringBuffer retStr = new StringBuffer();
         for (int i = 0; i < nrIntersections; i++) {
             if (i == nr) {
-                retStr.append(stringMultiplier("G", nrIntersections - 1));
+                retStr.append(stringMultiplier(s, nrIntersections - 1));
             } else if (i == nr + 1 || nr == nrIntersections - 1 && i == 0) {
-                retStr.append("G" + stringMultiplier("r", nrIntersections - 2));
+                retStr.append("s" + stringMultiplier("r", nrIntersections - 2));
             } else {
                 retStr.append(stringMultiplier("r", nrIntersections - 1));
             }
@@ -80,5 +98,20 @@ public class TLController implements Runnable {
         }
 
         return retStr.toString();
+    }
+
+    public int getRewardForLane(String id) {
+        SumoLane lane = new SumoLane(id);
+        int numVehicles = lane.getNumVehicles();
+        int laneDim = 10; // TODO: get lane dim
+        float ratio = (float) numVehicles / (float) laneDim;
+
+        if (ratio > 0.5) {
+            return 0;
+        } else if (ratio > 0.25) {
+            return 1;
+        } else {
+            return 2;
+        }
     }
 }

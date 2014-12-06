@@ -730,7 +730,7 @@ public class SumoCom {
 		return newEdge;
 	}
 
-	public synchronized static int getCurrentSimStep() {
+	public static int getCurrentSimStep() {
 		return currentSimStep;
 	}
 
