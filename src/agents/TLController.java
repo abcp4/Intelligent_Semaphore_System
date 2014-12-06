@@ -38,7 +38,7 @@ public class TLController implements Runnable {
                 light = new SumoTrafficLight(neighbours.get(i));
                 System.err.println(nrIntersections);
                 System.err.println(buildState(i));
-                light.setState(buildState(i));
+            //    light.setState(buildState(i));
 
                 synchronized (greenTimeSpans) {
                     try {

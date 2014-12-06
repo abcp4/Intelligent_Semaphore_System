@@ -18,12 +18,10 @@ import java.util.ArrayList;
  * https://github.com/joaofloressantos/AIAD/blob/transmapi/manhattan/bettermanhattan/logs/trip.xml
  * <p>
  * TODO:    Classe xml de carro com possibilidade de alterar o tipo de carro dado o seu ID
+ * a diferentes horas do dia ter fluxo de trânsito diferentes
  */
 
 public class TripParser {
-    DocumentBuilderFactory factory;
-    DocumentBuilder builder;
-    Document document;
 
     public void TripParser() {
         System.out.println("Trip parser initialized");

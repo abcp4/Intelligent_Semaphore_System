@@ -9,6 +9,7 @@ import trasmapi.genAPI.exceptions.TimeoutException;
 import trasmapi.genAPI.exceptions.UnimplementedMethod;
 import trasmapi.sumo.Sumo;
 import xml.TripParser;
+import xml.VehicleCreator;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,10 +23,15 @@ public class Main {
 
     public static void main(String[] args) throws UnimplementedMethod, InterruptedException, IOException, TimeoutException {
 
-        TripParser tp = new TripParser();
-        tp.getCarData("C:\\Users\\Vinnie\\Projects\\AIAD\\manhattan\\bettermanhattan\\logs\\trip.xml");
 
-        /*if(JADE_GUI){
+        VehicleCreator vc = new VehicleCreator();
+        vc.generateVehicles(80, 10, 10, "C:\\Users\\Vinnie\\Projects\\AIAD\\manhattan\\manhattan.rou.xml",
+                "C:\\Users\\Vinnie\\Projects\\AIAD\\manhattan\\newmanhattan.rou.xml");
+
+       /* TripParser tp = new TripParser();
+        tp.getCarData("C:\\Users\\Vinnie\\Projects\\AIAD\\manhattan\\bettermanhattan\\logs\\final.xml");
+
+        if(JADE_GUI){
             List<String> params = new ArrayList<String>();
             params.add("-gui");
             profile = new BootProfileImpl(params.toArray(new String[0]));
