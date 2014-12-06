@@ -33,7 +33,7 @@ public class Main {
 
         // Init TraSMAPI framework
         TraSMAPI api = new TraSMAPI();
-        String map= "manhattan4";
+        String map= "manhattan4_lessCars";
         //Create SUMO
         Sumo sumo = new Sumo("guisim");
         List<String> params = new ArrayList<String>();
