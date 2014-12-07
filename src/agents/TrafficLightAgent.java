@@ -1,5 +1,6 @@
 package agents;
 
+import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.domain.DFService;
@@ -10,13 +11,11 @@ import jade.lang.acl.ACLMessage;
 import jade.util.Logger;
 import jade.wrapper.ContainerController;
 import learning.QLearning;
-import trasmapi.genAPI.TraSMAPI;
 import trasmapi.sumo.Sumo;
 import trasmapi.sumo.SumoTrafficLight;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 
 
 public class TrafficLightAgent extends Agent {
@@ -28,7 +27,7 @@ public class TrafficLightAgent extends Agent {
     private int nrIntersections;
     private int nrStates;
     private int nrActions;
-    private ArrayList<Integer> neighboursResponses;
+    private String name;
 
     private QLearning qTeacher;
     private TrafficLightState currentState;
@@ -38,6 +37,7 @@ public class TrafficLightAgent extends Agent {
 
     public TrafficLightAgent(Sumo sumo, ContainerController mainContainer, String name, ArrayList<String> neighbours) throws Exception {
         super();
+        this.name = "TrafficLight-" + name;
         parentContainer = mainContainer;
         this.neighbours = neighbours;
         // TODO: consider emergency vehicles
@@ -48,7 +48,6 @@ public class TrafficLightAgent extends Agent {
         qTeacher = new QLearning(nrStates, nrActions);
         currentState = new TrafficLightState(nrIntersections, nrStates);
         tlController = new TLController(this, sumo, name, (ArrayList<String>) neighbours.clone(), currentState.getGreenTimeSpans());
-        new Thread(tlController).start();
         updateAndCleanNeighboursNames();
     }
 
@@ -65,81 +64,13 @@ public class TrafficLightAgent extends Agent {
         }
     }
 
-    private class WaitRequestAndReplyRewardBehaviour extends CyclicBehaviour {
-
-        public WaitRequestAndReplyRewardBehaviour(Agent a) {
-            super(a);
-        }
-
-        public void action() {
-            ACLMessage msg = myAgent.receive();
-            if (msg != null) {
-                ACLMessage reply = msg.createReply();
-                if (msg.getPerformative() == ACLMessage.REQUEST) {
-                    String content = msg.getContent();
-                    if (content != null) {
-                        if (content.indexOf("reward") != -1) {
-                            myLogger.log(Logger.INFO, "Agent " + getLocalName() + " - Received REWARD Request from " + msg.getSender().getLocalName());
-                            reply.setPerformative(ACLMessage.INFORM);
-                            // TODO: calc reward
-                            int reward = 0;
-                            reply.setContent(Integer.toString(reward));
-                        } else if (content.indexOf("emmergency") != -1) {
-                            myLogger.log(Logger.INFO, "Agent " + getLocalName() + " - Received REWARD Request from " + msg.getSender().getLocalName());
-                            reply.setPerformative(ACLMessage.INFORM);
-                            // TODO: act accordingly (emmergency)
-                            reply.setContent("emmergency");
-                        }
-                    } else {
-                        myLogger.log(Logger.INFO, "Agent " + getLocalName() + " - Unexpected request [" + content + "] received from " + msg.getSender().getLocalName());
-                        reply.setPerformative(ACLMessage.REFUSE);
-                        reply.setContent("( UnexpectedContent (" + content + "))");
-                    }
-                } else if (msg.getPerformative() == ACLMessage.INFORM) {
-                    String content = msg.getContent();
-                    if (content != null) {
-                        // TODO: array for all neighbours, only take action when all respond (need to make extra calculations)
-                        int reward = Integer.parseInt(content);
-                        qTeacher.reinforce(currentState, reward);
-                        // TODO: according to the sender of this message...
-                        int nextAction = qTeacher.getActionToTake(currentState.getState());
-                        currentState.applyAction(nextAction);
-                    }
-                } else {
-                    myLogger.log(Logger.INFO, "Agent " + getLocalName() + " - Unexpected message [" + ACLMessage.getPerformative(msg.getPerformative()) + "] received from " + msg.getSender().getLocalName());
-                    reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
-                    reply.setContent("( (Unexpected-act " + ACLMessage.getPerformative(msg.getPerformative()) + ") )");
-                }
-                send(reply);
-            } else {
-                block();
-            }
-        }
-    }
-
     public synchronized void requestReward() {
         for (int i = 0; i < neighbours.size(); i++) {
             ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
-            //parentContainer.getAgent(neighbours.get(i));
-            // TODO: for each neighbour, add it as destination
+            request.addReceiver(new AID(neighbours.get(i), AID.ISLOCALNAME));
             request.setContent("reward");
             send(request);
         }
-
-        // wait that all neighbours answer
-        boolean haveNeighboursAnswered = false;
-        do {
-            try {
-                Thread.sleep(100);
-                synchronized (neighboursResponses) {
-                    haveNeighboursAnswered = neighbours.size() == neighboursResponses.size();
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        } while (haveNeighboursAnswered);
-
-
     }
 
     @Override
@@ -161,12 +92,8 @@ public class TrafficLightAgent extends Agent {
             myLogger.log(Logger.SEVERE, "Agent " + getLocalName() + " - Cannot register with DF", e);
             doDelete();
         }
-        initTL();
+        new Thread(tlController).start();
         super.setup();
-    }
-
-    private void initTL() {
-        // TODO
     }
 
     @Override
@@ -177,5 +104,60 @@ public class TrafficLightAgent extends Agent {
             e.printStackTrace();
         }
         super.takeDown();
+    }
+
+    private class WaitRequestAndReplyRewardBehaviour extends CyclicBehaviour {
+
+        public WaitRequestAndReplyRewardBehaviour(Agent a) {
+            super(a);
+        }
+
+        public void action() {
+            ACLMessage msg = myAgent.receive();
+            if (msg != null) {
+                ACLMessage reply = msg.createReply();
+                if (msg.getPerformative() == ACLMessage.REQUEST) {
+                    String content = msg.getContent();
+                    if (content != null) {
+                        String sender = msg.getSender().getLocalName();
+                        if (content.indexOf("reward") != -1) {
+                            myLogger.log(Logger.INFO, "Agent " + getLocalName() + " - Received REWARD Request from " + msg.getSender().getLocalName());
+                            reply.setPerformative(ACLMessage.INFORM);
+
+
+
+                            int reward = tlController.getRewardForLane(sender.substring(13, 16) + "to" + name.substring(13, 16) + "_0");
+                            reply.setContent(Integer.toString(reward));
+                        } else if (content.indexOf("emmergency") != -1) {
+                            myLogger.log(Logger.INFO, "Agent " + getLocalName() + " - Received REWARD Request from " + msg.getSender().getLocalName());
+                            reply.setPerformative(ACLMessage.INFORM);
+                            // TODO: act accordingly (emmergency)
+                            reply.setContent("emmergency");
+                        }
+                    } else {
+                        myLogger.log(Logger.INFO, "Agent " + getLocalName() + " - Unexpected request [" + content + "] received from " + msg.getSender().getLocalName());
+                        reply.setPerformative(ACLMessage.REFUSE);
+                        reply.setContent("( UnexpectedContent (" + content + "))");
+                    }
+                } else if (msg.getPerformative() == ACLMessage.INFORM) {
+                    String content = msg.getContent();
+                    if (content != null) {
+                        int reward = Integer.parseInt(content);
+                        // TODO: check if this is sufficient for learning purposes (according to the sender of this message...)
+                        qTeacher.reinforce(currentState, reward);
+                        int nextAction = qTeacher.getActionToTake(currentState.getState());
+                        currentState.applyAction(nextAction);
+                        tlController.updateTimeSpans(currentState.getGreenTimeSpans());
+                    }
+                } else {
+                    myLogger.log(Logger.INFO, "Agent " + getLocalName() + " - Unexpected message [" + ACLMessage.getPerformative(msg.getPerformative()) + "] received from " + msg.getSender().getLocalName());
+                    reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
+                    reply.setContent("( (Unexpected-act " + ACLMessage.getPerformative(msg.getPerformative()) + ") )");
+                }
+                send(reply);
+            } else {
+                block();
+            }
+        }
     }
 }

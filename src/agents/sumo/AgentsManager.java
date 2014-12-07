@@ -14,19 +14,6 @@ import java.util.List;
 
 public class AgentsManager {
     ArrayList<TrafficLightAgent> agents = new ArrayList<>();
-    // TODO: get all lanes
-    // TODO: get all configure neighbours
-
-        /*TLManager manager = new TLManager(mainContainer);
-
-        try {
-
-            mainContainer.acceptNewAgent("MANAGER#1", manager).agents.start();
-
-        } catch (StaleProxyException e) {
-            e.printStackTrace();
-            return;
-        }*/
 
     public AgentsManager(Sumo sumo, ContainerController mainContainer) {
         ArrayList<String> tlsIds = SumoTrafficLight.getIdList();
