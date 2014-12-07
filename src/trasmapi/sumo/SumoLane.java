@@ -105,7 +105,33 @@ public class SumoLane extends Lane {
 		return id;
 	}
 
-	public void loadLength(){
-	
-	}
+	public double getLength(){
+        double len=-1;
+        Command cmd = new Command(Constants.CMD_GET_LANE_VARIABLE);
+
+        Content cnt = new Content(0x44, id);
+
+        cmd.setContent(cnt);
+        ArrayList<String> idList =new ArrayList<String>();
+
+        //cmd.print("SetMaxSpeed");
+        cmd.print("message sent from lane \n");
+        RequestMessage reqMsg = new RequestMessage();
+        reqMsg.addCommand(cmd);
+
+        try {
+            ResponseMessage rspMsg = SumoCom.query(reqMsg);
+            Content content = rspMsg.validate( (byte)  Constants.CMD_GET_LANE_VARIABLE, (byte) Constants.RESPONSE_GET_LANE_VARIABLE,
+                    (byte) 0x44, (byte)  Constants.TYPE_DOUBLE);
+            len = content.getDouble();
+            return len;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (WrongCommand e) {
+            e.printStackTrace();
+        }
+
+        return len;
+    }
 }

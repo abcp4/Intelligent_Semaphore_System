@@ -35,4 +35,8 @@ public class Lane implements Comparable<Lane> {
 	public Vehicle[] vehiclesList() throws UnimplementedMethod {
 		throw new UnimplementedMethod();
 	}
+
+    public double getLength() throws UnimplementedMethod {
+        throw new UnimplementedMethod();
+    }
 }

@@ -1,1 +1,1 @@
-http://dpinto.PC:7778/acc
+http://r:7778/acc
