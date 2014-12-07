@@ -71,7 +71,7 @@ public class VehicleCreator {
             bus.setAttribute("vClass", "bus");
             bus.setAttribute("color", "blue");
 
-            nor.setAttribute("id", "bus");
+            nor.setAttribute("id", "nor");
             nor.setAttribute("accel", "2.0");
             nor.setAttribute("decel", "4.5");
             nor.setAttribute("sigma", "0.5");

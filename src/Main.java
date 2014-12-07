@@ -22,15 +22,15 @@ public class Main {
     private static ContainerController mainContainer;
 
     public static void main(String[] args) throws UnimplementedMethod, InterruptedException, IOException, TimeoutException {
-
+/*
 
         VehicleCreator vc = new VehicleCreator();
-        vc.generateVehicles(80, 10, 10, "C:\\Users\\Vinnie\\Projects\\AIAD\\manhattan\\manhattan.rou.xml",
-                "C:\\Users\\Vinnie\\Projects\\AIAD\\manhattan\\newmanhattan.rou.xml");
+        vc.generateVehicles(80, 10, 10, "maps\\manhattan\\routes.rou.xml",
+                "maps\\manhattan\\routes.rou.xml");
 
        /* TripParser tp = new TripParser();
         tp.getCarData("C:\\Users\\Vinnie\\Projects\\AIAD\\manhattan\\bettermanhattan\\logs\\final.xml");
-
+*/
         if(JADE_GUI){
             List<String> params = new ArrayList<String>();
             params.add("-gui");
@@ -68,6 +68,6 @@ public class Main {
 
         while(true)
             if(!api.simulationStep(0))
-                break;*/
+                break;
     }
 }
