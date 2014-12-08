@@ -43,7 +43,7 @@ public class Main {
 
         // Init TraSMAPI framework
         TraSMAPI api = new TraSMAPI();
-        String map= "manhattan4";
+        String map= "spider";
         //Create SUMO
         Sumo sumo = new Sumo("guisim");
         List<String> params = new ArrayList<String>();
@@ -51,7 +51,7 @@ public class Main {
         params.add("--tripinfo-output=maps/logs/trip.xml");
         params.add("-c=maps/"+map +"/file.sumocfg");
         sumo.addParameters(params);
-        sumo.addConnections("localhost", 8820);
+        sumo.addConnections("127.0.0.1", 8820);
 
         //Add Sumo to TraSMAPI
         api.addSimulator(sumo);
