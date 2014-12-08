@@ -25,8 +25,8 @@ public class Main {
 /*
 
         VehicleCreator vc = new VehicleCreator();
-        vc.generateVehicles(85, 5, 10, "maps\\spider3\\routes.rou.xml",
-                "maps\\spider3\\routes.rou.xml");
+        vc.generateVehicles(80, 10, 10, "maps\\manhattan\\routes.rou.xml",
+                "maps\\manhattan\\routes.rou.xml");
 
        /* TripParser tp = new TripParser();
         tp.getCarData("C:\\Users\\Vinnie\\Projects\\AIAD\\manhattan\\bettermanhattan\\logs\\final.xml");
