@@ -22,7 +22,6 @@ public class TrafficLightAgent extends Agent {
 
     public static boolean IS_FIXED_BEHAVIOUR = true;
 
-    private ContainerController parentContainer;
     private ArrayList<String> neighbours;
     private int nrIntersections;
     private int nrStates;
@@ -35,10 +34,9 @@ public class TrafficLightAgent extends Agent {
 
     private Logger myLogger = Logger.getMyLogger(getClass().getName());
 
-    public TrafficLightAgent(Sumo sumo, ContainerController mainContainer, String name, ArrayList<String> neighbours) throws Exception {
+    public TrafficLightAgent(Sumo sumo, String name, ArrayList<String> neighbours) throws Exception {
         super();
         this.name = "TrafficLight-" + name;
-        parentContainer = mainContainer;
         this.neighbours = neighbours;
         // for emergency vehicles, we must add actions according to the number of intersections it could come from
         nrIntersections = neighbours.size();

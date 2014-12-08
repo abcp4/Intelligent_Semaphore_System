@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon 08 Dec 2014 11:34:34 AM WET by SUMO gui Version 0.21.0
+<!-- generated on Mon 08 Dec 2014 02:41:32 PM WET by SUMO gui Version 0.21.0
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumo-gui.exeConfiguration.xsd">
 
     <input>
-        <net-file value="maps/spider/net.net.xml"/>
-        <route-files value="maps/spider/routes.rou.xml"/>
+        <net-file value="maps/manhattan4/net.net.xml"/>
+        <route-files value="maps/manhattan4/routes.rou.xml"/>
     </input>
 
     <output>
         <tripinfo-output value="maps/logs/trip.xml"/>
-        <save-state.prefix value="maps/spider/state"/>
+        <save-state.prefix value="maps/manhattan4/state"/>
     </output>
 
     <time>
@@ -26,11 +26,11 @@
 
     <report>
         <verbose value="true"/>
-        <log value="maps/spider/log.gui"/>
+        <log value="maps/manhattan4/log.gui"/>
     </report>
 
     <emissions>
-        <phemlight-path value="maps/spider/./PHEMlight/"/>
+        <phemlight-path value="maps/manhattan4/./PHEMlight/"/>
         <device.emissions.probability value="1"/>
     </emissions>
 
@@ -43,7 +43,3 @@
     </gui_only>
 
 </configuration>
--->
-
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tripinfo_file.xsd">
-</tripinfos>

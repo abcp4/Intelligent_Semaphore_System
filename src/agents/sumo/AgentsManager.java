@@ -38,7 +38,7 @@ public class AgentsManager {
             TrafficLightAgent agent;
 
             try {
-                agent = new TrafficLightAgent(sumo, mainContainer, tlId, neighbours);
+                agent = new TrafficLightAgent(sumo, tlId, neighbours);
 
                 agents.add(agent);
                 mainContainer.acceptNewAgent("TrafficLight-" + tlId, agent);
