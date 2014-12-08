@@ -81,7 +81,7 @@ public class TLController implements Runnable {
             if (i == nr) {
                 retStr.append(stringMultiplier(s, nrIntersections - 1));
             } else if (i == nr + 1 || nr == nrIntersections - 1 && i == 0) {
-                retStr.append("s" + stringMultiplier("r", nrIntersections - 2));
+                retStr.append(s + stringMultiplier("r", nrIntersections - 2));
             } else {
                 retStr.append(stringMultiplier("r", nrIntersections - 1));
             }
