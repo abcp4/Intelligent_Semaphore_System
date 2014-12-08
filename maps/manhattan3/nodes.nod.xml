@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Dec  8 08:02:42 2014 by SUMO netgenerate Version 0.19.0
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netgenerateConfiguration.xsd">
+
+    <grid_network>
+        <grid value="true"/>
+        <grid.x-number value="3"/>
+        <grid.y-number value="3"/>
+        <grid.x-length value="150"/>
+        <grid.y-length value="150"/>
+    </grid_network>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="nodes"/>
+    </output>
+
+    <tls_building>
+        <tls.guess value="true"/>
+    </tls_building>
+
+    <processing>
+        <no-turnarounds value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/nodes_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,300.00,300.00" origBoundary="0.00,0.00,300.00,300.00" projParameter="!"/>
+
+    <node id="0/0" x="0.00" y="0.00" type="priority"/>
+    <node id="0/1" x="0.00" y="150.00" type="traffic_light" tl="0/1"/>
+    <node id="0/2" x="0.00" y="300.00" type="priority"/>
+    <node id="1/0" x="150.00" y="0.00" type="traffic_light" tl="1/0"/>
+    <node id="1/1" x="150.00" y="150.00" type="traffic_light" tl="1/1"/>
+    <node id="1/2" x="150.00" y="300.00" type="traffic_light" tl="1/2"/>
+    <node id="2/0" x="300.00" y="0.00" type="priority"/>
+    <node id="2/1" x="300.00" y="150.00" type="traffic_light" tl="2/1"/>
+    <node id="2/2" x="300.00" y="300.00" type="priority"/>
+</nodes>
