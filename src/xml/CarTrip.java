@@ -5,6 +5,7 @@ package xml;
  */
 public class CarTrip {
     public int id;
+    public String vehicleType;
     public float depart;
     public String departLane;
     public float departPos;
@@ -14,18 +15,19 @@ public class CarTrip {
     public String arrivalLane;
     public float arrivalPos;
     public float arrivalSpeed;
-    public float duration;
-    public float routeLength;
-    public float waitSteps;
-    public float CO;
-    public float CO2;
-    public float HC;
-    public float PMx;
-    public float NOx;
-    public float fuel;
+    public float duration;     // avegage
+    public float routeLength;  //  speed
+    public float waitSteps;         // average waiting periods
+    public float CO;                //average CO
+    public float CO2;                //average CO2
+    public float HC;                //average HC
+    public float PMx;                //average PMx
+    public float NOx;                //average NOx
+    public float fuel;                //average fuel
 
+    //σ = √[ ∑(x-mean)2 / N ]
 
-    public void XMLCar(){
+    public void XMLCar() {
     }
 
     public int getId() {
@@ -34,6 +36,14 @@ public class CarTrip {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getVehicleType() {
+        return vehicleType;
+    }
+
+    public void setVehicleType(String vehicleType) {
+        this.vehicleType = vehicleType;
     }
 
     public float getDepart() {

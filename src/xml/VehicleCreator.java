@@ -122,7 +122,7 @@ public class VehicleCreator {
             StreamResult result = new StreamResult(newXmlPath);
 
             // Output to console for testing
-            // StreamResult result = new StreamResult(System.out);
+            //  StreamResult result = new StreamResult(System.out);
 
             transformer.transform(source, result);
 
