@@ -22,7 +22,6 @@ public class TrafficLightAgent extends Agent {
 
     public static boolean IS_FIXED_BEHAVIOUR = true;
 
-    private ContainerController parentContainer;
     private ArrayList<String> neighbours;
     private int nrIntersections;
     private int nrStates;
@@ -35,15 +34,14 @@ public class TrafficLightAgent extends Agent {
 
     private Logger myLogger = Logger.getMyLogger(getClass().getName());
 
-    public TrafficLightAgent(Sumo sumo, ContainerController mainContainer, String name, ArrayList<String> neighbours) throws Exception {
+    public TrafficLightAgent(Sumo sumo, String name, ArrayList<String> neighbours) throws Exception {
         super();
         this.name = "TrafficLight-" + name;
-        parentContainer = mainContainer;
         this.neighbours = neighbours;
-        // TODO: consider emergency vehicles
         // for emergency vehicles, we must add actions according to the number of intersections it could come from
         nrIntersections = neighbours.size();
         nrStates = (int) Math.pow(TrafficLightState.NR_STATES_PER_LIGHT, nrIntersections); // for green time-frames
+        // TODO: consider emergency vehicles
         nrActions = (int) Math.pow(TrafficLightState.ACTIONS_BY_LIGHT, nrIntersections);  // corresponding to increase, maintain and decrease the red and green time-frames
         qTeacher = new QLearning(nrStates, nrActions);
         currentState = new TrafficLightState(nrIntersections, nrStates);
@@ -116,15 +114,13 @@ public class TrafficLightAgent extends Agent {
             ACLMessage msg = myAgent.receive();
             if (msg != null) {
                 ACLMessage reply = msg.createReply();
+                String sender = msg.getSender().getLocalName();
                 if (msg.getPerformative() == ACLMessage.REQUEST) {
                     String content = msg.getContent();
                     if (content != null) {
-                        String sender = msg.getSender().getLocalName();
                         if (content.indexOf("reward") != -1) {
                             myLogger.log(Logger.INFO, "Agent " + getLocalName() + " - Received REWARD Request from " + msg.getSender().getLocalName());
                             reply.setPerformative(ACLMessage.INFORM);
-
-
 
                             int reward = tlController.getRewardForLane(sender.substring(13, 16) + "to" + name.substring(13, 16) + "_0");
                             reply.setContent(Integer.toString(reward));

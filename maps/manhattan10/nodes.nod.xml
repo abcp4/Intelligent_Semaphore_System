@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Dec  8 08:09:12 2014 by SUMO netgenerate Version 0.19.0
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netgenerateConfiguration.xsd">
+
+    <grid_network>
+        <grid value="true"/>
+        <grid.x-number value="10"/>
+        <grid.y-number value="10"/>
+        <grid.x-length value="200"/>
+        <grid.y-length value="200"/>
+    </grid_network>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="nodes"/>
+    </output>
+
+    <tls_building>
+        <tls.guess value="true"/>
+    </tls_building>
+
+    <processing>
+        <no-turnarounds value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/nodes_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,1800.00,1800.00" origBoundary="0.00,0.00,1800.00,1800.00" projParameter="!"/>
+
+    <node id="0/0" x="0.00" y="0.00" type="priority"/>
+    <node id="0/1" x="0.00" y="200.00" type="traffic_light" tl="0/1"/>
+    <node id="0/2" x="0.00" y="400.00" type="traffic_light" tl="0/2"/>
+    <node id="0/3" x="0.00" y="600.00" type="traffic_light" tl="0/3"/>
+    <node id="0/4" x="0.00" y="800.00" type="traffic_light" tl="0/4"/>
+    <node id="0/5" x="0.00" y="1000.00" type="traffic_light" tl="0/5"/>
+    <node id="0/6" x="0.00" y="1200.00" type="traffic_light" tl="0/6"/>
+    <node id="0/7" x="0.00" y="1400.00" type="traffic_light" tl="0/7"/>
+    <node id="0/8" x="0.00" y="1600.00" type="traffic_light" tl="0/8"/>
+    <node id="0/9" x="0.00" y="1800.00" type="priority"/>
+    <node id="1/0" x="200.00" y="0.00" type="traffic_light" tl="1/0"/>
+    <node id="1/1" x="200.00" y="200.00" type="traffic_light" tl="1/1"/>
+    <node id="1/2" x="200.00" y="400.00" type="traffic_light" tl="1/2"/>
+    <node id="1/3" x="200.00" y="600.00" type="traffic_light" tl="1/3"/>
+    <node id="1/4" x="200.00" y="800.00" type="traffic_light" tl="1/4"/>
+    <node id="1/5" x="200.00" y="1000.00" type="traffic_light" tl="1/5"/>
+    <node id="1/6" x="200.00" y="1200.00" type="traffic_light" tl="1/6"/>
+    <node id="1/7" x="200.00" y="1400.00" type="traffic_light" tl="1/7"/>
+    <node id="1/8" x="200.00" y="1600.00" type="traffic_light" tl="1/8"/>
+    <node id="1/9" x="200.00" y="1800.00" type="traffic_light" tl="1/9"/>
+    <node id="2/0" x="400.00" y="0.00" type="traffic_light" tl="2/0"/>
+    <node id="2/1" x="400.00" y="200.00" type="traffic_light" tl="2/1"/>
+    <node id="2/2" x="400.00" y="400.00" type="traffic_light" tl="2/2"/>
+    <node id="2/3" x="400.00" y="600.00" type="traffic_light" tl="2/3"/>
+    <node id="2/4" x="400.00" y="800.00" type="traffic_light" tl="2/4"/>
+    <node id="2/5" x="400.00" y="1000.00" type="traffic_light" tl="2/5"/>
+    <node id="2/6" x="400.00" y="1200.00" type="traffic_light" tl="2/6"/>
+    <node id="2/7" x="400.00" y="1400.00" type="traffic_light" tl="2/7"/>
+    <node id="2/8" x="400.00" y="1600.00" type="traffic_light" tl="2/8"/>
+    <node id="2/9" x="400.00" y="1800.00" type="traffic_light" tl="2/9"/>
+    <node id="3/0" x="600.00" y="0.00" type="traffic_light" tl="3/0"/>
+    <node id="3/1" x="600.00" y="200.00" type="traffic_light" tl="3/1"/>
+    <node id="3/2" x="600.00" y="400.00" type="traffic_light" tl="3/2"/>
+    <node id="3/3" x="600.00" y="600.00" type="traffic_light" tl="3/3"/>
+    <node id="3/4" x="600.00" y="800.00" type="traffic_light" tl="3/4"/>
+    <node id="3/5" x="600.00" y="1000.00" type="traffic_light" tl="3/5"/>
+    <node id="3/6" x="600.00" y="1200.00" type="traffic_light" tl="3/6"/>
+    <node id="3/7" x="600.00" y="1400.00" type="traffic_light" tl="3/7"/>
+    <node id="3/8" x="600.00" y="1600.00" type="traffic_light" tl="3/8"/>
+    <node id="3/9" x="600.00" y="1800.00" type="traffic_light" tl="3/9"/>
+    <node id="4/0" x="800.00" y="0.00" type="traffic_light" tl="4/0"/>
+    <node id="4/1" x="800.00" y="200.00" type="traffic_light" tl="4/1"/>
+    <node id="4/2" x="800.00" y="400.00" type="traffic_light" tl="4/2"/>
+    <node id="4/3" x="800.00" y="600.00" type="traffic_light" tl="4/3"/>
+    <node id="4/4" x="800.00" y="800.00" type="traffic_light" tl="4/4"/>
+    <node id="4/5" x="800.00" y="1000.00" type="traffic_light" tl="4/5"/>
+    <node id="4/6" x="800.00" y="1200.00" type="traffic_light" tl="4/6"/>
+    <node id="4/7" x="800.00" y="1400.00" type="traffic_light" tl="4/7"/>
+    <node id="4/8" x="800.00" y="1600.00" type="traffic_light" tl="4/8"/>
+    <node id="4/9" x="800.00" y="1800.00" type="traffic_light" tl="4/9"/>
+    <node id="5/0" x="1000.00" y="0.00" type="traffic_light" tl="5/0"/>
+    <node id="5/1" x="1000.00" y="200.00" type="traffic_light" tl="5/1"/>
+    <node id="5/2" x="1000.00" y="400.00" type="traffic_light" tl="5/2"/>
+    <node id="5/3" x="1000.00" y="600.00" type="traffic_light" tl="5/3"/>
+    <node id="5/4" x="1000.00" y="800.00" type="traffic_light" tl="5/4"/>
+    <node id="5/5" x="1000.00" y="1000.00" type="traffic_light" tl="5/5"/>
+    <node id="5/6" x="1000.00" y="1200.00" type="traffic_light" tl="5/6"/>
+    <node id="5/7" x="1000.00" y="1400.00" type="traffic_light" tl="5/7"/>
+    <node id="5/8" x="1000.00" y="1600.00" type="traffic_light" tl="5/8"/>
+    <node id="5/9" x="1000.00" y="1800.00" type="traffic_light" tl="5/9"/>
+    <node id="6/0" x="1200.00" y="0.00" type="traffic_light" tl="6/0"/>
+    <node id="6/1" x="1200.00" y="200.00" type="traffic_light" tl="6/1"/>
+    <node id="6/2" x="1200.00" y="400.00" type="traffic_light" tl="6/2"/>
+    <node id="6/3" x="1200.00" y="600.00" type="traffic_light" tl="6/3"/>
+    <node id="6/4" x="1200.00" y="800.00" type="traffic_light" tl="6/4"/>
+    <node id="6/5" x="1200.00" y="1000.00" type="traffic_light" tl="6/5"/>
+    <node id="6/6" x="1200.00" y="1200.00" type="traffic_light" tl="6/6"/>
+    <node id="6/7" x="1200.00" y="1400.00" type="traffic_light" tl="6/7"/>
+    <node id="6/8" x="1200.00" y="1600.00" type="traffic_light" tl="6/8"/>
+    <node id="6/9" x="1200.00" y="1800.00" type="traffic_light" tl="6/9"/>
+    <node id="7/0" x="1400.00" y="0.00" type="traffic_light" tl="7/0"/>
+    <node id="7/1" x="1400.00" y="200.00" type="traffic_light" tl="7/1"/>
+    <node id="7/2" x="1400.00" y="400.00" type="traffic_light" tl="7/2"/>
+    <node id="7/3" x="1400.00" y="600.00" type="traffic_light" tl="7/3"/>
+    <node id="7/4" x="1400.00" y="800.00" type="traffic_light" tl="7/4"/>
+    <node id="7/5" x="1400.00" y="1000.00" type="traffic_light" tl="7/5"/>
+    <node id="7/6" x="1400.00" y="1200.00" type="traffic_light" tl="7/6"/>
+    <node id="7/7" x="1400.00" y="1400.00" type="traffic_light" tl="7/7"/>
+    <node id="7/8" x="1400.00" y="1600.00" type="traffic_light" tl="7/8"/>
+    <node id="7/9" x="1400.00" y="1800.00" type="traffic_light" tl="7/9"/>
+    <node id="8/0" x="1600.00" y="0.00" type="traffic_light" tl="8/0"/>
+    <node id="8/1" x="1600.00" y="200.00" type="traffic_light" tl="8/1"/>
+    <node id="8/2" x="1600.00" y="400.00" type="traffic_light" tl="8/2"/>
+    <node id="8/3" x="1600.00" y="600.00" type="traffic_light" tl="8/3"/>
+    <node id="8/4" x="1600.00" y="800.00" type="traffic_light" tl="8/4"/>
+    <node id="8/5" x="1600.00" y="1000.00" type="traffic_light" tl="8/5"/>
+    <node id="8/6" x="1600.00" y="1200.00" type="traffic_light" tl="8/6"/>
+    <node id="8/7" x="1600.00" y="1400.00" type="traffic_light" tl="8/7"/>
+    <node id="8/8" x="1600.00" y="1600.00" type="traffic_light" tl="8/8"/>
+    <node id="8/9" x="1600.00" y="1800.00" type="traffic_light" tl="8/9"/>
+    <node id="9/0" x="1800.00" y="0.00" type="priority"/>
+    <node id="9/1" x="1800.00" y="200.00" type="traffic_light" tl="9/1"/>
+    <node id="9/2" x="1800.00" y="400.00" type="traffic_light" tl="9/2"/>
+    <node id="9/3" x="1800.00" y="600.00" type="traffic_light" tl="9/3"/>
+    <node id="9/4" x="1800.00" y="800.00" type="traffic_light" tl="9/4"/>
+    <node id="9/5" x="1800.00" y="1000.00" type="traffic_light" tl="9/5"/>
+    <node id="9/6" x="1800.00" y="1200.00" type="traffic_light" tl="9/6"/>
+    <node id="9/7" x="1800.00" y="1400.00" type="traffic_light" tl="9/7"/>
+    <node id="9/8" x="1800.00" y="1600.00" type="traffic_light" tl="9/8"/>
+    <node id="9/9" x="1800.00" y="1800.00" type="priority"/>
+</nodes>

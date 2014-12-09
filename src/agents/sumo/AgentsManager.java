@@ -33,12 +33,12 @@ public class AgentsManager {
                 neighbours.add(n);
             }
 
-            reorderNeighbours(tlId, neighbours);
+            //reorderNeighbours(tlId, neighbours);
 
             TrafficLightAgent agent;
 
             try {
-                agent = new TrafficLightAgent(sumo, mainContainer, tlId, neighbours);
+                agent = new TrafficLightAgent(sumo, tlId, neighbours);
 
                 agents.add(agent);
                 mainContainer.acceptNewAgent("TrafficLight-" + tlId, agent);
