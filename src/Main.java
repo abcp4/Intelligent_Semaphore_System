@@ -22,11 +22,6 @@ public class Main {
 
     public static void main(String[] args) throws UnimplementedMethod, InterruptedException, IOException,
             TimeoutException {
-/*      VehicleCreator vc = new VehicleCreator();
-        vc.generateVehicles(80, 10, 10, "maps\\manhattan\\routes.rou.xml",
-                "maps\\manhattan\\routes.rou.xml");*/
-
-
 
         if (JADE_GUI) {
             List<String> params = new ArrayList<String>();
@@ -41,7 +36,7 @@ public class Main {
 
         // Init TraSMAPI framework
         TraSMAPI api = new TraSMAPI();
-        String map = "manhattan10";
+        String map = "manhattan3";
         //Create SUMO
         Sumo sumo = new Sumo("guisim");
         List<String> params = new ArrayList<String>();
