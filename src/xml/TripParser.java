@@ -7,13 +7,20 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 
 public class TripParser {
 
     public void TripParser() {
         System.out.println("Trip parser initialized");
+    }
+
+    public static void main (String args[]) throws FileNotFoundException, UnsupportedEncodingException {
+        TripParser tp = new TripParser();
+        ArrayList<CarTrip> ct = tp.getCarData("C:\\Users\\Vinnie\\Projects\\AIAD\\manhattan\\bettermanhattan\\logs" +
+                "\\trip.xml");
+        tp.getSimulationData(ct, "result.txt");
     }
 
     public ArrayList<CarTrip> getCarData(String xmlPath) {
@@ -86,7 +93,8 @@ public class TripParser {
         return carTrips;
     }
 
-    public static void getSimulationData(ArrayList<CarTrip> data) {
+    public static void getSimulationData(ArrayList<CarTrip> data, String resultPath) throws FileNotFoundException,
+            UnsupportedEncodingException {
         double averageSpeed, averageWait, averageCO, averageCO2, averageHC, averagePMx, averageNOx, averageFuel;
         averageSpeed = averageWait = averageCO = averageCO2 = averageHC = averagePMx = averageNOx = averageFuel = 0;
 
@@ -248,8 +256,9 @@ public class TripParser {
         emeSdFuel = Math.sqrt(emeSdFuel / emeC);
 
         // Printing results
+        PrintWriter writer = new PrintWriter(resultPath, "UTF-8");
 
-        System.out.println("Normal Vehicle Data: \n--------------------------------------------\n" +
+        String norData = "Normal Vehicle Data: \n--------------------------------------------\n" +
                 "Average Speed (m/s): " + averageSpeed + "\n" +
                 "Speed Standart Deviation: " + sdSpeed + "\n" +
                 "Average Wait Steps: " + averageWait + "\n" +
@@ -265,9 +274,12 @@ public class TripParser {
                 "Average NOx (mg/m): " + averageNOx + "\n" +
                 "NOx Standart Deviation: " + sdNOx + "\n" +
                 "Average Fuel Consumption (ml/m): " + averageFuel + "\n" +
-                "Fuel Consumption Standart Deviation: " + sdFuel + "\n");
+                "Fuel Consumption Standart Deviation: " + sdFuel + "\n";
 
-        System.out.println("Bus Data: \n--------------------------------------------\n" +
+        writer.println(norData);
+        System.out.println(norData);
+
+        String busData = "Bus Data: \n--------------------------------------------\n" +
                 "Average Speed (m/s): " + busAverageSpeed + "\n" +
                 "Speed Standart Deviation: " + busSdSpeed + "\n" +
                 "Average Wait Steps: " + busAverageWait + "\n" +
@@ -283,9 +295,12 @@ public class TripParser {
                 "Average NOx (mg/m): " + busAverageNOx + "\n" +
                 "NOx Standart Deviation: " + busSdNOx + "\n" +
                 "Average Fuel Consumption (ml/m): " + busAverageFuel + "\n" +
-                "Fuel Consumption Standart Deviation: " + busSdFuel + "\n");
+                "Fuel Consumption Standart Deviation: " + busSdFuel + "\n";
 
-        System.out.println("Emergency Vehicle Data: \n--------------------------------------------\n" +
+        writer.println(busData);
+        System.out.println(busData);
+
+        String emeData = "Emergency Vehicle Data: \n--------------------------------------------\n" +
                 "Average Speed (m/s): " + emeAverageSpeed + "\n" +
                 "Speed Standart Deviation: " + emeSdSpeed + "\n" +
                 "Average Wait Steps: " + emeAverageWait + "\n" +
@@ -301,7 +316,12 @@ public class TripParser {
                 "Average NOx (mg/m): " + emeAverageNOx + "\n" +
                 "NOx Standart Deviation: " + emeSdNOx + "\n" +
                 "Average Fuel Consumption (ml/m): " + emeAverageFuel + "\n" +
-                "Fuel Consumption Standart Deviation: " + emeSdFuel + "\n");
+                "Fuel Consumption Standart Deviation: " + emeSdFuel + "\n";
+
+        writer.println(emeData);
+        System.out.println(emeData);
+        writer.flush();
+        writer.close();
     }
 
 }
