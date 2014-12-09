@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -12,10 +13,18 @@
         <end value="100000"/>
     </time>
 
+    <report>
+        <verbose value="true"/>
+        <log value="log.gui"/>
+    </report>
+    <traci_server>
+        <remote-port value="8820"/>
+    </traci_server>
+
     <processing>
         <time-to-teleport value="-1"/>
     </processing>
- <gui_only>
+    <gui_only>
         <start value="true"/>
-</gui_only>
+    </gui_only>
 </configuration>

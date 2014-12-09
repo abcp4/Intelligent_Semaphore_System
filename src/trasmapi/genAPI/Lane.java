@@ -27,6 +27,10 @@ public class Lane implements Comparable<Lane> {
 	public int getNumVehicles() throws UnimplementedMethod {
 		throw new UnimplementedMethod();
 	}
+
+	public int getNumVehicles(String type) throws UnimplementedMethod {
+		throw new UnimplementedMethod();
+	}
 	
 	public void loadLength() throws UnimplementedMethod {
 		throw new UnimplementedMethod();
@@ -39,4 +43,5 @@ public class Lane implements Comparable<Lane> {
     public double getLength() throws UnimplementedMethod {
         throw new UnimplementedMethod();
     }
+
 }

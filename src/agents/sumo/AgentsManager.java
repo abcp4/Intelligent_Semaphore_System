@@ -33,7 +33,7 @@ public class AgentsManager {
                 neighbours.add(n);
             }
 
-            //reorderNeighbours(tlId, neighbours);
+            reorderNeighbours(tlId, neighbours);
 
             TrafficLightAgent agent;
 

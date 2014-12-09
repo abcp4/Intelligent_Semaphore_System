@@ -102,9 +102,15 @@ public class TLController implements Runnable {
 
     public int getRewardForLane(String id) {
         SumoLane lane = new SumoLane(id);
-        int numVehicles = lane.getNumVehicles();
-        int laneDim = 10; // TODO: get lane dim
+        int numVehicles = 0;
+        numVehicles += lane.getNumVehicles("nor");
+        numVehicles += lane.getNumVehicles("pub") * 2;
+        numVehicles += lane.getNumVehicles("eme") * 3;
+
+        int laneDim = (int) Math.floor(lane.getLength());
         float ratio = (float) numVehicles / (float) laneDim;
+
+        System.out.println("Reward for " + id + ": " + ratio);
 
         if (ratio > 0.5) {
             return 0;

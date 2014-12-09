@@ -15,6 +15,13 @@
     <processing>
         <time-to-teleport value="-1"/>
     </processing>
+    <report>
+        <verbose value="true"/>
+        <log value="log.gui"/>
+    </report>
+    <traci_server>
+        <remote-port value="8820"/>
+    </traci_server>
  <gui_only>
         <start value="true"/>
 </gui_only>

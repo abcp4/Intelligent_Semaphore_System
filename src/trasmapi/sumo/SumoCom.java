@@ -123,7 +123,7 @@ public class SumoCom {
 
 		if (!connected) {
 			proc.destroy();
-			throw new TimeoutException();
+			System.exit(0);
 		}
 
 		try {

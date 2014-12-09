@@ -20,7 +20,7 @@ import java.util.Arrays;
 
 public class TrafficLightAgent extends Agent {
 
-    public static boolean IS_FIXED_BEHAVIOUR = true;
+    public static boolean IS_FIXED_BEHAVIOUR = false;
 
     private ArrayList<String> neighbours;
     private int nrIntersections;
@@ -82,7 +82,7 @@ public class TrafficLightAgent extends Agent {
         dfd.addServices(sd);
         try {
             DFService.register(this, dfd);
-            if (IS_FIXED_BEHAVIOUR) {
+            if (!IS_FIXED_BEHAVIOUR) {
                 WaitRequestAndReplyRewardBehaviour RewardBehaviour = new WaitRequestAndReplyRewardBehaviour(this);
                 addBehaviour(RewardBehaviour);
             }

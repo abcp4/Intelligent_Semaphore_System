@@ -25,7 +25,6 @@ public class TrafficLightState implements State {
         this.nrIntersections = nrIntersections;
         greenTimeSpans = new int[nrIntersections];
         if (!TrafficLightAgent.IS_FIXED_BEHAVIOUR) {
-            System.err.println(nrIntersections + " " + nrStates);
             updateState(new Random().nextInt(nrStates));
         } else {
             state = 0;
