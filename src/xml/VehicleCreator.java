@@ -20,6 +20,7 @@ public class VehicleCreator {
     public static void main(String[] args) {
         String path = "";
         if (args.length != 1) {
+            System.err.println("Provide a file input");
             System.exit(1);
         }
         path = args[0];

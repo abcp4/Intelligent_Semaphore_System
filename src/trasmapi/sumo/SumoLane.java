@@ -44,7 +44,6 @@ public class SumoLane extends Lane {
         ArrayList<String> idList = new ArrayList<String>();
 
         //cmd.print("SetMaxSpeed");
-        cmd.print("message sent from lane \n");
         RequestMessage reqMsg = new RequestMessage();
         reqMsg.addCommand(cmd);
 
@@ -53,8 +52,7 @@ public class SumoLane extends Lane {
             ResponseMessage rspMsg = SumoCom.query(reqMsg);
             Content content = rspMsg.validate((byte) Constants.CMD_GET_LANE_VARIABLE, (byte) Constants.RESPONSE_GET_LANE_VARIABLE,
                     (byte) 0x12, (byte) Constants.TYPE_STRINGLIST);
-            System.out.println("response message e esta\n");
-            rspMsg.print();
+            //rspMsg.print();
             idList = content.getStringList();
             SumoVehicle vehicleList[] = new SumoVehicle[idList.size()];
 
@@ -130,8 +128,6 @@ public class SumoLane extends Lane {
         cmd.setContent(cnt);
         ArrayList<String> idList = new ArrayList<String>();
 
-        //cmd.print("SetMaxSpeed");
-        cmd.print("message sent from lane \n");
         RequestMessage reqMsg = new RequestMessage();
         reqMsg.addCommand(cmd);
 

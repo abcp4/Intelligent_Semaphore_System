@@ -51,6 +51,10 @@ public class TLController implements Runnable {
                 int endPhase = initPhase;
 
                 while (greenTime > (endPhase - initPhase + 5)) {
+                    // if emergencyApproaching, change immediately
+                    if (emergencyIndex != -1) {
+                        break;
+                    }
                     try {
                         Thread.sleep(1);
                     } catch (InterruptedException e) {
@@ -64,18 +68,16 @@ public class TLController implements Runnable {
 
                 endPhase = sumo.getCurrentSimStep() / 1000;
                 while (greenTime > (endPhase - initPhase)) {
-                    // if emergencyApproaching, change immediately
-                    if (emergencyIndex != -1) {
-                        i = emergencyIndex - 1;
-                        emergencyIndex = -1;
-                        break;
-                    }
                     try {
                         Thread.sleep(1);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     endPhase = sumo.getCurrentSimStep() / 1000;
+                }
+                if (emergencyIndex != -1) {
+                    i = emergencyIndex - 1;
+                    emergencyIndex = -1;
                 }
             }
             parentAgent.requestReward();
@@ -138,10 +140,16 @@ public class TLController implements Runnable {
                 lanes.add(new SumoLane(n + "to" + name + "_0"));
             }
             while (true) {
+                try {
                 for (int i = 0; i < lanes.size(); i++) {
                     if (lanes.get(i).getNumVehicles("eme") != 0) {
                         emergencyIndex = i;
                     }
+                    Thread.sleep(50);
+                }
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         }

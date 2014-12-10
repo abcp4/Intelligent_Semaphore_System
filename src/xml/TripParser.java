@@ -17,9 +17,12 @@ public class TripParser {
     }
 
     public static void main (String args[]) throws FileNotFoundException, UnsupportedEncodingException {
+        if (args.length != 1) {
+            System.err.println("Provide a file input");
+            System.exit(1);
+        }
         TripParser tp = new TripParser();
-        ArrayList<CarTrip> ct = tp.getCarData("C:\\Users\\Vinnie\\Projects\\AIAD\\manhattan\\bettermanhattan\\logs" +
-                "\\trip.xml");
+        ArrayList<CarTrip> ct = tp.getCarData(args[0]);
         tp.getSimulationData(ct, "result.txt");
     }
 
@@ -64,8 +67,8 @@ public class TripParser {
                     carTrip.setRouteLength(Float.parseFloat(eElement.getAttribute("routeLength")));
                     carTrip.setWaitSteps(Integer.parseInt(eElement.getAttribute("waitSteps")));
 
-                    /*System.out.println("Reroute No : " + eElement.getAttribute("rerouteNo"));  --  NOT USED*/
-                    /*System.out.println("Devices : " + eElement.getAttribute("devices"));  --  NOT USED*/
+                    /*System.out.println("Reroute No : \t" + eElement.getAttribute("rerouteNo"));  --  NOT USED*/
+                    /*System.out.println("Devices : \t" + eElement.getAttribute("devices"));  --  NOT USED*/
 
                     NodeList emissions = eElement.getElementsByTagName("emissions");
 
@@ -259,64 +262,64 @@ public class TripParser {
         PrintWriter writer = new PrintWriter(resultPath, "UTF-8");
 
         String norData = "Normal Vehicle Data: \n--------------------------------------------\n" +
-                "Average Speed (m/s): " + averageSpeed + "\n" +
-                "Speed Standart Deviation: " + sdSpeed + "\n" +
-                "Average Wait Steps: " + averageWait + "\n" +
-                "Wait Steps Standart Deviation: " + sdWait + "\n" +
-                "Average CO (mg/m): " + averageCO + "\n" +
-                "CO Standart Deviation: " + sdCO + "\n" +
-                "Average CO2 (mg/m): " + averageCO2 + "\n" +
-                "CO2 Standart Deviation: " + sdCO2 + "\n" +
-                "Average HC (mg/m): " + averageHC + "\n" +
-                "HC Standart Deviation: " + sdHC + "\n" +
-                "Average PMx (mg/m): " + averagePMx + "\n" +
-                "PMx Standart Deviation: " + sdPMx + "\n" +
-                "Average NOx (mg/m): " + averageNOx + "\n" +
-                "NOx Standart Deviation: " + sdNOx + "\n" +
-                "Average Fuel Consumption (ml/m): " + averageFuel + "\n" +
-                "Fuel Consumption Standart Deviation: " + sdFuel + "\n";
+                "Average Speed (m/s): \t" + averageSpeed + "\n" +
+                "Speed Standart Deviation: \t" + sdSpeed + "\n" +
+                "Average Wait Steps: \t" + averageWait + "\n" +
+                "Wait Steps Standart Deviation: \t" + sdWait + "\n" +
+                "Average CO (mg/m): \t" + averageCO + "\n" +
+                "CO Standart Deviation: \t" + sdCO + "\n" +
+                "Average CO2 (mg/m): \t" + averageCO2 + "\n" +
+                "CO2 Standart Deviation: \t" + sdCO2 + "\n" +
+                "Average HC (mg/m): \t" + averageHC + "\n" +
+                "HC Standart Deviation: \t" + sdHC + "\n" +
+                "Average PMx (mg/m): \t" + averagePMx + "\n" +
+                "PMx Standart Deviation: \t" + sdPMx + "\n" +
+                "Average NOx (mg/m): \t" + averageNOx + "\n" +
+                "NOx Standart Deviation: \t" + sdNOx + "\n" +
+                "Average Fuel Consumption (ml/m): \t" + averageFuel + "\n" +
+                "Fuel Consumption Standart Deviation: \t" + sdFuel + "\n";
 
         writer.println(norData);
         System.out.println(norData);
 
         String busData = "Bus Data: \n--------------------------------------------\n" +
-                "Average Speed (m/s): " + busAverageSpeed + "\n" +
-                "Speed Standart Deviation: " + busSdSpeed + "\n" +
-                "Average Wait Steps: " + busAverageWait + "\n" +
-                "Wait Steps Standart Deviation: " + busSdWait + "\n" +
-                "Average CO (mg/m): " + busAverageCO + "\n" +
-                "CO Standart Deviation: " + busSdCO + "\n" +
-                "Average CO2 (mg/m): " + busAverageCO2 + "\n" +
-                "CO2 Standart Deviation: " + busSdCO2 + "\n" +
-                "Average HC (mg/m): " + busAverageHC + "\n" +
-                "HC Standart Deviation: " + busSdHC + "\n" +
-                "Average PMx (mg/m): " + busAveragePMx + "\n" +
-                "PMx Standart Deviation: " + busSdPMx + "\n" +
-                "Average NOx (mg/m): " + busAverageNOx + "\n" +
-                "NOx Standart Deviation: " + busSdNOx + "\n" +
-                "Average Fuel Consumption (ml/m): " + busAverageFuel + "\n" +
-                "Fuel Consumption Standart Deviation: " + busSdFuel + "\n";
+                "Average Speed (m/s): \t" + busAverageSpeed + "\n" +
+                "Speed Standart Deviation: \t" + busSdSpeed + "\n" +
+                "Average Wait Steps: \t" + busAverageWait + "\n" +
+                "Wait Steps Standart Deviation: \t" + busSdWait + "\n" +
+                "Average CO (mg/m): \t" + busAverageCO + "\n" +
+                "CO Standart Deviation: \t" + busSdCO + "\n" +
+                "Average CO2 (mg/m): \t" + busAverageCO2 + "\n" +
+                "CO2 Standart Deviation: \t" + busSdCO2 + "\n" +
+                "Average HC (mg/m): \t" + busAverageHC + "\n" +
+                "HC Standart Deviation: \t" + busSdHC + "\n" +
+                "Average PMx (mg/m): \t" + busAveragePMx + "\n" +
+                "PMx Standart Deviation: \t" + busSdPMx + "\n" +
+                "Average NOx (mg/m): \t" + busAverageNOx + "\n" +
+                "NOx Standart Deviation: \t" + busSdNOx + "\n" +
+                "Average Fuel Consumption (ml/m): \t" + busAverageFuel + "\n" +
+                "Fuel Consumption Standart Deviation: \t" + busSdFuel + "\n";
 
         writer.println(busData);
         System.out.println(busData);
 
         String emeData = "Emergency Vehicle Data: \n--------------------------------------------\n" +
-                "Average Speed (m/s): " + emeAverageSpeed + "\n" +
-                "Speed Standart Deviation: " + emeSdSpeed + "\n" +
-                "Average Wait Steps: " + emeAverageWait + "\n" +
-                "Wait Steps Standart Deviation: " + emeSdWait + "\n" +
-                "Average CO (mg/m): " + emeAverageCO + "\n" +
-                "CO Standart Deviation: " + emeSdCO + "\n" +
-                "Average CO2 (mg/m): " + emeAverageCO2 + "\n" +
-                "CO2 Standart Deviation: " + emeSdCO2 + "\n" +
-                "Average HC (mg/m): " + emeAverageHC + "\n" +
-                "HC Standart Deviation: " + emeSdHC + "\n" +
-                "Average PMx (mg/m): " + emeAveragePMx + "\n" +
-                "PMx Standart Deviation: " + emeSdPMx + "\n" +
-                "Average NOx (mg/m): " + emeAverageNOx + "\n" +
-                "NOx Standart Deviation: " + emeSdNOx + "\n" +
-                "Average Fuel Consumption (ml/m): " + emeAverageFuel + "\n" +
-                "Fuel Consumption Standart Deviation: " + emeSdFuel + "\n";
+                "Average Speed (m/s): \t" + emeAverageSpeed + "\n" +
+                "Speed Standart Deviation: \t" + emeSdSpeed + "\n" +
+                "Average Wait Steps: \t" + emeAverageWait + "\n" +
+                "Wait Steps Standart Deviation: \t" + emeSdWait + "\n" +
+                "Average CO (mg/m): \t" + emeAverageCO + "\n" +
+                "CO Standart Deviation: \t" + emeSdCO + "\n" +
+                "Average CO2 (mg/m): \t" + emeAverageCO2 + "\n" +
+                "CO2 Standart Deviation: \t" + emeSdCO2 + "\n" +
+                "Average HC (mg/m): \t" + emeAverageHC + "\n" +
+                "HC Standart Deviation: \t" + emeSdHC + "\n" +
+                "Average PMx (mg/m): \t" + emeAveragePMx + "\n" +
+                "PMx Standart Deviation: \t" + emeSdPMx + "\n" +
+                "Average NOx (mg/m): \t" + emeAverageNOx + "\n" +
+                "NOx Standart Deviation: \t" + emeSdNOx + "\n" +
+                "Average Fuel Consumption (ml/m): \t" + emeAverageFuel + "\n" +
+                "Fuel Consumption Standart Deviation: \t" + emeSdFuel + "\n";
 
         writer.println(emeData);
         System.out.println(emeData);
