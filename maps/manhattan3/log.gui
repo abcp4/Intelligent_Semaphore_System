@@ -1,0 +1,13 @@
+***Starting server on port 8820 ***
+Loading net-file from 'maps/manhattan3/net.net.xml'...  done (6ms).
+Loading done.
+Simulation started with time: 0.00
+Performance: 
+ Duration: 11820 ms
+ Real time factor: 15.9052
+ UPS: 326.142132
+Vehicles: 
+ Inserted: 47 (Loaded: 98)
+ Running: 35
+ Waiting: 0
+
