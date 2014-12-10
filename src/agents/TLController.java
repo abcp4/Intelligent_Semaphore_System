@@ -12,6 +12,7 @@ public class TLController implements Runnable {
     private Sumo sumo;
     private ArrayList<String> neighbours;
     private TrafficLightAgent parentAgent;
+    private int emergencyIndex = -1;
 
     private int[] greenTimeSpans;
 
@@ -22,6 +23,7 @@ public class TLController implements Runnable {
         this.neighbours = new ArrayList<>(neighbours);
         this.greenTimeSpans = new int[neighbours.size()];
         updateTimeSpans(greenTimeSpans);
+        new Thread(new EmergencyChecker()).start();
     }
 
     public void updateTimeSpans(int[] newGreenTimeSpans) {
@@ -62,6 +64,12 @@ public class TLController implements Runnable {
 
                 endPhase = sumo.getCurrentSimStep() / 1000;
                 while (greenTime > (endPhase - initPhase)) {
+                    // if emergencyApproaching, change immediately
+                    if (emergencyIndex != -1) {
+                        i = emergencyIndex - 1;
+                        emergencyIndex = -1;
+                        break;
+                    }
                     try {
                         Thread.sleep(1);
                     } catch (InterruptedException e) {
@@ -105,7 +113,7 @@ public class TLController implements Runnable {
         int numVehicles = 0;
         numVehicles += lane.getNumVehicles("nor");
         numVehicles += lane.getNumVehicles("pub") * 2;
-        numVehicles += lane.getNumVehicles("eme") * 3;
+        numVehicles += lane.getNumVehicles("eme") * 5;
 
         int laneDim = (int) Math.floor(lane.getLength());
         float ratio = (float) numVehicles / (float) laneDim;
@@ -118,6 +126,24 @@ public class TLController implements Runnable {
             return 1;
         } else {
             return 2;
+        }
+    }
+
+    private class EmergencyChecker implements Runnable {
+
+        @Override
+        public void run() {
+            ArrayList<SumoLane> lanes = new ArrayList<>();
+            for (String n : neighbours) {
+                lanes.add(new SumoLane(n + "to" + name + "_0"));
+            }
+            while (true) {
+                for (int i = 0; i < lanes.size(); i++) {
+                    if (lanes.get(i).getNumVehicles("eme") != 0) {
+                        emergencyIndex = i;
+                    }
+                }
+            }
         }
     }
 }

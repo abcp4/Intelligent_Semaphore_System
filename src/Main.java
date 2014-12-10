@@ -40,6 +40,9 @@ public class Main {
         //Create SUMO
         Sumo sumo = new Sumo("guisim");
         List<String> params = new ArrayList<String>();
+        params.add("--no-step-log");
+        //params.add("--max-depart-delay=100");
+        params.add("--xml-validation=never");
         params.add("--device.emissions.probability=1.0");
         params.add("--tripinfo-output=maps/logs/trip.xml");
         params.add("-c=maps/" + map + "/file.sumocfg");

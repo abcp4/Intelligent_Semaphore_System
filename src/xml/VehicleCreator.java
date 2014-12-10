@@ -22,10 +22,10 @@ public class VehicleCreator {
         if (args.length != 1) {
             System.exit(1);
         }
-        path = args[1];
+        path = args[0];
 
         VehicleCreator vc = new VehicleCreator();
-        vc.generateVehicles(80, 10, 10, path, "new" + path);
+        vc.generateVehicles(80, 10, 10, path, "new.xml");
     }
 
     public void generateVehicles(int normalPercentage, int emergencyPercentage, int busPercentage, String xmlPath,
@@ -105,24 +105,12 @@ public class VehicleCreator {
                 NodeList newVehicleList;
 
                 int partition = vehicleList.getLength() / 5;
-                int counter = 0;
+                int phaseCounter = 0;
+                double departureCounter = 1;
                 for (int temp = 0; temp < vehicleList.getLength(); temp++) {
-                    if (temp % partition == 0) {
-                        counter++;
-                    }
-                    double departureTime = 0;
-                    switch (counter) {
-                        case 1:
-                        case 3:
-                        case 5:
-                            departureTime = 4.0;
-                            break;
-                        default:
-                            departureTime = 1.0;
-                    }
                     Node nNode = vehicleList.item(temp).cloneNode(true);
                     Element vehicle = (Element) nNode;
-                    vehicle.setAttribute("depart", String.format("%.2f", departureTime));
+                    vehicle.setAttribute("depart", String.format("%.2f", departureCounter));
                     double d = Math.random() * 100;
                     if (d <= normalPercentage) {
                         vehicle.setAttribute("type", "nor");
@@ -134,7 +122,18 @@ public class VehicleCreator {
 
                     doc.adoptNode(nNode);
                     doc.getDocumentElement().appendChild(nNode);
-
+                    if (temp % partition == 0) {
+                        phaseCounter++;
+                    }
+                    switch (phaseCounter) {
+                        case 1:
+                        case 3:
+                        case 5:
+                            departureCounter += 4.0;
+                            break;
+                        default:
+                            departureCounter += 1.0;
+                    }
                 }
 
             } catch (Exception e) {
