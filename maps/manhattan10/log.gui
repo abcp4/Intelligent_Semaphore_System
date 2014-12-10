@@ -1,0 +1,19 @@
+***Starting server on port 8820 ***
+Loading net-file from 'maps/manhattan10/net.net.xml'...  done (251ms).
+Loading done.
+Simulation started with time: 0.00
+Warning: Vehicle '106' performs emergency stop at the end of lane '5/2to4/2_0 because of a red traffic light (decel=-13.48), time=198.00.
+Warning: Vehicle '2' performs emergency stop at the end of lane '7/7to7/8_0 because of a red traffic light (decel=-8.52), time=247.00.
+Warning: Teleporting vehicle '31'; collision with '2', lane='7/7to7/8_0', gap=-1.38, time=248.00 stage=move.
+Warning: Vehicle '31' ends teleporting on edge '7/8to7/9', time 248.00.
+Performance: 
+ Duration: 21707 ms
+ Real time factor: 27.1341
+ UPS: 6606.901000
+Vehicles: 
+ Inserted: 587 (Loaded: 789)
+ Running: 440
+ Waiting: 2
+Teleports: 1 (Collisions: 1)
+Emergency Stops: 2
+
