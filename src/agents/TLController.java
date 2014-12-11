@@ -65,9 +65,10 @@ public class TLController implements Runnable {
                 newState = buildState(i, "y");
                 System.out.println("Changed " + name + " to " + newState + " for 5 ticks");
                 light.setState(newState);
+                initPhase = sumo.getCurrentSimStep() / 1000;
+                endPhase = initPhase;
 
-                endPhase = sumo.getCurrentSimStep() / 1000;
-                while (greenTime > (endPhase - initPhase)) {
+                while (5 > (endPhase - initPhase)) {
                     try {
                         Thread.sleep(1);
                     } catch (InterruptedException e) {
@@ -78,6 +79,7 @@ public class TLController implements Runnable {
                 if (emergencyIndex != -1) {
                     i = emergencyIndex - 1;
                     emergencyIndex = -1;
+                    continue;
                 }
             }
             parentAgent.requestReward();
@@ -136,8 +138,8 @@ public class TLController implements Runnable {
         @Override
         public void run() {
             ArrayList<SumoLane> lanes = new ArrayList<>();
-            for (String n : neighbours) {
-                lanes.add(new SumoLane(n + "to" + name + "_0"));
+            for (int i = 0; i < neighbours.size(); i++) {
+                lanes.add(new SumoLane(neighbours.get(i) + "to" + name + "_0"));
             }
             while (true) {
                 try {
@@ -145,9 +147,9 @@ public class TLController implements Runnable {
                     if (lanes.get(i).getNumVehicles("eme") != 0) {
                         emergencyIndex = i;
                     }
-                    Thread.sleep(50);
+                    Thread.sleep(5);
                 }
-                    Thread.sleep(100);
+                    Thread.sleep(10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

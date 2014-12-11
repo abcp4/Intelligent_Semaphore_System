@@ -104,9 +104,8 @@ public class SumoLane extends Lane {
         SumoVehicle[] vehicles = vehiclesList();
         for (int i = 0; i < vehicles.length; i++) {
             if (vehicles[i].getTypeId().equals(type)) {
-
+                sum++;
             }
-            sum++;
         }
         return sum;
     }
