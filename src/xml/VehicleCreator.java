@@ -26,7 +26,7 @@ public class VehicleCreator {
         path = args[0];
 
         VehicleCreator vc = new VehicleCreator();
-        vc.generateVehicles(80, 10, 10, path, "new.xml");
+        vc.generateVehicles(92, 3, 5, path, "new.xml"); // normal, emergency, bus
     }
 
     public void generateVehicles(int normalPercentage, int emergencyPercentage, int busPercentage, String xmlPath,

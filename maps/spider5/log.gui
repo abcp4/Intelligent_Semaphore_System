@@ -1,0 +1,13 @@
+***Starting server on port 8820 ***
+Loading net-file from 'maps/spider5/net.net.xml'...  done (56ms).
+Loading done.
+Simulation started with time: 0.00
+Performance: 
+ Duration: 18185 ms
+ Real time factor: 76.4366
+ UPS: 33102.557053
+Vehicles: 
+ Inserted: 1381 (Loaded: 1590)
+ Running: 856
+ Waiting: 9
+
