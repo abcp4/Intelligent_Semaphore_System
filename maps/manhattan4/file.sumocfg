@@ -15,7 +15,7 @@
 
     <report>
         <verbose value="true"/>
-        <log value="log.gui"/>
+        <log value="utils.gui"/>
     </report>
     <traci_server>
         <remote-port value="8820"/>
