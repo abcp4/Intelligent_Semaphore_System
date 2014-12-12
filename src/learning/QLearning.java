@@ -7,10 +7,10 @@ import java.util.Random;
 public class QLearning {
 
     // impact of current update (0 <= alpha <= 1)
-    private static final float LEARNING_RATE = (float) 0.7;
+    private static final float LEARNING_RATE = (float) 1.0;
 
     // importance future nrStates' Q values (0 <= lambda <= 1)
-    private static final float DISCOUNT_FACTOR = (float) 0.3;
+    private static final float DISCOUNT_FACTOR = (float) 0.8;
 
     // factor that determines the map of the possible nrActions to a probability according to their Q-Value
     private static final float SOFTMAX_TEMP = (float) 0.5;
@@ -85,5 +85,14 @@ public class QLearning {
             }
         }
         return nextAction;
+    }
+
+    public void printQTable() {
+        for (int i = 0; i < qTable.length; i++) {
+            for (int j = 0; j < qTable[i].length; j++) {
+                System.out.printf(" %3d", qTable[i][j]);
+            }
+            System.out.println();
+        }
     }
 }

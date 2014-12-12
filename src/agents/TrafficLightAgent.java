@@ -114,7 +114,6 @@ public class TrafficLightAgent extends Agent {
             request.addReceiver(new AID(n, AID.ISLOCALNAME));
             request.setContent("emergency " + name);
             System.out.println("Sent emergency request to " + n);
-            ;
             send(request);
         }
 

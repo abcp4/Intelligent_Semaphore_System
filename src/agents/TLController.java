@@ -128,11 +128,11 @@ public class TLController implements Runnable {
         System.out.println("Reward for " + id + ": " + ratio);
 
         if (ratio > 0.5) {
-            return 0;
+            return 20;
         } else if (ratio > 0.25) {
-            return 1;
+            return 100;
         } else {
-            return 2;
+            return 0;
         }
     }
 
