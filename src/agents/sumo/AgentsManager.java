@@ -34,7 +34,6 @@ public class AgentsManager {
             }
 
             neighbours = reorderNeighbours(tlId, neighbours);
-            System.out.println(neighbours);;
 
             TrafficLightAgent agent;
 

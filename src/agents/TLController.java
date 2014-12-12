@@ -149,7 +149,6 @@ public class TLController implements Runnable {
 
         @Override
         public void run() {
-            System.err.println(neighbours);
             ArrayList<SumoLane> lanes = new ArrayList<>();
             for (int i = 0; i < neighbours.size(); i++) {
                 lanes.add(new SumoLane(neighbours.get(i) + "to" + name + "_0"));

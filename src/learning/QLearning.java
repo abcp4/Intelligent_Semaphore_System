@@ -75,8 +75,8 @@ public class QLearning {
 
         float randNr = new Random().nextFloat();
 
-        for (int i = 0; i < nrStates; i++) {
-            if (i == nrStates - 1) {
+        for (int i = 0; i < nrActions; i++) {
+            if (i == nrActions - 1) {
                 nextAction = i;
                 break;
             } else if (randNr < actionsProbabilities[i + 1]) {

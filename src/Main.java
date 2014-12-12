@@ -61,10 +61,10 @@ public class Main {
 
         api.connect();
 
-        api.start();
-
         AgentsManager manager = new AgentsManager(sumo, mainContainer);
         manager.startupAgents(mainContainer);
+
+        api.start();
 
         while (true) {
             if (!api.simulationStep(0)) {

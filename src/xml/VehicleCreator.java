@@ -134,7 +134,7 @@ public class VehicleCreator {
                             departureCounter += 4.0;
                             break;
                         default:
-                            departureCounter += 1.0;
+                            departureCounter += 2.0;
                     }
                 }
 
