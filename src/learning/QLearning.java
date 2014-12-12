@@ -59,7 +59,7 @@ public class QLearning {
 
         // get the denominator for softmax calculation
         float denominator = 0;
-        for (int i = 0; i < nrStates; i++) {
+        for (int i = 0; i < nrActions; i++) {
             denominator += Math.exp(possibleActions[i] / SOFTMAX_TEMP);
         }
 

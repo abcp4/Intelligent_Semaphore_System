@@ -9,7 +9,6 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.util.Logger;
-import jade.wrapper.ContainerController;
 import learning.QLearning;
 import trasmapi.sumo.Sumo;
 import trasmapi.sumo.SumoTrafficLight;
@@ -20,7 +19,7 @@ import java.util.Arrays;
 
 public class TrafficLightAgent extends Agent {
 
-    public static boolean IS_FIXED_BEHAVIOUR = true;
+    public static boolean IS_FIXED_BEHAVIOUR = false;
 
     private ArrayList<String> neighbours;
     private int nrIntersections;
@@ -37,7 +36,7 @@ public class TrafficLightAgent extends Agent {
     public TrafficLightAgent(Sumo sumo, String name, ArrayList<String> neighbours) throws Exception {
         super();
         this.name = "TrafficLight-" + name;
-        this.neighbours = neighbours;
+        this.neighbours = (ArrayList<String>) neighbours.clone();
         // for emergency vehicles, we must add actions according to the number of intersections it could come from
         nrIntersections = neighbours.size();
         nrStates = (int) Math.pow(TrafficLightState.NR_STATES_PER_LIGHT, nrIntersections); // for green time-frames
@@ -52,7 +51,7 @@ public class TrafficLightAgent extends Agent {
     private void updateAndCleanNeighboursNames() {
         ArrayList<String> tlsIds = SumoTrafficLight.getIdList();
         for (int i = 0; i < neighbours.size(); i++) {
-            if (Arrays.asList(tlsIds).contains(neighbours.get(i))) {
+            if (Arrays.asList(tlsIds.toArray()).contains(neighbours.get(i))) {
                 neighbours.set(i, "TrafficLight-" + neighbours.get(i));
             } else {
                 // if neighbour is not a traffic light, remove it
@@ -62,11 +61,15 @@ public class TrafficLightAgent extends Agent {
         }
     }
 
-    public synchronized void requestReward() {
+    public void requestReward() {
+        System.err.println("entered here " + neighbours.size());
         for (int i = 0; i < neighbours.size(); i++) {
+            System.err.println("Neighbour: " + neighbours.get(i));
             ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
             request.addReceiver(new AID(neighbours.get(i), AID.ISLOCALNAME));
             request.setContent("reward");
+            System.out.println("Sent reward request to " + neighbours.get(i));
+            ;
             send(request);
         }
     }
@@ -104,6 +107,19 @@ public class TrafficLightAgent extends Agent {
         super.takeDown();
     }
 
+    public void alertNeighbourOfEmergency() {
+        for (String n : neighbours) {
+            System.err.println("Warned neighbour about emergency: " + n);
+            ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
+            request.addReceiver(new AID(n, AID.ISLOCALNAME));
+            request.setContent("emergency " + name);
+            System.out.println("Sent emergency request to " + n);
+            ;
+            send(request);
+        }
+
+    }
+
     private class WaitRequestAndReplyRewardBehaviour extends CyclicBehaviour {
 
         public WaitRequestAndReplyRewardBehaviour(Agent a) {
@@ -124,11 +140,9 @@ public class TrafficLightAgent extends Agent {
 
                             int reward = tlController.getRewardForLane(sender.substring(13, 16) + "to" + name.substring(13, 16) + "_0");
                             reply.setContent(Integer.toString(reward));
-                        } else if (content.indexOf("emmergency") != -1) {
-                            myLogger.log(Logger.INFO, "Agent " + getLocalName() + " - Received REWARD Request from " + msg.getSender().getLocalName());
-                            reply.setPerformative(ACLMessage.INFORM);
-                            // TODO: act accordingly (emmergency)
-                            reply.setContent("emmergency");
+                        } else if (content.indexOf("emergency") != -1) {
+                            String neighbour = content.substring(10);
+                            tlController.comingEmergencyAction(neighbour);
                         }
                     } else {
                         myLogger.log(Logger.INFO, "Agent " + getLocalName() + " - Unexpected request [" + content + "] received from " + msg.getSender().getLocalName());

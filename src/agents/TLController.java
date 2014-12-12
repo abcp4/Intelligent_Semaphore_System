@@ -23,7 +23,10 @@ public class TLController implements Runnable {
         this.neighbours = new ArrayList<>(neighbours);
         this.greenTimeSpans = new int[neighbours.size()];
         updateTimeSpans(greenTimeSpans);
-        new Thread(new EmergencyChecker()).start();
+
+        if (!TrafficLightAgent.IS_FIXED_BEHAVIOUR) {
+            new Thread(new EmergencyChecker()).start();
+        }
     }
 
     public void updateTimeSpans(int[] newGreenTimeSpans) {
@@ -133,22 +136,37 @@ public class TLController implements Runnable {
         }
     }
 
+    public void comingEmergencyAction(String neighbour) {
+        for (int i = 0; i < neighbours.size(); i++) {
+            if (neighbour.indexOf(neighbours.get(i)) != -1) {
+                emergencyIndex = i;
+                break;
+            }
+        }
+    }
+
     private class EmergencyChecker implements Runnable {
 
         @Override
         public void run() {
+            System.err.println(neighbours);
             ArrayList<SumoLane> lanes = new ArrayList<>();
             for (int i = 0; i < neighbours.size(); i++) {
                 lanes.add(new SumoLane(neighbours.get(i) + "to" + name + "_0"));
             }
+            int lastEmergencyIndex = -1;
             while (true) {
                 try {
-                for (int i = 0; i < lanes.size(); i++) {
-                    if (lanes.get(i).getNumVehicles("eme") != 0) {
-                        emergencyIndex = i;
+                    for (int i = 0; i < lanes.size(); i++) {
+                        if (lanes.get(i).getNumVehicles("eme") > 0 && emergencyIndex == -1 && i != lastEmergencyIndex) {
+                            System.out.println("Emmergency at " + neighbours.get(i) + "to" + name + "_0 (" + i + ")");
+                            emergencyIndex = i;
+                            lastEmergencyIndex = i;
+                            parentAgent.alertNeighbourOfEmergency();
+                            while (emergencyIndex == i)
+                                Thread.sleep(5);
+                        }
                     }
-                    Thread.sleep(5);
-                }
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
