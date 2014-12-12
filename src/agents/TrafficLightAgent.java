@@ -67,7 +67,6 @@ public class TrafficLightAgent extends Agent {
             request.addReceiver(new AID(neighbours.get(i), AID.ISLOCALNAME));
             request.setContent("reward");
             System.out.println("Sent reward request to " + neighbours.get(i));
-            ;
             send(request);
         }
     }
@@ -111,8 +110,8 @@ public class TrafficLightAgent extends Agent {
             ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
             request.addReceiver(new AID(n, AID.ISLOCALNAME));
             request.setContent("emergency " + name);
-            System.out.println("Sent emergency request to " + n);
             send(request);
+            System.out.println("Sent emergency request to " + n);
         }
 
     }

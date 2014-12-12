@@ -105,6 +105,7 @@ public class SumoLane extends Lane {
         for (int i = 0; i < vehicles.length; i++) {
             try {
                 if (vehicles[i].getTypeId().equals(type)) {
+                    // vehicles[i].focus();
                     sum++;
                 }
             }catch (IndexOutOfBoundsException e) {
