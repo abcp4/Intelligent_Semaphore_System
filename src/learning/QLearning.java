@@ -64,7 +64,7 @@ public class QLearning {
         }
 
         // fill in the probabilities that each action has, according to their Q-value
-        for (int i = 0; i < nrStates; i++) {
+        for (int i = 0; i < nrActions; i++) {
             actionsProbabilities[i] = (float) (Math.exp(possibleActions[i] / SOFTMAX_TEMP) / denominator);
 
             // update the value to be used as a range

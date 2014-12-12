@@ -62,9 +62,7 @@ public class TrafficLightAgent extends Agent {
     }
 
     public void requestReward() {
-        System.err.println("entered here " + neighbours.size());
         for (int i = 0; i < neighbours.size(); i++) {
-            System.err.println("Neighbour: " + neighbours.get(i));
             ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
             request.addReceiver(new AID(neighbours.get(i), AID.ISLOCALNAME));
             request.setContent("reward");

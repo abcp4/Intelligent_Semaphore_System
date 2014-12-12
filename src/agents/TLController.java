@@ -119,7 +119,7 @@ public class TLController implements Runnable {
         SumoLane lane = new SumoLane(id);
         int numVehicles = 0;
         numVehicles += lane.getNumVehicles("nor");
-        numVehicles += lane.getNumVehicles("pub") * 2;
+        numVehicles += lane.getNumVehicles("pub") * 3;
         numVehicles += lane.getNumVehicles("eme") * 5;
 
         int laneDim = (int) Math.floor(lane.getLength());
@@ -127,12 +127,12 @@ public class TLController implements Runnable {
 
         System.out.println("Reward for " + id + ": " + ratio);
 
-        if (ratio > 0.5) {
-            return 20;
-        } else if (ratio > 0.25) {
+        if (ratio > 0.1) {
+            return 10;
+        } else if (ratio > 0.05) {
             return 100;
         } else {
-            return 0;
+            return 50;
         }
     }
 
