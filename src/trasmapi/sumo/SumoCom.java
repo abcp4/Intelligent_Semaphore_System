@@ -55,7 +55,7 @@ public class SumoCom {
 	public static ArrayList<String> arrivedVehicles = new ArrayList<String>();
 
 	private static int simStartStep = 0;
-	private static int simEndStep = 10000000;
+	private static int simEndStep = 100000000;
 
 	public SumoCom(){
 		routesIDs = new ArrayList<String>();

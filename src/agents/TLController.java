@@ -53,11 +53,8 @@ public class TLController implements Runnable {
                 String newState = buildState(i, "G");
 
                 Logger.logSumo(name + " - Changed to " + newState + " for " + greenTime + " ticks");
-                System.err.println("Start Setting state for green");
                 light.setState(newState);
-                System.err.println("End Setting state for green");
                 int initPhase = sumo.getCurrentSimStep() / 1000;
-                System.err.println("initphase: " + sumo.getCurrentSimStep() + " - " + initPhase);
                 int endPhase = initPhase;
 
                 while (greenTime > (endPhase - initPhase + 5)) {
@@ -72,13 +69,10 @@ public class TLController implements Runnable {
                         e.printStackTrace();
                     }
                     endPhase = sumo.getCurrentSimStep() / 1000;
-                    System.err.println("endphase: " + sumo.getCurrentSimStep() + " - " + endPhase);
                 }
                 newState = buildState(i, "y");
                 Logger.logSumo(name + " - Changed to " + newState + " for 5 ticks");
-                System.err.println("Start Setting state for yellow");
                 light.setState(newState);
-                System.err.println("End Setting state for yellow");
                 initPhase = sumo.getCurrentSimStep() / 1000;
                 endPhase = initPhase;
 

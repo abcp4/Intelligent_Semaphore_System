@@ -1,0 +1,57 @@
+Normal Vehicle Data: 
+--------------------------------------------
+Average Speed (m/s): 	3.380440248286023
+Speed Standart Deviation: 	2.0778907878111705
+Average Wait Steps: 	254.19430538172716
+Wait Steps Standart Deviation: 	191.87382947697597
+Average CO (mg/m): 	2.6092412292360514
+CO Standart Deviation: 	0.8452967764007157
+Average CO2 (mg/m): 	271.61370926953674
+CO2 Standart Deviation: 	72.7913532218162
+Average HC (mg/m): 	0.09677907990790596
+HC Standart Deviation: 	0.03892168172559617
+Average PMx (mg/m): 	0.0211892510488634
+PMx Standart Deviation: 	0.0041985236980119755
+Average NOx (mg/m): 	0.49052871019580635
+NOx Standart Deviation: 	0.11361825143097103
+Average Fuel Consumption (ml/m): 	0.10828820987020588
+Fuel Consumption Standart Deviation: 	0.02902077406845674
+
+Bus Data: 
+--------------------------------------------
+Average Speed (m/s): 	2.8512373551024193
+Speed Standart Deviation: 	1.168366401699274
+Average Wait Steps: 	213.42931937172776
+Wait Steps Standart Deviation: 	144.7145374876682
+Average CO (mg/m): 	1.2821892108280621
+CO Standart Deviation: 	0.5188767320750274
+Average CO2 (mg/m): 	293.77457919295546
+CO2 Standart Deviation: 	56.87613610709094
+Average HC (mg/m): 	0.09604298073739906
+HC Standart Deviation: 	0.03020588072196768
+Average PMx (mg/m): 	0.015400859015306254
+PMx Standart Deviation: 	0.0021752363066150416
+Average NOx (mg/m): 	0.465804936061979
+NOx Standart Deviation: 	0.08075724887904592
+Average Fuel Consumption (ml/m): 	0.11712339532156889
+Fuel Consumption Standart Deviation: 	0.02267562132286439
+
+Emergency Vehicle Data: 
+--------------------------------------------
+Average Speed (m/s): 	5.986546009515239
+Speed Standart Deviation: 	2.46748402927119
+Average Wait Steps: 	83.17699115044248
+Wait Steps Standart Deviation: 	119.37078622232579
+Average CO (mg/m): 	1.930075829535459
+CO Standart Deviation: 	0.8025230528274269
+Average CO2 (mg/m): 	219.99873338547428
+CO2 Standart Deviation: 	68.37249463210681
+Average HC (mg/m): 	0.06812912013085015
+HC Standart Deviation: 	0.03566947820079463
+Average PMx (mg/m): 	0.018013548427385038
+PMx Standart Deviation: 	0.004177154167449639
+Average NOx (mg/m): 	0.408195209186689
+NOx Standart Deviation: 	0.10921236894012733
+Average Fuel Consumption (ml/m): 	0.08771012584983776
+Fuel Consumption Standart Deviation: 	0.027259042687715934
+
