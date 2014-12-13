@@ -19,17 +19,13 @@ public class AgentsManager {
         ArrayList<String> tlsIds = SumoTrafficLight.getIdList();
 
         for (String tlId : tlsIds) {
-            System.out.println("Traffic light: " + tlId);
             SumoTrafficLight tl = new SumoTrafficLight(tlId);
             HashSet<String> lanes;
             lanes = new HashSet(tl.getControlledLanes());
 
             ArrayList<String> neighbours = new ArrayList<>();
-
-            System.out.println("Neighbours: " + lanes.size());
             for (String l : lanes) {
                 String n = getSrcFromLaneId(l);
-                System.out.println(n);
                 neighbours.add(n);
             }
 
@@ -43,13 +39,10 @@ public class AgentsManager {
                 agents.add(agent);
                 mainContainer.acceptNewAgent("TrafficLight-" + tlId, agent);
 
-                System.out.println("Added " + agent.getLocalName());
-
             } catch (Exception e) {
                 e.printStackTrace();
                 System.exit(1);
             }
-            System.out.println();
         }
     }
 
@@ -84,7 +77,6 @@ public class AgentsManager {
         try {
             for (TrafficLightAgent agent : agents) {
                 mainContainer.getAgent(agent.getLocalName()).start();
-                System.out.println("Started " + agent.getLocalName());
             }
         } catch (ControllerException e) {
             e.printStackTrace();

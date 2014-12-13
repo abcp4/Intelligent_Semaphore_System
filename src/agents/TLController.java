@@ -55,9 +55,11 @@ public class TLController implements Runnable {
                 Logger.logSumo(name + " - Changed to " + newState + " for " + greenTime + " ticks");
                 light.setState(newState);
                 int initPhase = sumo.getCurrentSimStep() / 1000;
+                System.err.println("initphase: " + sumo.getCurrentSimStep() + " - " + initPhase);
                 int endPhase = initPhase;
 
                 while (greenTime > (endPhase - initPhase + 5)) {
+
                     // if emergencyApproaching, change immediately
                     if (emergencyIndex != -1 && emergencyIndex != i) {
                         break;
@@ -68,6 +70,7 @@ public class TLController implements Runnable {
                         e.printStackTrace();
                     }
                     endPhase = sumo.getCurrentSimStep() / 1000;
+                    System.err.println("endphase: " + sumo.getCurrentSimStep() + " - " + endPhase);
                 }
                 newState = buildState(i, "y");
                 Logger.logSumo(name + " - Changed to " + newState + " for 5 ticks");

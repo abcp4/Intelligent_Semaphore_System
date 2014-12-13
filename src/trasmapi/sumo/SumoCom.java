@@ -175,9 +175,6 @@ public class SumoCom {
 
 			ResponseMessage response = query(reqMsg);
 
-			//	System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-
-			//	response.print();
 
 			if(response.status.getResult() == Constants.RTYPE_OK)
 				parseSubscriptions(response);
@@ -546,8 +543,6 @@ public class SumoCom {
 			System.out.println("NULL routesIds");
 			return;
 		}
-
-		System.out.println("numIds : " + routesIDs.size());
 
 		RequestMessage reqMsg = new RequestMessage();
 

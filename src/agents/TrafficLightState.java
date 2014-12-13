@@ -33,7 +33,6 @@ public class TrafficLightState implements State {
             }
             updateState(state);
         }
-        Logger.logLearning(name + " - started in state " + state + " " + greenTimeSpans);
     }
 
     public int getGreenTimeSpan(int index) {
@@ -59,7 +58,7 @@ public class TrafficLightState implements State {
         for (int i = 0; i < nrIntersections; i++) {
             greenTimeSpans[i] = LIGHTS_MIN_TIME + (((state / (int) Math.pow(NR_STATES_PER_LIGHT, i)) % NR_STATES_PER_LIGHT) * LIGHTS_GRANULARITY);
         }
-        Logger.logLearning(name + " - updated to state " + state + " " + greenTimeSpans);
+        Logger.logLearning(name + " - updated to state " + state + " " + greenTimeSpans.toString());
     }
 
     /**
