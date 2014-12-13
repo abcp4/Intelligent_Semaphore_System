@@ -1,4 +1,4 @@
-package utils.xml;
+package xml;
 
 import org.w3c.dom.*;
 
@@ -142,7 +142,7 @@ public class VehicleCreator {
                 e.printStackTrace();
             }
 
-            // write the content into utils.xml file
+            // write the content into xml file
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);

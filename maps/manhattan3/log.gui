@@ -1,5 +1,5 @@
 ***Starting server on port 8820 ***
-Loading net-file from 'maps/manhattan3/net.net.utils.xml'...  done (6ms).
+Loading net-file from 'maps/manhattan3/net.net.xml'...  done (6ms).
 Loading done.
 Simulation started with time: 0.00
 Performance: 
