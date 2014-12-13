@@ -134,8 +134,6 @@ public class TLController implements Runnable {
         int laneDim = (int) Math.floor(lane.getLength());
         float ratio = (float) numVehicles / (float) laneDim;
 
-        System.out.println("Reward for " + id + ": " + ratio);
-
         if (ratio > 0.1) {
             return 10;
         } else if (ratio > 0.05) {
@@ -145,17 +143,18 @@ public class TLController implements Runnable {
         }
     }
 
-    public void comingEmergencyAction(String neighbour) {
+    public boolean comingEmergencyAction(String neighbour) {
         // if there isn't currently any emergency, and with a probability of 30 %, it will listen for emergencies
         float rand = new Random().nextInt();
         if (rand < LISTEN_TO_NEIGHBOURS_EMERGENCIES_PROB) {
             for (int i = 0; i < neighbours.size(); i++) {
                 if (neighbour.indexOf(neighbours.get(i)) != -1) {
                     emergencyIndex = i;
-                    break;
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     private class EmergencyChecker implements Runnable {

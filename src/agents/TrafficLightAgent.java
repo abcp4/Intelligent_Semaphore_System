@@ -120,7 +120,6 @@ public class TrafficLightAgent extends Agent {
     }
 
     private class WaitRequestAndReplyRewardBehaviour extends CyclicBehaviour {
-
         public WaitRequestAndReplyRewardBehaviour(Agent a) {
             super(a);
         }
@@ -138,12 +137,17 @@ public class TrafficLightAgent extends Agent {
                             reply.setPerformative(ACLMessage.INFORM);
                             int reward = tlController.getRewardForLane(sender.substring(13, 16) + "to" + name.substring(13, 16) + "_0");
                             reply.setContent(Integer.toString(reward));
+                            Logger.logAgents(name + " - sent reward of " + reward + " to " + sender);
                         } else if (content.indexOf("emergency") != -1) {
                             Logger.logAgents("INFO - Agent " + getLocalName() + " - Received EMERGENCY Request from " + msg.getSender().getLocalName());
                             String neighbour = content.substring(10);
-                            tlController.comingEmergencyAction(neighbour);
+                            boolean actuated = tlController.comingEmergencyAction(neighbour);
                             reply.setPerformative(ACLMessage.INFORM);
-                            reply.setContent("emergency received");
+                            if (actuated) {
+                                reply.setContent("emergency received");
+                            } else {
+                                reply.setContent("emergency ignored");
+                            }
                         }
                     } else {
                         Logger.logAgents("INFO - Agent " + getLocalName() + " - Unexpected request[" + content + "]received from" + msg.getSender().getLocalName());
