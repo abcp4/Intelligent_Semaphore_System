@@ -1,17 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?utils.xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on Fri 12 Dec 2014 05:39:20 PM WET by SUMO gui Version 0.21.0
-<?xml version="1.0" encoding="UTF-8"?>
+<?utils.xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumo-gui.exeConfiguration.xsd">
 
     <input>
-        <net-file value="maps/manhattan3/net.net.xml"/>
-        <route-files value="maps/manhattan3/routes.rou.xml"/>
+        <net-file value="maps/manhattan3/net.net.utils.xml"/>
+        <route-files value="maps/manhattan3/routes.rou.utils.xml"/>
     </input>
 
     <output>
-        <tripinfo-output value="maps/logs/trip.xml"/>
+        <tripinfo-output value="maps/logs/trip.utils.xml"/>
         <save-state.prefix value="maps/manhattan3/state"/>
     </output>
 
@@ -25,7 +25,7 @@
     </processing>
 
     <report>
-        <xml-validation value="never"/>
+        <utils.xml-validation value="never"/>
         <no-step-log value="true"/>
     </report>
 

@@ -1,13 +1,19 @@
 package agents;
 
+import sun.rmi.runtime.Log;
 import trasmapi.sumo.Sumo;
 import trasmapi.sumo.SumoLane;
 import trasmapi.sumo.SumoTrafficLight;
+import utils.Logger;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class TLController implements Runnable {
+
+    private static final double LISTEN_TO_NEIGHBOURS_EMERGENCIES_PROB = 0.3;
+
     private String name;
     private Sumo sumo;
     private ArrayList<String> neighbours;
@@ -48,14 +54,14 @@ public class TLController implements Runnable {
 
                 String newState = buildState(i, "G");
 
-                System.out.println("Changed " + name + " to " + newState + " for " + greenTime + " ticks");
+                Logger.logSumo(name + " - Changed to " + newState + " for " + greenTime + " ticks");
                 light.setState(newState);
                 int initPhase = sumo.getCurrentSimStep() / 1000;
                 int endPhase = initPhase;
 
                 while (greenTime > (endPhase - initPhase + 5)) {
                     // if emergencyApproaching, change immediately
-                    if (emergencyIndex != -1) {
+                    if (emergencyIndex != -1 && emergencyIndex != i) {
                         break;
                     }
                     try {
@@ -66,7 +72,7 @@ public class TLController implements Runnable {
                     endPhase = sumo.getCurrentSimStep() / 1000;
                 }
                 newState = buildState(i, "y");
-                System.out.println("Changed " + name + " to " + newState + " for 5 ticks");
+                Logger.logSumo(name + " - Changed to " + newState + " for 5 ticks");
                 light.setState(newState);
                 initPhase = sumo.getCurrentSimStep() / 1000;
                 endPhase = initPhase;
@@ -80,9 +86,12 @@ public class TLController implements Runnable {
                     endPhase = sumo.getCurrentSimStep() / 1000;
                 }
                 if (emergencyIndex != -1) {
-                    i = emergencyIndex - 1;
-                    emergencyIndex = -1;
-                    continue;
+                    if (emergencyIndex == i) {
+                        emergencyIndex = -1;
+                        Logger.logSumo(name + " going back to normal");
+                    } else {
+                        i = emergencyIndex - 1;
+                    }
                 }
             }
             parentAgent.requestReward();
@@ -137,10 +146,14 @@ public class TLController implements Runnable {
     }
 
     public void comingEmergencyAction(String neighbour) {
-        for (int i = 0; i < neighbours.size(); i++) {
-            if (neighbour.indexOf(neighbours.get(i)) != -1) {
-                emergencyIndex = i;
-                break;
+        // if there isn't currently any emergency, and with a probability of 30 %, it will listen for emergencies
+        float rand = new Random().nextInt();
+        if (rand < LISTEN_TO_NEIGHBOURS_EMERGENCIES_PROB) {
+            for (int i = 0; i < neighbours.size(); i++) {
+                if (neighbour.indexOf(neighbours.get(i)) != -1) {
+                    emergencyIndex = i;
+                    break;
+                }
             }
         }
     }
@@ -153,14 +166,13 @@ public class TLController implements Runnable {
             for (int i = 0; i < neighbours.size(); i++) {
                 lanes.add(new SumoLane(neighbours.get(i) + "to" + name + "_0"));
             }
-            int lastEmergencyIndex = -1;
+            Logger.logSumo("Traffic light " + name + " started checking for emergencies");
             while (true) {
                 try {
                     for (int i = 0; i < lanes.size(); i++) {
-                        if (lanes.get(i).getNumVehicles("eme") > 0 && emergencyIndex == -1 && i != lastEmergencyIndex) {
-                            System.out.println("Emmergency at " + neighbours.get(i) + "to" + name + "_0 (" + i + ")");
+                        if (lanes.get(i).getNumVehicles("eme") > 0 && emergencyIndex == -1) {
+                            Logger.logSumo(name + " - Emmergency at " + neighbours.get(i) + "to" + name + "_0");
                             emergencyIndex = i;
-                            lastEmergencyIndex = i;
                             parentAgent.alertNeighbourOfEmergency();
                             while (emergencyIndex == i)
                                 Thread.sleep(5);

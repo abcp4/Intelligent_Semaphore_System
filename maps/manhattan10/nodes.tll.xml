@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?utils.xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on Mon Dec  8 08:09:12 2014 by SUMO netgenerate Version 0.19.0
-<?xml version="1.0" encoding="UTF-8"?>
+<?utils.xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netgenerateConfiguration.xsd">
 
@@ -14,7 +14,7 @@
     </grid_network>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="net.net.utils.xml"/>
         <plain-output-prefix value="nodes"/>
     </output>
 

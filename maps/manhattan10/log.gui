@@ -1,5 +1,5 @@
 ***Starting server on port 8820 ***
-Loading net-file from 'maps/manhattan10/net.net.xml'...  done (251ms).
+Loading net-file from 'maps/manhattan10/net.net.utils.xml'...  done (251ms).
 Loading done.
 Simulation started with time: 0.00
 Warning: Vehicle '106' performs emergency stop at the end of lane '5/2to4/2_0 because of a red traffic light (decel=-13.48), time=198.00.

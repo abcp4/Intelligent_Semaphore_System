@@ -7,8 +7,6 @@ import trasmapi.genAPI.TraSMAPI;
 import trasmapi.genAPI.exceptions.TimeoutException;
 import trasmapi.genAPI.exceptions.UnimplementedMethod;
 import trasmapi.sumo.Sumo;
-import xml.CarTrip;
-import xml.TripParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,9 +44,9 @@ public class Main {
         Sumo sumo = new Sumo("guisim");
         List<String> params = new ArrayList<String>();
         params.add("--no-step-log");
-        params.add("--xml-validation=never");
+        params.add("--utils.xml-validation=never");
         params.add("--device.emissions.probability=1.0");
-        params.add("--tripinfo-output=maps/logs/trip.xml");
+        params.add("--tripinfo-output=maps/logs/trip.utils.xml");
         params.add("-c=maps/" + map + "/file.sumocfg");
         sumo.addParameters(params);
         sumo.addConnections("127.0.0.1", 8820);

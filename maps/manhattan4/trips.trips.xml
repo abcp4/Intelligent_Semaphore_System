@@ -1,6 +1,6 @@
-<?xml version="1.0"?>
+<?utils.xml version="1.0"?>
 <!-- generated on 2014-12-08 08:06:39.762391 by $Id: randomTrips.py 17235 2014-11-03 10:53:02Z behrisch $
-  options: -n net.net.xml -r routes.rou.xml_bak -e 5000 -l
+  options: -n net.net.utils.xml -r routes.rou.xml_bak -e 5000 -l
 -->
 <trips>
     <trip id="0" depart="0.00" from="0/3to1/3" to="2/0to2/1" />

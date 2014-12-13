@@ -1,4 +1,4 @@
-package xml;
+package utils.xml;
 
 /**
  * Created by Vinnie on 05-Dec-14.
