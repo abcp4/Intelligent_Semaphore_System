@@ -6,9 +6,9 @@ import java.sql.Timestamp;
 
 public class Logger {
 
-    public static boolean LOG_LEARNING = true;
-    public static boolean LOG_AGENTS = true;
-    public static boolean LOG_SUMO = true;
+    public static boolean LOG_LEARNING = false;
+    public static boolean LOG_AGENTS = false;
+    public static boolean LOG_SUMO = false;
 
 
     private static void log(final String message) {
