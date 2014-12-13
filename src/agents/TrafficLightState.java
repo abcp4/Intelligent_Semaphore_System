@@ -24,16 +24,15 @@ public class TrafficLightState implements State {
         lastAction = 0;
         this.nrIntersections = nrIntersections;
         greenTimeSpans = new int[nrIntersections];
-        if (!TrafficLightAgent.IS_FIXED_BEHAVIOUR) {
+        /*if (!TrafficLightAgent.IS_FIXED_BEHAVIOUR) {
             updateState(new Random().nextInt(nrStates));
-        } else {
+        } else {*/
             state = 0;
             for (int i = 0; i < nrIntersections; i++) {
                 state += Math.pow(NR_STATES_PER_LIGHT, i) * 2;
             }
             updateState(state);
-        }
-        Logger.logLearning(name + " - started in state " + state + " " + greenTimeSpans);
+        //}
     }
 
     public int getGreenTimeSpan(int index) {
@@ -59,7 +58,7 @@ public class TrafficLightState implements State {
         for (int i = 0; i < nrIntersections; i++) {
             greenTimeSpans[i] = LIGHTS_MIN_TIME + (((state / (int) Math.pow(NR_STATES_PER_LIGHT, i)) % NR_STATES_PER_LIGHT) * LIGHTS_GRANULARITY);
         }
-        Logger.logLearning(name + " - updated to state " + state + " " + greenTimeSpans);
+        Logger.logLearning(name + " - updated to state " + state + " " + greenTimeSpans.toString());
     }
 
     /**
