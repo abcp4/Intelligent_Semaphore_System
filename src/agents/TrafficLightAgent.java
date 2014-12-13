@@ -19,7 +19,7 @@ import java.util.Arrays;
 
 public class TrafficLightAgent extends Agent {
 
-    public static boolean IS_FIXED_BEHAVIOUR = false;
+    public static boolean IS_FIXED_BEHAVIOUR = true;
 
     private ArrayList<String> neighbours;
     private int nrIntersections;
@@ -39,7 +39,9 @@ public class TrafficLightAgent extends Agent {
         nrIntersections = neighbours.size();
         nrStates = (int) Math.pow(TrafficLightState.NR_STATES_PER_LIGHT, nrIntersections); // for green time-frames
         nrActions = (int) Math.pow(TrafficLightState.ACTIONS_BY_LIGHT, nrIntersections);  // corresponding to increase, maintain and decrease the red and green time-frames
-        qTeacher = new QLearning(nrStates, nrActions);
+        if (!IS_FIXED_BEHAVIOUR) {
+            qTeacher = new QLearning(nrStates, nrActions);
+        }
         currentState = new TrafficLightState(nrIntersections, nrStates);
         tlController = new TLController(this, sumo, name, (ArrayList<String>) neighbours.clone(), currentState.getGreenTimeSpans());
         updateAndCleanNeighboursNames();
@@ -62,6 +64,9 @@ public class TrafficLightAgent extends Agent {
     }
 
     public void requestReward() {
+        if (IS_FIXED_BEHAVIOUR) {
+            return;
+        }
         for (int i = 0; i < neighbours.size(); i++) {
             ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
             request.addReceiver(new AID(neighbours.get(i), AID.ISLOCALNAME));
@@ -109,6 +114,9 @@ public class TrafficLightAgent extends Agent {
     }
 
     public void alertNeighbourOfEmergency() {
+        if (IS_FIXED_BEHAVIOUR) {
+            return;
+        }
         for (String n : neighbours) {
             Logger.logAgents(name + " - Warned neighbour about emergency: " + n);
             ACLMessage request = new ACLMessage(ACLMessage.REQUEST);

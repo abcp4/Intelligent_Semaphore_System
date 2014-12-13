@@ -1,6 +1,5 @@
 package agents;
 
-import sun.rmi.runtime.Log;
 import trasmapi.sumo.Sumo;
 import trasmapi.sumo.SumoLane;
 import trasmapi.sumo.SumoTrafficLight;
@@ -8,7 +7,6 @@ import utils.Logger;
 
 import java.util.ArrayList;
 import java.util.Random;
-
 
 public class TLController implements Runnable {
 
@@ -125,6 +123,9 @@ public class TLController implements Runnable {
     }
 
     public int getRewardForLane(String id) {
+        if (TrafficLightAgent.IS_FIXED_BEHAVIOUR) {
+            return -1;
+        }
         SumoLane lane = new SumoLane(id);
         int numVehicles = 0;
         numVehicles += lane.getNumVehicles("nor");
@@ -144,6 +145,9 @@ public class TLController implements Runnable {
     }
 
     public boolean comingEmergencyAction(String neighbour) {
+        if (TrafficLightAgent.IS_FIXED_BEHAVIOUR) {
+            return false;
+        }
         // if there isn't currently any emergency, and with a probability of 30 %, it will listen for emergencies
         float rand = new Random().nextInt();
         if (rand < LISTEN_TO_NEIGHBOURS_EMERGENCIES_PROB) {
