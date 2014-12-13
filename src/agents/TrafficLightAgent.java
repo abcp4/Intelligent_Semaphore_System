@@ -40,9 +40,9 @@ public class TrafficLightAgent extends Agent {
         nrStates = (int) Math.pow(TrafficLightState.NR_STATES_PER_LIGHT, nrIntersections); // for green time-frames
         nrActions = (int) Math.pow(TrafficLightState.ACTIONS_BY_LIGHT, nrIntersections);  // corresponding to increase, maintain and decrease the red and green time-frames
         if (!IS_FIXED_BEHAVIOUR) {
-            qTeacher = new QLearning(nrStates, nrActions);
+            qTeacher = new QLearning(name, nrStates, nrActions);
         }
-        currentState = new TrafficLightState(nrIntersections, nrStates);
+        currentState = new TrafficLightState(name, nrIntersections, nrStates);
         tlController = new TLController(this, sumo, name, (ArrayList<String>) neighbours.clone(), currentState.getGreenTimeSpans());
         updateAndCleanNeighboursNames();
 

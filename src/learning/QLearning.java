@@ -1,6 +1,6 @@
 package learning;
 
-import agents.TrafficLightState;
+import utils.Logger;
 
 import java.util.Random;
 
@@ -18,11 +18,14 @@ public class QLearning {
     private float[][] qTable;
     private int nrStates = 0;
     private int nrActions = 0;
+    private String name;
 
 
-    public QLearning(int nrStates, int nrActions) {
+    public QLearning(String name, int nrStates, int nrActions) {
         this.nrStates = nrStates;
         this.nrActions = nrActions;
+        this.name = name;
+        Logger.logLearning(name + " - Created Q-Teacher for " + nrStates + " states and " + " number of actions " + nrActions);
 
         qTable = new float[nrStates][nrActions];
     }
@@ -36,6 +39,7 @@ public class QLearning {
         float bestNextQVal = qTable[nextState][bestNextAction];
         qTable[currentState][action] = (float) (currentQValue
                 + LEARNING_RATE * (val + DISCOUNT_FACTOR * (bestNextQVal - currentQValue)));
+        Logger.logLearning(name + " - Received reinforcement " + val + " for state " + state + " from " + currentQValue + " to " + qTable[currentState][action]);
     }
 
     private int getBestPossibleAction(int state) {
@@ -90,9 +94,9 @@ public class QLearning {
     public void printQTable() {
         for (int i = 0; i < qTable.length; i++) {
             for (int j = 0; j < qTable[i].length; j++) {
-                System.out.printf(" %3d", qTable[i][j]);
+               Logger.logLearning(String.format(" %3d", qTable[i][j]));
             }
-            System.out.println();
+            Logger.logLearning("\n");
         }
     }
 }
