@@ -159,7 +159,7 @@ public class TrafficLightAgent extends Agent {
                         }
                     } else {
                         Logger.logAgents("INFO - Agent " + getLocalName() + " - Unexpected request[" + content + "]received from" + msg.getSender().getLocalName());
-                                reply.setPerformative(ACLMessage.REFUSE);
+                        reply.setPerformative(ACLMessage.REFUSE);
                         reply.setContent("( UnexpectedContent (" + content + "))");
                     }
                 } else if (msg.getPerformative() == ACLMessage.INFORM) {
