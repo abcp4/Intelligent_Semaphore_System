@@ -63,17 +63,20 @@ public class TrafficLightAgent extends Agent {
         }
     }
 
-    public void sendReward(String id) {
+    public void sendReward(String id, int reward) {
         if (IS_FIXED_BEHAVIOUR) {
             return;
         }
-        for (int i = 0; i < neighbours.size(); i++) {
-            ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
-            request.addReceiver(new AID(neighbours.get(i), AID.ISLOCALNAME));
-            int reward = tlController.getRewardForLane(id + "to" + name.substring(13, 16) + "_0");
-            request.setContent("reward " + reward);
-            Logger.logAgents(name + " - Sent reward to " + neighbours.get(i) + " with value " + reward);
-            send(request);
+        for (String n: neighbours) {
+            if (neighbours.indexOf(id) != 0) {
+                ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
+                request.addReceiver(new AID(n, AID.ISLOCALNAME));
+                request.setContent("reward " + reward);
+                Logger.logAgents(name + " - Sent reward to " + n + " with value " + reward);
+                send(request);
+
+                break;
+            }
         }
     }
 
@@ -128,6 +131,12 @@ public class TrafficLightAgent extends Agent {
         }
     }
 
+    public void updateState() {
+        int nextAction = qTeacher.getActionToTake(currentState.getState());
+        currentState.applyAction(nextAction);
+        tlController.updateTimeSpans(currentState.getGreenTimeSpans());
+    }
+
     private class WaitRequestAndReplyRewardBehaviour extends CyclicBehaviour {
         public WaitRequestAndReplyRewardBehaviour(Agent a) {
             super(a);
@@ -143,16 +152,13 @@ public class TrafficLightAgent extends Agent {
                     if (content != null) {
                         if (content.indexOf("reward") != -1) {
                             int reward = Integer.parseInt(content.substring(7));
-                            Logger.logAgents("INFO - Agent " + getLocalName() + " - Received REWARD from " + msg.getSender().getLocalName() + " with value " + reward);
+                            Logger.logAgents("REQUEST - Agent " + getLocalName() + " - Received REWARD from " + msg.getSender().getLocalName() + " with value " + reward);
                             qTeacher.reinforce(currentState, reward);
-                            int nextAction = qTeacher.getActionToTake(currentState.getState());
-                            currentState.applyAction(nextAction);
-                            tlController.updateTimeSpans(currentState.getGreenTimeSpans());
                             reply.setPerformative(ACLMessage.INFORM);
                             reply.setContent("updated");
                             Logger.logAgents(name + " - sent reward confirmation to " + sender);
                         } else if (content.indexOf("emergency") != -1) {
-                            Logger.logAgents("INFO - Agent " + getLocalName() + " - Received EMERGENCY Request from " + msg.getSender().getLocalName());
+                            Logger.logAgents("REQUEST - Agent " + getLocalName() + " - Received EMERGENCY Request from " + msg.getSender().getLocalName());
                             String neighbour = content.substring(10);
                             boolean actuated = tlController.comingEmergencyAction(neighbour);
                             reply.setPerformative(ACLMessage.INFORM);
@@ -172,13 +178,13 @@ public class TrafficLightAgent extends Agent {
                     if (content != null) {
                         if (content.indexOf("emergency accepted") != -1) {
                             // do nothing
-                            Logger.logAgents("Agent " + name + " received emergency accepted of  from " + msg.getSender());
+                            Logger.logAgents("INFO - Agent " + name + " received emergency accepted of  from " + msg.getSender());
                         } else if (content.indexOf("emergency ignored") != -1) {
                             // do nothing
-                            Logger.logAgents("Agent " + name + " received emergency ignored from " + msg.getSender());
+                            Logger.logAgents("INFO - Agent " + name + " received emergency ignored from " + msg.getSender());
                         } else if (content.indexOf("updated") != -1) {
                             // do nothing
-                            Logger.logAgents("Agent " + name + " received reward update confirmation from " + msg.getSender());
+                            Logger.logAgents("INF - Agent " + name + " received reward update confirmation from " + msg.getSender());
                         }
                     }
                 } else {
