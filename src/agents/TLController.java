@@ -45,7 +45,13 @@ public class TLController implements Runnable {
         int nrIntersections = neighbours.size();
         SumoTrafficLight light = new SumoTrafficLight(name);
         while (true) {
+            int previousIndex = -1;
             for (int i = 0; i < nrIntersections; i++) {
+
+                if (previousIndex != -1) {
+                    i = previousIndex;
+                }
+
                 int greenTime;
                 synchronized (greenTimeSpans) {
                     greenTime = greenTimeSpans[i];
@@ -88,13 +94,15 @@ public class TLController implements Runnable {
                 if (emergencyIndex != -1) {
                     if (emergencyIndex == i) {
                         emergencyIndex = -1;
+                        previousIndex = -1;
                         Logger.logSumo(name + " going back to normal");
                     } else {
+                        previousIndex = i;
                         i = emergencyIndex - 1;
                     }
                 }
+                parentAgent.requestReward();
             }
-            parentAgent.requestReward();
         }
     }
 
