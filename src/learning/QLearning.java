@@ -95,7 +95,7 @@ public class QLearning {
     public void printQTable() {
         for (int i = 0; i < qTable.length; i++) {
             for (int j = 0; j < qTable[i].length; j++) {
-               Logger.logLearning(String.format(" %3d", qTable[i][j]));
+               Logger.logLearning(String.format(" %3f", qTable[i][j]));
             }
             Logger.logLearning("\n");
         }
