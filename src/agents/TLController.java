@@ -53,6 +53,8 @@ public class TLController implements Runnable {
                     greenTime = greenTimeSpans[i];
                 }
 
+                parentAgent.sendReward(neighbours.get(i));
+
                 String newState = buildState(i, "G");
 
                 Logger.logSumo(name + " - Changed to " + newState + " for " + greenTime + " ticks");
@@ -101,7 +103,6 @@ public class TLController implements Runnable {
                     }
                 }
             }
-            parentAgent.requestReward();
         }
     }
 

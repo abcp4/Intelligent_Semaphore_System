@@ -63,15 +63,16 @@ public class TrafficLightAgent extends Agent {
         }
     }
 
-    public void requestReward() {
+    public void sendReward(String id) {
         if (IS_FIXED_BEHAVIOUR) {
             return;
         }
         for (int i = 0; i < neighbours.size(); i++) {
             ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
             request.addReceiver(new AID(neighbours.get(i), AID.ISLOCALNAME));
-            request.setContent("reward");
-            Logger.logAgents(name + " - Sent reward request to " + neighbours.get(i));
+            int reward = tlController.getRewardForLane(name.substring(13, 16) + "to" + id + "_0");
+            request.setContent("reward " + reward);
+            Logger.logAgents(name + " - Sent reward to " + neighbours.get(i) + " with value " + reward);
             send(request);
         }
     }
@@ -141,18 +142,22 @@ public class TrafficLightAgent extends Agent {
                     String content = msg.getContent();
                     if (content != null) {
                         if (content.indexOf("reward") != -1) {
-                            Logger.logAgents("INFO - Agent " + getLocalName() + " - Received REWARD Request from " + msg.getSender().getLocalName());
+                            int reward = Integer.parseInt(content.substring(7));
+                            Logger.logAgents("INFO - Agent " + getLocalName() + " - Received REWARD from " + msg.getSender().getLocalName() + " with value " + reward);
+                            qTeacher.reinforce(currentState, reward);
+                            int nextAction = qTeacher.getActionToTake(currentState.getState());
+                            currentState.applyAction(nextAction);
+                            tlController.updateTimeSpans(currentState.getGreenTimeSpans());
                             reply.setPerformative(ACLMessage.INFORM);
-                            int reward = tlController.getRewardForLane(name.substring(13, 16) + "to" + sender.substring(13, 16) + "_0");
-                            reply.setContent(Integer.toString(reward));
-                            Logger.logAgents(name + " - sent reward of " + reward + " to " + sender);
+                            reply.setContent("updated");
+                            Logger.logAgents(name + " - sent reward confirmation to " + sender);
                         } else if (content.indexOf("emergency") != -1) {
                             Logger.logAgents("INFO - Agent " + getLocalName() + " - Received EMERGENCY Request from " + msg.getSender().getLocalName());
                             String neighbour = content.substring(10);
                             boolean actuated = tlController.comingEmergencyAction(neighbour);
                             reply.setPerformative(ACLMessage.INFORM);
                             if (actuated) {
-                                reply.setContent("emergency received");
+                                reply.setContent("emergency accepted");
                             } else {
                                 reply.setContent("emergency ignored");
                             }
@@ -165,14 +170,15 @@ public class TrafficLightAgent extends Agent {
                 } else if (msg.getPerformative() == ACLMessage.INFORM) {
                     String content = msg.getContent();
                     if (content != null) {
-                        if (content.indexOf("emergency received") == -1 && content.indexOf("emergency ignored") == -1) {
-                            int reward = Integer.parseInt(content);
-                            Logger.logAgents("Agent " + name + " received reward of " + reward + " from " + msg.getSender());
-                            // TODO: check if this is sufficient for learning purposes (according to the sender of this message...)
-                            qTeacher.reinforce(currentState, reward);
-                            int nextAction = qTeacher.getActionToTake(currentState.getState());
-                            currentState.applyAction(nextAction);
-                            tlController.updateTimeSpans(currentState.getGreenTimeSpans());
+                        if (content.indexOf("emergency accepted") != -1) {
+                            // do nothing
+                            Logger.logAgents("Agent " + name + " received emergency accepted of  from " + msg.getSender());
+                        } else if (content.indexOf("emergency ignored") != -1) {
+                            // do nothing
+                            Logger.logAgents("Agent " + name + " received emergency ignored from " + msg.getSender());
+                        } else if (content.indexOf("updated") != -1) {
+                            // do nothing
+                            Logger.logAgents("Agent " + name + " received reward update confirmation from " + msg.getSender());
                         }
                     }
                 } else {
