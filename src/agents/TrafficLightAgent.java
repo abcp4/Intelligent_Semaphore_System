@@ -165,7 +165,7 @@ public class TrafficLightAgent extends Agent {
                 } else if (msg.getPerformative() == ACLMessage.INFORM) {
                     String content = msg.getContent();
                     if (content != null) {
-                        if (content.indexOf("emergency received") == -1) {
+                        if (content.indexOf("emergency received") == -1 && content.indexOf("emergency ignored") == -1) {
                             int reward = Integer.parseInt(content);
                             Logger.logAgents("Agent " + name + " received reward of " + reward + " from " + msg.getSender());
                             // TODO: check if this is sufficient for learning purposes (according to the sender of this message...)

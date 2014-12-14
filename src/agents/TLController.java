@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class TLController implements Runnable {
 
-    private static final double LISTEN_TO_NEIGHBOURS_EMERGENCIES_PROB = 0.3;
+    private final double LISTEN_TO_NEIGHBOURS_EMERGENCIES_PROB;
 
     private String name;
     private Sumo sumo;
@@ -21,6 +21,7 @@ public class TLController implements Runnable {
     private int[] greenTimeSpans;
 
     public TLController(TrafficLightAgent parent, Sumo sumo, String name, ArrayList<String> neighbours, int[] greenTimeSpans) {
+        LISTEN_TO_NEIGHBOURS_EMERGENCIES_PROB = 1.0 / (float) neighbours.size();
         parentAgent = parent;
         this.name = name;
         this.sumo = sumo;
@@ -135,14 +136,14 @@ public class TLController implements Runnable {
 
         int laneDim = (int) Math.floor(lane.getLength());
         float ratio = (float) numVehicles / (float) laneDim;
-        System.err.println("nr cars: " + numVehicles + "\n lane dim: " + laneDim + "\n ration: " + ratio);
+        System.err.println(name + " | " + id + " - nr cars: " + numVehicles + "\n lane dim: " + laneDim + "\n ration: " + ratio + "\n");
 
-        if (ratio > 0.1) {
+        if (ratio > 0.04) {
             return 10;
-        } else if (ratio > 0.05) {
+        } else if (ratio > 0.01) {
             return 100;
         } else {
-            return 50;
+            return 0;
         }
     }
 
