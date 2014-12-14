@@ -48,11 +48,6 @@ public class TLController implements Runnable {
         while (true) {
             for (int i = 0; i < nrIntersections; i++) {
 
-                if (previousIndex != -1) {
-                    i = previousIndex;
-                    previousIndex = -1;
-                }
-
                 int greenTime;
                 synchronized (greenTimeSpans) {
                     greenTime = greenTimeSpans[i];
@@ -95,6 +90,8 @@ public class TLController implements Runnable {
                 if (emergencyIndex != -1) {
                     if (emergencyIndex == i) {
                         emergencyIndex = -1;
+                        i = previousIndex - 1;
+                        previousIndex = -1;
                         Logger.logSumo(name + " going back to normal");
                     } else {
                         previousIndex = i + 1 % nrIntersections;
