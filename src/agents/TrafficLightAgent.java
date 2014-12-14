@@ -154,6 +154,7 @@ public class TrafficLightAgent extends Agent {
                             int reward = Integer.parseInt(content.substring(7));
                             Logger.logAgents("REQUEST - Agent " + getLocalName() + " - Received REWARD from " + msg.getSender().getLocalName() + " with value " + reward);
                             qTeacher.reinforce(currentState, reward);
+                            updateState();
                             reply.setPerformative(ACLMessage.INFORM);
                             reply.setContent("updated");
                             Logger.logAgents(name + " - sent reward confirmation to " + sender);
