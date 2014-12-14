@@ -160,11 +160,11 @@ public class TLController implements Runnable {
         float ratio = (float) numVehicles / (float) laneDim;
 
         if (ratio > 0.03) {
-            return -50;
-        } else if (ratio > 0.01) {
             return 100;
+        } else if (ratio > 0.01) {
+            return 50;
         } else {
-            return 10;
+            return -50;
         }
     }
 
