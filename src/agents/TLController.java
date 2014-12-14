@@ -40,6 +40,20 @@ public class TLController implements Runnable {
         }
     }
 
+
+    private class Rewarder implements Runnable {
+        int i;
+        public Rewarder(int i) {
+            this.i = i;
+        }
+
+        @Override
+        public void run() {
+            int reward = getRewardForLane(neighbours.get(i) + "to" + name + "_0");
+            parentAgent.sendReward(neighbours.get(i), reward);
+        }
+    }
+
     @Override
     public void run() {
         int nrIntersections = neighbours.size();
@@ -53,8 +67,7 @@ public class TLController implements Runnable {
                     greenTime = greenTimeSpans[i];
                 }
 
-                int reward = getRewardForLane(neighbours.get(i) + "to" + name + "_0");
-                parentAgent.sendReward(neighbours.get(i), reward);
+                new Thread(new Rewarder(i)).start();
 
                 String newState = buildState(i, "G");
 
