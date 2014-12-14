@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 
 public class Logger {
 
-    private static String folder = "out_" + new Timestamp(new java.util.Date().getTime()).toString() + ".log";
+    //private static String folder = "out_" + new Timestamp(new java.util.Date().getTime()).toString() + ".log";
 
     public static boolean LOG_LEARNING = true;
     public static boolean LOG_AGENTS = false;
@@ -20,7 +20,7 @@ public class Logger {
                 java.util.Date date = new java.util.Date();
                 try {
                     String logMessage = new Timestamp(date.getTime()).toString() + "=>" + message;
-                    FileWriter fw = new FileWriter(folder, true);
+                    FileWriter fw = new FileWriter("sadasd", true);
                     fw.write(logMessage + "\n");
                     fw.close();
                     System.out.println(logMessage);
