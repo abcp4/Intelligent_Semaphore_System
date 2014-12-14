@@ -8,8 +8,8 @@ public class Logger {
 
     private static String file = "";
 
-    public static boolean LOG_LEARNING = false;
-    public static boolean LOG_AGENTS = true;
+    public static boolean LOG_LEARNING = true;
+    public static boolean LOG_AGENTS = false;
     public static boolean LOG_SUMO = false;
 
 

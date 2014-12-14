@@ -7,13 +7,13 @@ import java.util.Random;
 public class QLearning {
 
     // impact of current update (0 <= alpha <= 1)
-    private static final float LEARNING_RATE = (float) 1.0;
+    private static final float LEARNING_RATE = (float) 0.5;
 
     // importance future nrStates' Q values (0 <= lambda <= 1)
     private static final float DISCOUNT_FACTOR = (float) 0.7;
 
     // factor that determines the map of the possible nrActions to a probability according to their Q-Value
-    private static final float SOFTMAX_TEMP = (float) 0.5;
+    private static final float SOFTMAX_TEMP = (float) 0.2;
 
     private float[][] qTable;
     private int nrStates = 0;
@@ -40,7 +40,7 @@ public class QLearning {
         qTable[currentState][action] = (float) (currentQValue
                 + LEARNING_RATE * (val + DISCOUNT_FACTOR * (bestNextQVal - currentQValue)));
         Logger.logLearning(name + " - Received reinforcement " + val + " for state " + state.getState() + " from " + currentQValue + " to " + qTable[currentState][action]);
-        printQTable();
+        //printQTable();
     }
 
     private int getBestPossibleAction(int state) {

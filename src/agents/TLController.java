@@ -59,8 +59,9 @@ public class TLController implements Runnable {
         int nrIntersections = neighbours.size();
         SumoTrafficLight light = new SumoTrafficLight(name);
         int savedIndex = -1;
+        int firstI = new Random().nextInt(nrIntersections);
         while (true) {
-            for (int i = 0; i < nrIntersections; i++) {
+            for (int i = firstI; i < nrIntersections; i++) {
 
                 int greenTime;
                 synchronized (greenTimeSpans) {
