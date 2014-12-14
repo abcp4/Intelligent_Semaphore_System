@@ -19,7 +19,7 @@ public class Logger {
             public void run() {
                 java.util.Date date = new java.util.Date();
                 if (file.equals("")) {
-                    file = "out_" + new Timestamp(new java.util.Date().getTime()).toString() + ".log";
+                    file = "out.log";
                 }
                 try {
                     String logMessage = new Timestamp(date.getTime()).toString() + "=>" + message;

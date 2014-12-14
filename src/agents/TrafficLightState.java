@@ -28,13 +28,13 @@ public class TrafficLightState implements State {
         if (!TrafficLightAgent.IS_FIXED_BEHAVIOUR) {
             state = 0;
             for (int i = 0; i < nrIntersections; i++) {
-                state += Math.pow(NR_STATES_PER_LIGHT, i) * 5;
+                state += Math.pow(NR_STATES_PER_LIGHT, i) * 2;
             }
             // updateState(new Random().nextInt(nrStates));
         } else {
             state = 0;
             for (int i = 0; i < nrIntersections; i++) {
-                state += Math.pow(NR_STATES_PER_LIGHT, i) * 2;
+                state += Math.pow(NR_STATES_PER_LIGHT, i) * 5;
             }
             updateState(state);
         }
