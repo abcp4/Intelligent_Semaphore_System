@@ -146,11 +146,11 @@ public class TLController implements Runnable {
         System.err.println(name + " | " + id + " - nr cars: " + numVehicles + "\n lane dim: " + laneDim + "\n ration: " + ratio + "\n");
 
         if (ratio > 0.04) {
-            return 10;
+            return 0;
         } else if (ratio > 0.01) {
             return 100;
         } else {
-            return 0;
+            return -10;
         }
     }
 
