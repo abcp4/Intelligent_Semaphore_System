@@ -40,20 +40,6 @@ public class TLController implements Runnable {
         }
     }
 
-
-    private class Rewarder implements Runnable {
-        int i;
-        public Rewarder(int i) {
-            this.i = i;
-        }
-
-        @Override
-        public void run() {
-            int reward = getRewardForLane(neighbours.get(i) + "to" + name + "_0");
-            parentAgent.sendReward(neighbours.get(i), reward);
-        }
-    }
-
     @Override
     public void run() {
         int nrIntersections = neighbours.size();
@@ -72,65 +58,64 @@ public class TLController implements Runnable {
     }
 
     private void control(SumoTrafficLight light, int i, int savedIndex, int nrIntersections) {
+        int greenTime;
+        synchronized (greenTimeSpans) {
+            greenTime = greenTimeSpans[i];
+        }
 
-            int greenTime;
-            synchronized (greenTimeSpans) {
-                greenTime = greenTimeSpans[i];
+        if (!TrafficLightAgent.IS_FIXED_BEHAVIOUR) {
+            new Thread(new Rewarder(i)).start();
+        }
+
+        String newState = buildState(i, "G");
+
+        Logger.logSumo(name + " - Changed to " + newState + " for " + greenTime + " ticks");
+        light.setState(newState);
+        int initPhase = sumo.getCurrentSimStep() / 1000;
+        int endPhase = initPhase;
+
+        while (greenTime > (endPhase - initPhase)) {
+
+            // if emergencyApproaching, change immediately
+            if (emergencyIndex != -1 && emergencyIndex != i) {
+                break;
             }
-
-            if (!TrafficLightAgent.IS_FIXED_BEHAVIOUR) {
-                new Thread(new Rewarder(i)).start();
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+            endPhase = sumo.getCurrentSimStep() / 1000;
+        }
+        newState = buildState(i, "y");
+        Logger.logSumo(name + " - Changed to " + newState + " for 5 ticks");
+        light.setState(newState);
+        initPhase = sumo.getCurrentSimStep() / 1000;
+        endPhase = initPhase;
 
-            String newState = buildState(i, "G");
-
-            Logger.logSumo(name + " - Changed to " + newState + " for " + greenTime + " ticks");
-            light.setState(newState);
-            int initPhase = sumo.getCurrentSimStep() / 1000;
-            int endPhase = initPhase;
-
-            while (greenTime > (endPhase - initPhase)) {
-
-                // if emergencyApproaching, change immediately
-                if (emergencyIndex != -1 && emergencyIndex != i) {
-                    break;
-                }
-                try {
-                    Thread.sleep(1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                endPhase = sumo.getCurrentSimStep() / 1000;
+        while (5 > (endPhase - initPhase)) {
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-            newState = buildState(i, "y");
-            Logger.logSumo(name + " - Changed to " + newState + " for 5 ticks");
-            light.setState(newState);
-            initPhase = sumo.getCurrentSimStep() / 1000;
-            endPhase = initPhase;
-
-            while (5 > (endPhase - initPhase)) {
-                try {
-                    Thread.sleep(1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                endPhase = sumo.getCurrentSimStep() / 1000;
-            }
-            if (!TrafficLightAgent.IS_FIXED_BEHAVIOUR) {
-                synchronized (emergencyIndex) {
-                    if (emergencyIndex != -1) {
-                        if (emergencyIndex == i) {
-                            if (savedIndex != -1) {
-                                i = savedIndex - 1;
-                                savedIndex = -1;
-                            }
-                            emergencyIndex = -1;
-                            Logger.logSumo(name + " going back to normal");
-                        } else {
-                            savedIndex = (i + 1) % nrIntersections;
-                            i = emergencyIndex - 1;
+            endPhase = sumo.getCurrentSimStep() / 1000;
+        }
+        if (!TrafficLightAgent.IS_FIXED_BEHAVIOUR) {
+            synchronized (emergencyIndex) {
+                if (emergencyIndex != -1) {
+                    if (emergencyIndex == i) {
+                        if (savedIndex != -1) {
+                            i = savedIndex - 1;
+                            savedIndex = -1;
                         }
+                        emergencyIndex = -1;
+                        Logger.logSumo(name + " going back to normal");
+                    } else {
+                        savedIndex = (i + 1) % nrIntersections;
+                        i = emergencyIndex - 1;
                     }
+                }
             }
         }
         if (!TrafficLightAgent.IS_FIXED_BEHAVIOUR) {
@@ -177,12 +162,12 @@ public class TLController implements Runnable {
         int laneDim = (int) Math.floor(lane.getLength());
         float ratio = (float) numVehicles / (float) laneDim;
 
-        if (ratio > 0.04) {
-            return 0;
+        if (ratio > 0.03) {
+            return -50;
         } else if (ratio > 0.01) {
             return 100;
         } else {
-            return -10;
+            return 10;
         }
     }
 
@@ -203,6 +188,20 @@ public class TLController implements Runnable {
             }
         }
         return false;
+    }
+
+    private class Rewarder implements Runnable {
+        int i;
+
+        public Rewarder(int i) {
+            this.i = i;
+        }
+
+        @Override
+        public void run() {
+            int reward = getRewardForLane(neighbours.get(i) + "to" + name + "_0");
+            parentAgent.sendReward(neighbours.get(i), reward);
+        }
     }
 
     private class EmergencyChecker implements Runnable {
