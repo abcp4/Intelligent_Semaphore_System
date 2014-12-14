@@ -143,7 +143,7 @@ public class TrafficLightAgent extends Agent {
                         if (content.indexOf("reward") != -1) {
                             Logger.logAgents("INFO - Agent " + getLocalName() + " - Received REWARD Request from " + msg.getSender().getLocalName());
                             reply.setPerformative(ACLMessage.INFORM);
-                            int reward = tlController.getRewardForLane(sender.substring(13, 16) + "to" + name.substring(13, 16) + "_0");
+                            int reward = tlController.getRewardForLane(name.substring(13, 16) + "to" + sender.substring(13, 16) + "_0");
                             reply.setContent(Integer.toString(reward));
                             Logger.logAgents(name + " - sent reward of " + reward + " to " + sender);
                         } else if (content.indexOf("emergency") != -1) {

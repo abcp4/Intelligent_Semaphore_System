@@ -100,8 +100,8 @@ public class TLController implements Runnable {
                         i = emergencyIndex - 1;
                     }
                 }
-                parentAgent.requestReward();
             }
+            parentAgent.requestReward();
         }
     }
 
@@ -143,7 +143,7 @@ public class TLController implements Runnable {
 
         int laneDim = (int) Math.floor(lane.getLength());
         float ratio = (float) numVehicles / (float) laneDim;
-        System.err.println(name + " | " + id + " - nr cars: " + numVehicles + "\n lane dim: " + laneDim + "\n ration: " + ratio + "\n");
+        //System.err.println(name + " | " + id + " - nr cars: " + numVehicles + "\n lane dim: " + laneDim + "\n ration: " + ratio + "\n");
 
         if (ratio > 0.04) {
             return 0;
