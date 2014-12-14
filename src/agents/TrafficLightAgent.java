@@ -70,7 +70,7 @@ public class TrafficLightAgent extends Agent {
         for (int i = 0; i < neighbours.size(); i++) {
             ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
             request.addReceiver(new AID(neighbours.get(i), AID.ISLOCALNAME));
-            int reward = tlController.getRewardForLane(name.substring(13, 16) + "to" + id + "_0");
+            int reward = tlController.getRewardForLane(id + "to" + name.substring(13, 16) + "_0");
             request.setContent("reward " + reward);
             Logger.logAgents(name + " - Sent reward to " + neighbours.get(i) + " with value " + reward);
             send(request);
