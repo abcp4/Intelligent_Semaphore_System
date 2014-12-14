@@ -39,7 +39,7 @@ public class QLearning {
         float bestNextQVal = qTable[nextState][bestNextAction];
         qTable[currentState][action] = (float) (currentQValue
                 + LEARNING_RATE * (val + DISCOUNT_FACTOR * (bestNextQVal - currentQValue)));
-        Logger.logLearning(name + " - Received reinforcement " + val + " for state " + state + " from " + currentQValue + " to " + qTable[currentState][action]);
+        Logger.logLearning(name + " - Received reinforcement " + val + " for state " + state.getState() + " from " + currentQValue + " to " + qTable[currentState][action]);
     }
 
     private int getBestPossibleAction(int state) {

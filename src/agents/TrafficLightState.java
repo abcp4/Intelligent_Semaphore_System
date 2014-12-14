@@ -3,6 +3,7 @@ package agents;
 import learning.State;
 import utils.Logger;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class TrafficLightState implements State {
@@ -58,7 +59,7 @@ public class TrafficLightState implements State {
         for (int i = 0; i < nrIntersections; i++) {
             greenTimeSpans[i] = LIGHTS_MIN_TIME + (((state / (int) Math.pow(NR_STATES_PER_LIGHT, i)) % NR_STATES_PER_LIGHT) * LIGHTS_GRANULARITY);
         }
-        Logger.logLearning(name + " - updated to state " + state + " " + greenTimeSpans.toString());
+        Logger.logLearning(name + " - updated to state " + state + " " + Arrays.toString(greenTimeSpans));
     }
 
     /**
