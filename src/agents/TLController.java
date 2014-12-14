@@ -131,10 +131,11 @@ public class TLController implements Runnable {
         int numVehicles = 0;
         numVehicles += lane.getNumVehicles("nor");
         numVehicles += lane.getNumVehicles("pub") * 3;
-        numVehicles += lane.getNumVehicles("eme") * 5;
+        numVehicles += lane.getNumVehicles("eme");
 
         int laneDim = (int) Math.floor(lane.getLength());
         float ratio = (float) numVehicles / (float) laneDim;
+        System.err.println("nr cars: " + numVehicles + "\n lane dim: " + laneDim + "\n ration: " + ratio);
 
         if (ratio > 0.1) {
             return 10;

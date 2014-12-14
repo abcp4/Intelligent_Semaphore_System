@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 
 public class Logger {
 
-    //private static String folder = "out_" + new Timestamp(new java.util.Date().getTime()).toString() + ".log";
+    private static String file = "";
 
     public static boolean LOG_LEARNING = true;
     public static boolean LOG_AGENTS = false;
@@ -18,9 +18,12 @@ public class Logger {
             @Override
             public void run() {
                 java.util.Date date = new java.util.Date();
+                if (file.equals("")) {
+                    file = "out_" + new Timestamp(new java.util.Date().getTime()).toString() + ".log";
+                }
                 try {
                     String logMessage = new Timestamp(date.getTime()).toString() + "=>" + message;
-                    FileWriter fw = new FileWriter("sadasd", true);
+                    FileWriter fw = new FileWriter(file, true);
                     fw.write(logMessage + "\n");
                     fw.close();
                     System.out.println(logMessage);
