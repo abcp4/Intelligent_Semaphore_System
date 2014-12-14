@@ -10,7 +10,7 @@ public class QLearning {
     private static final float LEARNING_RATE = (float) 1.0;
 
     // importance future nrStates' Q values (0 <= lambda <= 1)
-    private static final float DISCOUNT_FACTOR = (float) 0.7;
+    private static final float DISCOUNT_FACTOR = (float) 0.3;
 
     // factor that determines the map of the possible nrActions to a probability according to their Q-Value
     private static final float SOFTMAX_TEMP = (float) 0.5;
