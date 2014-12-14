@@ -90,11 +90,13 @@ public class TLController implements Runnable {
                 if (emergencyIndex != -1) {
                     if (emergencyIndex == i) {
                         emergencyIndex = -1;
-                        i = previousIndex - 1;
-                        previousIndex = -1;
+                        if (previousIndex != -1) {
+                            i = previousIndex - 1;
+                            previousIndex = -1;
+                        }
                         Logger.logSumo(name + " going back to normal");
                     } else {
-                        previousIndex = i + 1 % nrIntersections;
+                        previousIndex = (i + 1) % nrIntersections;
                         i = emergencyIndex - 1;
                     }
                 }

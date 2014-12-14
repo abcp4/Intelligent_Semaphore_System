@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd"><vType accel="1.8" color="red" decel="4.5" id="eme" length="5" maxSpeed="140" sigma="0.5" vClass="emergency"/><vType accel="0.4" color="blue" decel="8.5" id="bus" length="10" maxSpeed="40" sigma="0.5" vClass="bus"/><vType accel="2.0" decel="4.5" id="nor" length="5" maxSpeed="120" sigma="0.5"/><vehicle depart="1.00" id="0" type="nor">
         <route edges="2/2to2/1 2/1to1/1 1/1to1/2 1/2to2/2"/>
-    </vehicle><vehicle depart="5.00" id="1" type="nor">
+    </vehicle><vehicle depart="5.00" id="1" type="eme">
         <route edges="2/2to1/2 1/2to1/1 1/1to0/1 0/1to0/2 0/2to1/2 1/2to2/2 2/2to2/1"/>
-    </vehicle><vehicle depart="9.00" id="2" type="nor">
+    </vehicle><vehicle depart="9.00" id="2" type="eme">
         <route edges="2/1to2/2 2/2to1/2 1/2to1/1 1/1to0/1 0/1to0/0 0/0to1/0 1/0to1/1"/>
-    </vehicle><vehicle depart="13.00" id="3" type="nor">
+    </vehicle><vehicle depart="13.00" id="3" type="eme">
         <route edges="1/1to2/1 2/1to2/0 2/0to1/0 1/0to1/1 1/1to1/2 1/2to2/2 2/2to2/1"/>
-    </vehicle><vehicle depart="17.00" id="4" type="nor">
+    </vehicle><vehicle depart="17.00" id="4" type="eme">
         <route edges="0/2to0/1 0/1to1/1 1/1to1/2"/>
-    </vehicle><vehicle depart="21.00" id="5" type="nor">
+    </vehicle><vehicle depart="21.00" id="5" type="eme">
         <route edges="0/2to1/2 1/2to1/1 1/1to1/0 1/0to0/0 0/0to0/1"/>
-    </vehicle><vehicle depart="25.00" id="6" type="nor">
+    </vehicle><vehicle depart="25.00" id="6" type="eme">
         <route edges="2/0to2/1 2/1to2/2 2/2to1/2"/>
     </vehicle><vehicle depart="29.00" id="7" type="nor">
         <route edges="0/2to1/2 1/2to2/2"/>
