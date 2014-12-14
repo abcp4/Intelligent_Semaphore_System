@@ -123,7 +123,9 @@ public class TLController implements Runnable {
                     }
                 }
             }
-            parentAgent.updateState();
+            if (!TrafficLightAgent.IS_FIXED_BEHAVIOUR) {
+                parentAgent.updateState();
+            }
         }
     }
 
