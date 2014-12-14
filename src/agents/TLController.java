@@ -67,7 +67,9 @@ public class TLController implements Runnable {
                     greenTime = greenTimeSpans[i];
                 }
 
-                new Thread(new Rewarder(i)).start();
+                if (!TrafficLightAgent.IS_FIXED_BEHAVIOUR) {
+                    new Thread(new Rewarder(i)).start();
+                }
 
                 String newState = buildState(i, "G");
 
@@ -103,18 +105,20 @@ public class TLController implements Runnable {
                     }
                     endPhase = sumo.getCurrentSimStep() / 1000;
                 }
-                synchronized (emergencyIndex) {
-                    if (emergencyIndex != -1) {
-                        if (emergencyIndex == i) {
-                            if (savedIndex != -1) {
-                                i = savedIndex - 1;
-                                savedIndex = -1;
+                if (!TrafficLightAgent.IS_FIXED_BEHAVIOUR) {
+                    synchronized (emergencyIndex) {
+                        if (emergencyIndex != -1) {
+                            if (emergencyIndex == i) {
+                                if (savedIndex != -1) {
+                                    i = savedIndex - 1;
+                                    savedIndex = -1;
+                                }
+                                emergencyIndex = -1;
+                                Logger.logSumo(name + " going back to normal");
+                            } else {
+                                savedIndex = (i + 1) % nrIntersections;
+                                i = emergencyIndex - 1;
                             }
-                            emergencyIndex = -1;
-                            Logger.logSumo(name + " going back to normal");
-                        } else {
-                            savedIndex = (i + 1) % nrIntersections;
-                            i = emergencyIndex - 1;
                         }
                     }
                 }
